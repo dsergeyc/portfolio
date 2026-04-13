@@ -663,12 +663,15 @@
     dotsEl.appendChild(d);
   });
 
+  const T = '300ms cubic-bezier(0.4, 0, 0.2, 1)';
+
   function goTo(n) {
     if (busy || n === cur || n < 0 || n >= N) return;
     busy = true;
 
     const from = cur, dir = n > from ? 1 : -1;
 
+    // Snap all uninvolved slides into position instantly
     slides.forEach((s, i) => {
       if (i !== from && i !== n) {
         s.style.transition = 'none';
@@ -677,16 +680,18 @@
       }
     });
 
+    // Position incoming slide off-screen (no transition yet)
     slides[n].style.transition = 'none';
     slides[n].style.transform  = dir > 0 ? 'translateY(100%)' : 'translateY(-100%)';
     slides[n].classList.remove('active', 'above');
-    slides[n].offsetHeight;
+    slides[n].offsetHeight; // force reflow
 
-    slides[n].style.transition = 'none';
+    // Animate both slides in
+    slides[n].style.transition = `transform ${T}`;
     slides[n].style.transform  = 'translateY(0)';
     slides[n].classList.add('active');
 
-    slides[from].style.transition = 'none';
+    slides[from].style.transition = `transform ${T}`;
     slides[from].style.transform  = dir > 0 ? 'translateY(-100%)' : 'translateY(100%)';
     slides[from].classList.remove('active');
 
@@ -695,7 +700,7 @@
     /* update dots */
     dotsEl.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('on', i === cur));
 
-    busy = false;
+    setTimeout(() => { busy = false; }, 320);
   }
 
   function next() { goTo(cur + 1); }
