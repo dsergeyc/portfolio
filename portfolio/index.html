@@ -325,15 +325,22 @@
 <!-- 5 · CS1 DIVIDER ─────────────────────────── -->
 <div class="slide" style="background:#000; overflow:hidden; display:grid; grid-template-columns:1fr 1fr; align-items:center; padding:0 0 0 80px;">
   <!-- left: text -->
-  <div style="position:relative;z-index:1;">
+  <div style="position:relative;z-index:2;">
     <div class="label" style="margin-bottom:20px;">Case Study 01</div>
     <div class="display" style="margin-bottom:24px;">Adobe.com<br>Checkout<br>Redesign</div>
     <div style="font-size:clamp(18px,2vw,28px);font-weight:500;color:var(--t2);">$36.6M ARR impact</div>
   </div>
   <!-- right: screenshot -->
-  <div style="height:100%; display:flex; align-items:center; justify-content:flex-end; overflow:hidden; position:relative;">
-    <div style="position:absolute;inset:0;left:-40px;background:linear-gradient(to right,#000 0%,transparent 30%);z-index:1;"></div>
-    <img src="assets/images/ng-new-1.png" alt="Checkout" style="height:100%;width:auto;display:block;object-fit:cover;object-position:top;">
+  <div style="height:100%; position:relative; overflow:hidden;">
+    <img src="assets/images/ng-new-1.png" alt="Checkout" style="height:100%;width:auto;display:block;object-fit:cover;object-position:top;opacity:0.45;filter:grayscale(20%);">
+    <!-- fade left edge -->
+    <div style="position:absolute;inset:0;background:linear-gradient(to right,#000 0%,transparent 35%);"></div>
+    <!-- fade right edge -->
+    <div style="position:absolute;inset:0;background:linear-gradient(to left,#000 0%,transparent 30%);"></div>
+    <!-- fade top -->
+    <div style="position:absolute;inset:0;background:linear-gradient(to bottom,#000 0%,transparent 15%);"></div>
+    <!-- fade bottom -->
+    <div style="position:absolute;inset:0;background:linear-gradient(to top,#000 0%,transparent 15%);"></div>
   </div>
 </div>
 
