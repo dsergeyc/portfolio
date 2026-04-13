@@ -77,6 +77,15 @@
       font-size: 13px; color: var(--t3); font-weight: 500; z-index: 400;
     }
 
+    .home-btn {
+      position: fixed; bottom: 28px; left: 36px;
+      font-size: 13px; font-weight: 500; color: var(--t3);
+      background: none; border: none; cursor: pointer;
+      display: flex; align-items: center; gap: 7px;
+      z-index: 400; transition: color 0.18s; padding: 0;
+    }
+    .home-btn:hover { color: var(--t1); }
+
     /* ── TYPE ─────────────────────────────── */
     .label {
       font-size: 15px; font-weight: 600;
@@ -200,6 +209,7 @@
 <body>
 
 <span class="brand">Denis Sergeychik</span>
+<button class="home-btn" onclick="goTo(0)">↑ Start</button>
 <div class="dots" id="dots"></div>
 <div class="arrows">
   <button class="arr" onclick="prev()">↑</button>
