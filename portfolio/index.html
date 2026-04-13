@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Denis Sergeychik — Product Design Manager</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:      #000000;
+      --s1:      #1C1C1E;
+      --s2:      #2C2C2E;
+      --border:  rgba(255,255,255,0.08);
+      --t1:      #F5F5F7;
+      --t2:      rgba(245,245,247,0.6);
+      --t3:      rgba(245,245,247,0.32);
+      --accent:  rgba(255,255,255,0.85);
+      --green:   #30D158;
+    }
+
+    html, body {
+      width: 100%; height: 100%; overflow: hidden;
+      background: var(--bg);
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+      color: var(--t1);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── DECK ─────────────────────────────── */
+    .deck { position: fixed; inset: 0; overflow: hidden; }
+
+    .slide {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      background: var(--bg);
+      padding: 72px 108px 88px;
+      transform: translateY(100%);
+      transition: transform 0.56s cubic-bezier(0.86, 0, 0.07, 1);
+      overflow: hidden;
+    }
+    .slide.active { transform: translateY(0); }
+    .slide.above  { transform: translateY(-100%); }
+
+    /* section dividers get a subtle tint */
+    .slide.section { background: #0A0A0A; }
+
+    /* ── CHROME ───────────────────────────── */
+    .dots {
+      position: fixed; bottom: 26px; left: 50%; transform: translateX(-50%);
+      display: flex; align-items: center; gap: 5px; z-index: 400;
+    }
+    .dot {
+      height: 4px; border-radius: 100px;
+      background: rgba(255,255,255,0.18); width: 6px;
+      transition: width 0.3s ease, background 0.3s ease;
+      cursor: pointer;
+    }
+    .dot.on { width: 20px; background: var(--accent); }
+
+    .arrows {
+      position: fixed; bottom: 18px; right: 32px;
+      display: flex; gap: 8px; z-index: 400;
+    }
+    .arr {
+      width: 32px; height: 32px; border-radius: 50%;
+      border: none; background: rgba(255,255,255,0.08);
+      color: var(--t2); cursor: pointer; font-size: 13px;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.15s;
+    }
+    .arr:hover { background: rgba(255,255,255,0.15); color: var(--t1); }
+    .arr:active { transform: scale(0.9); }
+
+    .brand {
+      position: fixed; top: 24px; left: 36px;
+      font-size: 13px; color: var(--t3); font-weight: 500; z-index: 400;
+    }
+
+    /* ── TYPE ─────────────────────────────── */
+    .label {
+      font-size: 15px; font-weight: 600;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--t3); margin-bottom: 16px;
+    }
+
+    .display {
+      font-size: clamp(64px, 7.5vw, 104px);
+      font-weight: 700; line-height: 1.03; letter-spacing: -0.04em;
+    }
+    .h1 {
+      font-size: clamp(44px, 5.2vw, 72px);
+      font-weight: 700; line-height: 1.07; letter-spacing: -0.03em;
+    }
+    .h2 {
+      font-size: clamp(28px, 3vw, 44px);
+      font-weight: 600; line-height: 1.12; letter-spacing: -0.022em;
+    }
+    .h3 {
+      font-size: clamp(17px, 1.7vw, 23px);
+      font-weight: 600; line-height: 1.25; letter-spacing: -0.015em;
+      color: var(--t1);
+    }
+    .lead {
+      font-size: clamp(17px, 1.7vw, 22px);
+      color: var(--t2); line-height: 1.55; letter-spacing: -0.01em;
+    }
+    .body {
+      font-size: clamp(14px, 1.3vw, 18px);
+      color: var(--t2); line-height: 1.6;
+    }
+
+    .big-num {
+      font-size: clamp(52px, 6.5vw, 86px);
+      font-weight: 700; letter-spacing: -0.04em; line-height: 1;
+      color: var(--t1);
+    }
+    .big-num.blue { color: var(--accent); }
+    .big-lbl {
+      font-size: clamp(13px, 1.2vw, 17px);
+      color: var(--t2); margin-top: 6px;
+    }
+
+    .accent { color: var(--accent); }
+    .green  { color: var(--green); }
+
+    /* ── CARD ─────────────────────────────── */
+    .card {
+      background: var(--s1);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 28px 28px;
+    }
+
+    /* ── GRID ─────────────────────────────── */
+    .g2 { display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; width: 100%; }
+    .g3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; width: 100%; }
+    .g4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; width: 100%; }
+
+    /* ── SPLIT ────────────────────────────── */
+    .split   { display: grid; grid-template-columns: 1fr 1fr;    gap: 48px; width: 100%; align-items: start; }
+    .split-l { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 48px; width: 100%; align-items: start; }
+
+    /* ── LIST ─────────────────────────────── */
+    .list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .list li {
+      display: flex; gap: 10px;
+      font-size: clamp(14px, 1.3vw, 18px); color: var(--t2); line-height: 1.5;
+    }
+    .list li::before { content: '—'; color: var(--t3); flex-shrink: 0; }
+
+    /* ── IMAGE ────────────────────────────── */
+    .img { border-radius: 14px; overflow: hidden; }
+    .img img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+    /* ── TIMELINE ─────────────────────────── */
+    .tl { display: flex; flex-direction: column; width: 100%; }
+    .tl-row { display: flex; gap: 20px; }
+    .tl-spine { display: flex; flex-direction: column; align-items: center; width: 20px; flex-shrink: 0; }
+    .tl-dot   { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); margin-top: 7px; flex-shrink: 0; }
+    .tl-line  { width: 1px; flex: 1; min-height: 16px; background: rgba(255,255,255,0.1); margin: 3px 0; }
+    .tl-body  { padding-bottom: 22px; }
+
+    /* ── HIGHLIGHT ────────────────────────── */
+    .hl {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 14px;
+      padding: 20px 24px;
+    }
+
+    /* ── BG WATERMARK ─────────────────────── */
+    .wm {
+      position: absolute; right: -10px; bottom: -30px;
+      font-size: clamp(200px,26vw,320px);
+      font-weight: 800; letter-spacing: -0.06em;
+      color: rgba(255,255,255,0.025); line-height: 1;
+      user-select: none; pointer-events: none;
+    }
+
+    /* ── UTILS ────────────────────────────── */
+    .w  { width: 100%; }
+    .mx { max-width: 980px; }
+    .col { display: flex; flex-direction: column; }
+    .center { align-items: center; text-align: center; }
+
+    /* ── RESPONSIVE ───────────────────────── */
+    @media (max-width: 960px) {
+      .slide { padding: 52px 52px 72px; }
+      .split, .split-l { grid-template-columns: 1fr; gap: 24px; }
+      .g4 { grid-template-columns: repeat(2,1fr); }
+      .g3 { grid-template-columns: repeat(2,1fr); }
+    }
+    @media (max-width: 600px) {
+      .slide { padding: 36px 24px 64px; }
+      .g2 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<span class="brand">Denis Sergeychik</span>
+<div class="dots" id="dots"></div>
+<div class="arrows">
+  <button class="arr" onclick="prev()">↑</button>
+  <button class="arr" onclick="next()">↓</button>
+</div>
+
+<div class="deck">
+
+<!-- 0 · COVER ─────────────────────────────── -->
+<div class="slide active" style="justify-content:flex-end; padding-bottom:120px;">
+  <div style="max-width:820px;">
+    <div class="display" style="margin-bottom:22px;">Denis<br>Sergeychik</div>
+    <div style="font-size:clamp(18px,2vw,26px); color:var(--accent); font-weight:600; margin-bottom:18px; letter-spacing:-0.01em;">Product Design Manager</div>
+    <p class="lead" style="max-width:500px;">Building scalable monetization systems through design leadership.</p>
+  </div>
+  <div style="position:absolute;right:-80px;top:50%;transform:translateY(-50%);
+    width:720px;height:720px;border-radius:50%;
+    background:radial-gradient(circle,rgba(255,255,255,0.03) 0%,transparent 65%);
+    pointer-events:none;"></div>
+</div>
+
+<!-- 1 · NUMBERS ────────────────────────────── -->
+<div class="slide col" style="justify-content:center;">
+  <div class="w mx">
+    <div class="label">Impact</div>
+    <div class="g4" style="margin-bottom:16px;">
+      <div class="card col" style="gap:8px;">
+        <div class="big-num" style="color:var(--t1);">$36.6M</div>
+        <div class="big-lbl">ARR — Checkout Redesign</div>
+      </div>
+      <div class="card col" style="gap:8px;">
+        <div class="big-num" style="color:var(--t1);">$14.4M</div>
+        <div class="big-lbl">ARR — Bundled Plans</div>
+      </div>
+      <div class="card col" style="gap:8px;">
+        <div class="big-num" style="color:var(--t1);">1.5+</div>
+        <div class="big-lbl">Years leading at Adobe</div>
+      </div>
+      <div class="card col" style="gap:8px;">
+        <div class="big-num" style="font-size:clamp(32px,4vw,52px);color:var(--t1);">3 IC</div>
+        <div class="big-lbl">Designers</div>
+      </div>
+    </div>
+    <div class="card">
+      <ul class="list">
+        <li>Product Design Manager 2, Acquisition &amp; Expansion — Adobe</li>
+        <li>Co-own annual strategy and roadmap with PM &amp; Engineering</li>
+        <li>Leads checkout across Adobe.com and Adobe apps</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- 2 · PHILOSOPHY ─────────────────────────── -->
+<div class="slide col" style="justify-content:center;">
+  <div class="w mx">
+    <div class="label">Leadership Philosophy</div>
+    <div class="h1" style="margin-bottom:32px; max-width:780px;">
+      I create clarity in ambiguous environments.<br>
+      <span style="color:var(--t2);">Then I get out of the way.</span>
+    </div>
+    <div class="g3">
+      <div class="card col" style="gap:12px;">
+        <div class="h3">Platform over pages</div>
+        <p class="body">Invest early in reusable foundations. A platform mindset compounds directly into team velocity.</p>
+      </div>
+      <div class="card col" style="gap:12px;">
+        <div class="h3">Velocity with craft</div>
+        <p class="body">Balance speed and correctness. Shortcuts compound into debt; right architecture into speed.</p>
+      </div>
+      <div class="card col" style="gap:12px;">
+        <div class="h3">XFN trust as infrastructure</div>
+        <p class="body">Design–PM–Eng relationships are a compounding advantage. I build them intentionally.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 3 · HOW I LEAD ──────────────────────────── -->
+<div class="slide col" style="justify-content:center;">
+  <div class="w mx">
+    <div class="label">How I Lead</div>
+    <div class="h1" style="margin-bottom:32px;">Four principles in practice.</div>
+    <div class="g2">
+      <div class="card col" style="gap:10px;">
+        <div style="font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);">Team</div>
+        <div class="h3">Autonomy through clarity</div>
+        <p class="body">Define scope and success, remove blockers — then trust designers to own the work completely.</p>
+      </div>
+      <div class="card col" style="gap:10px;">
+        <div style="font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);">Influence</div>
+        <div class="h3">Align early, reduce friction</div>
+        <p class="body">Bring stakeholders in before the work is polished. Early alignment beats late-stage polish.</p>
+      </div>
+      <div class="card col" style="gap:10px;">
+        <div style="font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);">Quality</div>
+        <div class="h3">Scalable over quick wins</div>
+        <p class="body">Push for decisions that hold up. Shortcuts become debt; good architecture becomes velocity.</p>
+      </div>
+      <div class="card col" style="gap:10px;">
+        <div style="font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);">Systems</div>
+        <div class="h3">Foundation over features</div>
+        <p class="body">Coach designers to think in platforms and patterns — not individual screens.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 4 · ROLE ─────────────────────────────────── -->
+<div class="slide col" style="justify-content:center;">
+  <div class="w mx">
+    <div class="label">Role &amp; Org</div>
+    <div class="split-l" style="align-items:center;">
+      <div class="col" style="gap:24px;">
+        <div class="h1">Design Manager,<br>Acquisition &amp; Expansion.</div>
+        <p class="lead" style="max-width:520px;">Responsible for checkout and monetization across Adobe.com and Adobe apps — revenue-critical surfaces across acquisition and expansion.</p>
+      </div>
+      <div class="col" style="gap:12px;">
+        <div class="card col" style="gap:10px;">
+          <div style="font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);">My Team</div>
+          <ul class="list">
+            <li>3 designers</li>
+            <li>Owns checkout experience end-to-end</li>
+            <li>Partners: PM, PMM, Eng, Growth, Business</li>
+          </ul>
+        </div>
+        <div class="card col" style="gap:10px;">
+          <div style="font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);">Model</div>
+          <p class="body">Influence without direct authority. My team enables scale through reusable components, shared patterns, and clear handoffs between design and engineering.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 4b · METRICS ────────────────────────────── -->
+<div class="slide col" style="justify-content:center;">
+  <div class="w mx">
+    <div class="label">Metrics &amp; Scale</div>
+    <div class="h1" style="margin-bottom:32px;">How I measure success.</div>
+    <div class="g2">
+      <div class="card col" style="gap:16px;">
+        <div class="label" style="margin-bottom:0;">Business Impact</div>
+        <ul class="list">
+          <li>Overall conversion rate</li>
+          <li>Incremental ARR</li>
+          <li>CTR on monetization surfaces</li>
+        </ul>
+      </div>
+      <div class="card col" style="gap:16px;">
+        <div class="label" style="margin-bottom:0;">System Health</div>
+        <ul class="list">
+          <li>Adoption of shared components across teams</li>
+          <li>Reduction in design and engineering rework</li>
+          <li>Faster time-to-market for experiments</li>
+          <li>Platform thinking in day-to-day decisions</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 5 · CS1 DIVIDER ─────────────────────────── -->
+<div class="slide col" style="justify-content:flex-end; padding-bottom:120px; background:#000; overflow:hidden;">
+  <!-- background image anchored right -->
+  <div style="position:absolute;inset:0;
+    background:url('assets/images/checkout-1.png') right center/cover no-repeat;
+    opacity:0.4;"></div>
+  <!-- gradient: solid black covers left 55%, fades to semi-dark on right -->
+  <div style="position:absolute;inset:0;
+    background:linear-gradient(to right, #000 52%, rgba(0,0,0,0.55) 75%, rgba(0,0,0,0.2) 100%);"></div>
+  <!-- content -->
+  <div style="position:relative;z-index:1;max-width:820px;">
+    <div class="label" style="margin-bottom:18px;">Case Study 01</div>
+    <div class="display" style="margin-bottom:20px;">Adobe.com<br>Checkout<br>Redesign</div>
+    <div style="font-size:clamp(22px,2.6vw,34px);font-weight:600;color:var(--t1);">$36.6M ARR impact</div>
+  </div>
+</div>
+
+<!-- 6 · CS1 PROBLEM ─────────────────────────── -->
+<div class="slide col" style="justify-content:center;">
+  <div class="w mx">
+    <div class="label">Problem</div>
+    <div class="split-l" style="align-items:center; gap:40px;">
+      <div class="col" style="gap:20px;">
+        <div class="h1">Checkout was<br>fragmented.</div>
+        <ul class="list">
+          <li>Teams built similar flows independently — no shared UI</li>
+          <li>Inconsistent specs, high cost to maintain</li>
+          <li>Revenue-critical journeys slowing Growth experimentation</li>
+        </ul>
+      </div>
+      <div class="img" style="height:420px;">
+        <img src="assets/images/checkout-2.png" alt="Checkout" style="object-fit:contain;width:100%;height:100%;background:#111;">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 7 · CS1 HYPOTHESIS ──────────────────────── -->
+<div class="slide col" style="justify-content:center; align-items:center; text-align:center;">
+  <div style="max-width:780px;">
+    <div class="label" style="justify-content:center; display:flex; margin-bottom:28px;">Hypothesis</div>
+    <div class="h1" style="line-height:1.15; margin-bottom:28px;">
+      A guided, one-page checkout<br>will reduce drop-off<br>and increase conversion.
+    </div>
+    <p class="lead" style="max-width:540px; margin:0 auto;">
+      My role: Started as Design Lead, transitioned to Manager mid-program. Led a designer on this program while partnering with PM, Eng, PMM, and Growth.
+    </p>
+  </div>
+</div>
+
+<!-- 8 · CS1 THREE DECISIONS ─────────────────── -->
+<div class="slide col" style="justify-content:center;">
+  <div class="w mx">
+    <div class="label">Key Decisions</div>
+    <div class="h1" style="margin-bottom:36px;">Three bets that<br>shaped the program.</div>
+    <div class="tl">
+      <div class="tl-row">
+        <div class="tl-spine"><div class="tl-dot"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="h3" style="margin-bottom:8px;">Test first. Platform later.</div>
+          <p class="body">Validate the concept before investing in full S2 component infrastructure. Let the experiment justify the platform.</p>
+        </div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-spine"><div class="tl-dot"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="h3" style="margin-bottom:8px;">Incrementally adopt the new design system.</div>
+          <p class="body">System mid-migration from v1 to v2 — not all components were React-ready. Move forward with a plan to close gaps post-validation rather than wait.</p>
+        </div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-spine"><div class="tl-dot"></div></div>
+        <div class="tl-body">
+          <div class="h3" style="margin-bottom:8px;">Don't make teams wait for the platform.</div>
+          <p class="body">Product teams kept shipping features while we built the reusable foundation in parallel — so no one was blocked waiting for infrastructure to be ready.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 8b · CS1 HOW I LED ──────────────────────── -->
+<div class="slide col" style="justify-content:center;">
+  <div class="w mx">
+    <div class="label">How I Led</div>
+    <div class="split" style="align-items:start;gap:40px;">
+      <div class="col" style="gap:20px;">
+        <div class="h2">Execution</div>
+        <ul class="list">
+          <li>Aligned designers, PMs, and Eng on scope and sequencing from the start</li>
+          <li>Navigated speed vs. correctness tradeoffs as requirements evolved</li>
+          <li>Created clarity around ownership — teams moved fast without constant check-ins</li>
+          <li>Partnered with Eng early to ensure long-term scalability</li>
+        </ul>
+      </div>
+      <div class="col" style="gap:12px;">
+        <div class="h2" style="margin-bottom:4px;">Learnings</div>
+        <div class="card col" style="gap:10px; margin-bottom:0;">
+          <div class="h3">Connect Eng teams earlier</div>
+          <p class="body">Bring dependent teams together before planning — not after misalignment surfaces mid-sprint.</p>
+        </div>
+        <div class="card col" style="gap:10px;">
+          <div class="h3">Document rationale proactively</div>
+          <p class="body">Brief weekly decision notes save hours of re-aligning late stakeholders.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 8c · CS1 PEOPLE ─────────────────────────── -->
+<div class="slide col" style="justify-content:center;">
+  <div class="w mx">
+    <div class="label">People Management</div>
+    <div class="h1" style="margin-bottom:32px;">Growing a designer<br>into a program lead.</div>
+    <div class="g3">
+      <div class="card col" style="gap:10px;">
+        <div style="font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);">Situation</div>
+        <p class="body">Introduced a junior designer to this work. Goal: grow them into independently leading the program.</p>
+      </div>
+      <div class="card col" style="gap:10px;">
+        <div style="font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);">Approach</div>
+        <ul class="list">
+          <li>Clear scope and decision-making authority</li>
+          <li>Coached toward systems thinking</li>
+          <li>Calibrated support — pushed when ready</li>
+          <li>Developed XFN relationships</li>
+        </ul>
+      </div>
+      <div class="card col" style="gap:10px;">
+        <div style="font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);">Result</div>
+        <p class="body" style="margin-bottom:12px;">Operates with more confidence and autonomy. Stronger Eng collaboration — no longer needs me to facilitate.</p>
+        <div style="font-size:14px;font-weight:600;color:var(--t2);">Leading independently ✓</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 9 · CS1 DESIGN — MAIN ───────────────────── -->
+<div class="slide col" style="padding:48px 64px 56px; gap:20px;">
+  <div style="flex-shrink:0;">
+    <div class="label">Designs — Checkout</div>
+    <div class="h2">One page. One goal.</div>
+  </div>
+  <div style="flex:1; min-height:0; border-radius:14px; overflow:hidden; background:#111;">
+    <img src="assets/images/checkout-1.png" alt="Checkout" style="width:100%;height:100%;object-fit:contain;display:block;">
+  </div>
+</div>
+
+<!-- 9b · CS1 DESIGN — DETAILS ──────────────── -->
+<div class="slide col" style="padding:48px 64px 56px; gap:20px;">
+  <div style="flex-shrink:0;">
+    <div class="label">Designs — Order &amp; Confirmation</div>
+    <div class="h2">Every step, simplified.</div>
+  </div>
+  <div style="flex:1; min-height:0; display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+    <div style="border-radius:14px; overflow:hidden; background:#111;">
+      <img src="assets/images/order-summary.png" alt="Order summary" style="width:100%;height:100%;object-fit:contain;display:block;">
+    </div>
+    <div style="border-radius:14px; overflow:hidden; background:#111;">
+      <img src="assets/images/confirmation.png" alt="Confirmation" style="width:100%;height:100%;object-fit:contain;display:block;">
+    </div>
+  </div>
+</div>
+
+<!-- 10 · CS1 OUTCOMES ───────────────────────── -->
+<div class="slide col" style="justify-content:center; align-items:center; text-align:center;">
+  <div class="w mx">
+    <div class="label" style="justify-content:center; display:flex;">Outcomes</div>
+    <div class="g3" style="margin-bottom:20px;">
+      <div class="card col" style="gap:8px;align-items:center;padding:36px 16px;">
+        <div class="big-num" style="font-size:clamp(52px,7vw,88px);">3.8%</div>
+        <div class="big-lbl">Lift in order volume</div>
+      </div>
+      <div class="card col" style="gap:8px;align-items:center;padding:36px 16px;">
+        <div class="big-num" style="font-size:clamp(52px,7vw,88px);">4.3%</div>
+        <div class="big-lbl">ARR increase</div>
+      </div>
+      <div class="card col" style="gap:8px;align-items:center;padding:36px 16px;">
+        <div class="big-num" style="font-size:clamp(52px,7vw,88px);">$7.3M</div>
+        <div class="big-lbl">Global ARR impact</div>
+      </div>
+    </div>
+    <div class="g2">
+      <div class="card col" style="gap:8px;text-align:left;">
+        <div class="h3">2-year funded program</div>
+        <p class="body">Test results made the case. Became a multi-milestone initiative with its own roadmap.</p>
+      </div>
+      <div class="card col" style="gap:8px;text-align:left;">
+        <div class="h3">Foundation for AI work</div>
+        <p class="body">Tokenized components became the foundation for AI feature integration — the platform investment compounded.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 11 · CS2 DIVIDER ────────────────────────── -->
+<div class="slide col" style="justify-content:flex-end; padding-bottom:120px; background:#000; overflow:hidden;">
+  <div style="position:absolute;inset:0;
+    background:url('assets/images/soft-offer.png') right center/cover no-repeat;
+    opacity:0.4;"></div>
+  <div style="position:absolute;inset:0;
+    background:linear-gradient(to right, #000 52%, rgba(0,0,0,0.55) 75%, rgba(0,0,0,0.2) 100%);"></div>
+  <div style="position:relative;z-index:1;max-width:820px;">
+    <div class="label" style="margin-bottom:18px;">Case Study 02</div>
+    <div class="display" style="margin-bottom:20px;">Bundled<br>Merchandising<br>Platform</div>
+    <div style="font-size:clamp(22px,2.6vw,34px);font-weight:600;color:var(--t1);">$14.4M ARR impact</div>
+  </div>
+</div>
+
+<!-- 12 · CS2 PROBLEM ────────────────────────── -->
+<div class="slide col" style="justify-content:center;">
+  <div class="w mx" style="max-width:760px;">
+    <div class="label">Problem</div>
+    <div class="col" style="gap:28px;">
+      <div class="h1">A capability gap<br>with real revenue impact.</div>
+      <ul class="list">
+        <li>Customers couldn't select pre-configured bundled offers</li>
+        <li>Too many checkout steps — high drop-off</li>
+        <li>High engineering overhead slowing experimentation</li>
+      </ul>
+      <div class="hl col" style="gap:8px;">
+        <div style="font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);">Strategy</div>
+        <p class="body" style="color:var(--t1);">Unlock the capability at the platform level. Deliver incrementally while building the foundation.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 13 · CS2 TRADEOFF ───────────────────────── -->
+<div class="slide col" style="justify-content:center;">
+  <div class="w mx">
+    <div class="label">The Trade-off</div>
+    <div class="h1" style="margin-bottom:32px;">Speed vs. scalability.<br>I chose both — in sequence.</div>
+    <div style="display:grid;grid-template-columns:1fr 40px 1fr;gap:12px;align-items:center;margin-bottom:14px;">
+      <div class="card col" style="gap:10px;">
+        <div style="font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);">PM / Business</div>
+        <div class="h3">Ship fast.</div>
+        <p class="body">Launch quickly. Minimal upfront platform investment.</p>
+      </div>
+      <div style="text-align:center;font-size:11px;font-weight:700;color:var(--t3);letter-spacing:0.1em;">VS</div>
+      <div class="card col" style="gap:10px;">
+        <div style="font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);">Engineering</div>
+        <div class="h3">Minimal scope.</div>
+        <p class="body">Smallest possible version. Avoid future technical debt.</p>
+      </div>
+    </div>
+    <div class="hl col" style="gap:10px;">
+      <div style="font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);">Leadership Decision</div>
+      <div class="h3" style="color:var(--t1);">Run the experiment first — then fund the platform.</div>
+      <p class="body" style="color:var(--t2);">We aligned on validating demand before committing to full platform investment. The results made the business case. Outcome: validated and funded.</p>
+    </div>
+  </div>
+</div>
+
+<!-- 17 · AI ──────────────────────────────────── -->
+<div class="slide col" style="justify-content:center;">
+  <div class="w mx">
+    <div class="label">AI</div>
+    <div class="h1" style="margin-bottom:32px;">AI is part of<br>how we work.</div>
+    <div class="g2">
+      <div class="card col" style="gap:12px;">
+        <div style="font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);">Team Workflow</div>
+        <div class="h3">Faster design, earlier alignment</div>
+        <ul class="list" style="margin-top:4px;">
+          <li>Cursor and Claude for prototyping and early concept exploration</li>
+          <li>AI-assisted research synthesis and pattern extraction</li>
+          <li>Reducing handoff friction between design and engineering</li>
+        </ul>
+      </div>
+      <div class="card col" style="gap:12px;">
+        <div style="font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);">Product Direction</div>
+        <div class="h3">AI-native experiences at scale</div>
+        <ul class="list" style="margin-top:4px;">
+          <li>Designing AI-powered features within monetization surfaces</li>
+          <li>Tokenized components enable faster AI feature delivery</li>
+          <li>Building for personalization and adaptive experiences</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 18 · WHY HERE ───────────────────────────── -->
+<div class="slide col" style="justify-content:center;">
+  <div class="w mx">
+    <div class="label">Why I'm Here</div>
+    <div class="h1" style="margin-bottom:32px;">What draws me to<br>this kind of work.</div>
+    <div class="g3" style="margin-bottom:14px;">
+      <div class="card col" style="gap:10px;">
+        <div style="font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);">Scale</div>
+        <div class="h3">Complex systems at massive scale</div>
+        <p class="body">Problems where decisions ripple across millions of users — and where platform strategy matters as much as UI quality.</p>
+      </div>
+      <div class="card col" style="gap:10px;">
+        <div style="font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);">Craft</div>
+        <div class="h3">Design shaping the platform</div>
+        <p class="body">Design leadership is most valuable when embedded in platform strategy — not just execution.</p>
+      </div>
+      <div class="card col" style="gap:10px;">
+        <div style="font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);">Culture</div>
+        <div class="h3">Thoughtful decision-making</div>
+        <p class="body">Environments where rigor and speed coexist — teams debate the right call, commit clearly, and move fast.</p>
+      </div>
+    </div>
+    <div class="hl">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
+        <p class="body" style="color:var(--t1);"><strong>Leading through ambiguity</strong> — create structure where none exists</p>
+        <p class="body" style="color:var(--t1);"><strong>Building enabling systems</strong> — platforms that let others do their best work</p>
+        <p class="body" style="color:var(--t1);"><strong>Growing strong designers</strong> — people who think product, not just craft</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- THANK YOU ────────────────────────────────── -->
+<div class="slide col" style="justify-content:center; align-items:center; text-align:center;">
+  <div style="max-width:680px;">
+    <div class="display" style="margin-bottom:32px;">Thank you.</div>
+    <p class="lead" style="color:var(--t2); margin-bottom:48px;">Denis Sergeychik — Product Design Manager</p>
+    <div class="card col" style="gap:16px; text-align:left; max-width:400px; margin:0 auto;">
+      <div class="h3" style="text-align:center;">Let's talk</div>
+      <ul class="list">
+        <li>denissergeychik.com</li>
+        <li>linkedin.com/in/denissergeychik</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+</div><!-- /deck -->
+
+<script>
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const N = slides.length;
+  let cur = 0, busy = false;
+
+  /* build dots */
+  const dotsEl = document.getElementById('dots');
+  slides.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 0 ? ' on' : '');
+    d.onclick = () => goTo(i);
+    dotsEl.appendChild(d);
+  });
+
+  function goTo(n) {
+    if (busy || n === cur || n < 0 || n >= N) return;
+    busy = true;
+
+    const from = cur, dir = n > from ? 1 : -1;
+
+    slides.forEach((s, i) => {
+      if (i !== from && i !== n) {
+        s.style.transition = 'none';
+        s.style.transform  = i < n ? 'translateY(-100%)' : 'translateY(100%)';
+        s.classList.remove('active', 'above');
+      }
+    });
+
+    slides[n].style.transition = 'none';
+    slides[n].style.transform  = dir > 0 ? 'translateY(100%)' : 'translateY(-100%)';
+    slides[n].classList.remove('active', 'above');
+    slides[n].offsetHeight;
+
+    const ease = 'transform 0.56s cubic-bezier(0.86, 0, 0.07, 1)';
+    slides[n].style.transition = ease;
+    slides[n].style.transform  = 'translateY(0)';
+    slides[n].classList.add('active');
+
+    slides[from].style.transition = ease;
+    slides[from].style.transform  = dir > 0 ? 'translateY(-100%)' : 'translateY(100%)';
+    slides[from].classList.remove('active');
+
+    cur = n;
+
+    /* update dots */
+    dotsEl.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('on', i === cur));
+
+    setTimeout(() => { busy = false; slides[from].style.transition = ''; }, 580);
+  }
+
+  function next() { goTo(cur + 1); }
+  function prev() { goTo(cur - 1); }
+
+  document.addEventListener('keydown', e => {
+    if (['ArrowDown',' ','PageDown'].includes(e.key)) { e.preventDefault(); next(); }
+    if (['ArrowUp','PageUp'].includes(e.key))         { e.preventDefault(); prev(); }
+    if (e.key === 'Home') goTo(0);
+    if (e.key === 'End')  goTo(N - 1);
+    if (e.key === 'f' || e.key === 'F') document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen?.();
+  });
+
+  let ty0 = 0;
+  document.addEventListener('touchstart', e => { ty0 = e.touches[0].clientY; }, {passive:true});
+  document.addEventListener('touchend',   e => { const d = e.changedTouches[0].clientY - ty0; if(Math.abs(d)>40) d<0?next():prev(); }, {passive:true});
+
+  let wt = 0;
+  document.addEventListener('wheel', e => {
+    const now = Date.now(); if(now-wt<700)return; wt=now;
+    e.deltaY > 0 ? next() : prev();
+  }, {passive:true});
+
+  slides.forEach((s, i) => { if(i!==0){ s.style.transition='none'; s.style.transform='translateY(100%)'; }});
+</script>
+</body>
+</html>
