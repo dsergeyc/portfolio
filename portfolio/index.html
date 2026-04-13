@@ -36,7 +36,7 @@
       background: var(--bg);
       padding: 72px 108px 88px;
       transform: translateY(100%);
-      transition: transform 0.56s cubic-bezier(0.86, 0, 0.07, 1);
+      transition: none;
       overflow: hidden;
     }
     .slide.active { transform: translateY(0); }
@@ -685,12 +685,11 @@
     slides[n].classList.remove('active', 'above');
     slides[n].offsetHeight;
 
-    const ease = 'transform 0.56s cubic-bezier(0.86, 0, 0.07, 1)';
-    slides[n].style.transition = ease;
+    slides[n].style.transition = 'none';
     slides[n].style.transform  = 'translateY(0)';
     slides[n].classList.add('active');
 
-    slides[from].style.transition = ease;
+    slides[from].style.transition = 'none';
     slides[from].style.transform  = dir > 0 ? 'translateY(-100%)' : 'translateY(100%)';
     slides[from].classList.remove('active');
 
@@ -699,7 +698,7 @@
     /* update dots */
     dotsEl.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('on', i === cur));
 
-    setTimeout(() => { busy = false; slides[from].style.transition = ''; }, 580);
+    busy = false;
   }
 
   function next() { goTo(cur + 1); }
