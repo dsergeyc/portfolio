@@ -323,19 +323,17 @@
 </div>
 
 <!-- 5 · CS1 DIVIDER ─────────────────────────── -->
-<div class="slide col" style="justify-content:flex-end; padding-bottom:120px; background:#000; overflow:hidden;">
-  <!-- background image anchored right -->
-  <div style="position:absolute;inset:0;
-    background:url('assets/images/checkout-1.png') right center/cover no-repeat;
-    opacity:0.4;"></div>
-  <!-- gradient: solid black covers left 55%, fades to semi-dark on right -->
-  <div style="position:absolute;inset:0;
-    background:linear-gradient(to right, #000 52%, rgba(0,0,0,0.55) 75%, rgba(0,0,0,0.2) 100%);"></div>
-  <!-- content -->
-  <div style="position:relative;z-index:1;max-width:820px;">
-    <div class="label" style="margin-bottom:18px;">Case Study 01</div>
-    <div class="display" style="margin-bottom:20px;">Adobe.com<br>Checkout<br>Redesign</div>
-    <div style="font-size:clamp(22px,2.6vw,34px);font-weight:600;color:var(--t1);">$36.6M ARR impact</div>
+<div class="slide" style="background:#000; overflow:hidden; display:grid; grid-template-columns:1fr 1fr; align-items:center; padding:0 0 0 80px;">
+  <!-- left: text -->
+  <div style="position:relative;z-index:1;">
+    <div class="label" style="margin-bottom:20px;">Case Study 01</div>
+    <div class="display" style="margin-bottom:24px;">Adobe.com<br>Checkout<br>Redesign</div>
+    <div style="font-size:clamp(18px,2vw,28px);font-weight:500;color:var(--t2);">$36.6M ARR impact</div>
+  </div>
+  <!-- right: screenshot -->
+  <div style="height:100%; display:flex; align-items:center; justify-content:flex-end; overflow:hidden; position:relative;">
+    <div style="position:absolute;inset:0;left:-40px;background:linear-gradient(to right,#000 0%,transparent 30%);z-index:1;"></div>
+    <img src="assets/images/ng-new-1.png" alt="Checkout" style="height:100%;width:auto;display:block;object-fit:cover;object-position:top;">
   </div>
 </div>
 
@@ -583,12 +581,7 @@
   <div style="max-width:680px;">
     <div class="display" style="margin-bottom:32px;">Thank you.</div>
     <p class="lead" style="color:var(--t2); margin-bottom:48px;">Denis Sergeychik — Product Design Manager</p>
-    <div class="card col" style="gap:16px; text-align:left; max-width:400px; margin:0 auto;">
-      <div class="h3" style="text-align:center;">Let's talk</div>
-      <ul class="list">
-        <li>linkedin.com/in/denissergeychik</li>
-      </ul>
-    </div>
+    <p class="lead" style="color:var(--t3);">linkedin.com/in/denissergeychik</p>
   </div>
 </div>
 
