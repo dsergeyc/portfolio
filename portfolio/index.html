@@ -358,21 +358,43 @@
 
 <!-- 4c · CONTENTS ───────────────────────────── -->
 <div class="slide col" style="justify-content:center;">
-  <div class="w mx" style="max-width:760px;">
+  <div class="w mx" style="max-width:800px;">
     <div class="label">Case Studies</div>
     <div class="col" style="gap:0;">
-      <div style="display:flex; align-items:baseline; gap:24px; padding:32px 0; border-bottom:1px solid var(--border);">
-        <div style="font-size:clamp(13px,1.2vw,16px); font-weight:600; color:var(--t3); letter-spacing:0.04em; flex-shrink:0; width:32px;">01</div>
-        <div class="h1" style="margin:0;">Adobe.com Checkout Redesign</div>
+
+      <div onclick="goToCase(1)" style="cursor:pointer;display:flex;gap:28px;padding:28px 0;border-bottom:1px solid var(--border);align-items:flex-start;transition:opacity 0.15s;" onmouseenter="this.style.opacity='.6'" onmouseleave="this.style.opacity='1'">
+        <div style="font-size:12px;font-weight:700;color:var(--t3);letter-spacing:0.08em;flex-shrink:0;padding-top:8px;width:26px;">01</div>
+        <div style="flex:1;">
+          <div class="h2" style="margin-bottom:10px;">Adobe.com Checkout Redesign</div>
+          <p class="body">A unified checkout platform that drove $36.6M ARR — rebuilt the foundation for Growth experimentation at scale.</p>
+        </div>
+        <div style="color:var(--t3);font-size:20px;flex-shrink:0;padding-top:4px;transition:color 0.15s;" onmouseenter="this.style.color='var(--t1)'" onmouseleave="this.style.color='var(--t3)'">↓</div>
       </div>
-      <div style="display:flex; align-items:baseline; gap:24px; padding:32px 0; border-bottom:1px solid var(--border);">
-        <div style="font-size:clamp(13px,1.2vw,16px); font-weight:600; color:var(--t3); letter-spacing:0.04em; flex-shrink:0; width:32px;">02</div>
-        <div class="h1" style="margin:0;">Mobile Optimization for Plans Page</div>
+
+      <div onclick="goToCase(2)" style="cursor:pointer;display:flex;gap:28px;padding:28px 0;border-bottom:1px solid var(--border);align-items:flex-start;transition:opacity 0.15s;" onmouseenter="this.style.opacity='.6'" onmouseleave="this.style.opacity='1'">
+        <div style="font-size:12px;font-weight:700;color:var(--t3);letter-spacing:0.08em;flex-shrink:0;padding-top:8px;width:26px;">02</div>
+        <div style="flex:1;">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;flex-wrap:wrap;">
+            <div class="h2" style="margin:0;">Mobile Optimization for Plans Page</div>
+            <span style="font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#000;background:var(--t1);border-radius:4px;padding:3px 7px;flex-shrink:0;">AI</span>
+          </div>
+          <p class="body">Designer used Claude to write and ship production code directly — no handoff, no engineering queue.</p>
+        </div>
+        <div style="color:var(--t3);font-size:20px;flex-shrink:0;padding-top:4px;transition:color 0.15s;" onmouseenter="this.style.color='var(--t1)'" onmouseleave="this.style.color='var(--t3)'">↓</div>
       </div>
-      <div style="display:flex; align-items:baseline; gap:24px; padding:32px 0;">
-        <div style="font-size:clamp(13px,1.2vw,16px); font-weight:600; color:var(--t3); letter-spacing:0.04em; flex-shrink:0; width:32px;">03</div>
-        <div class="h1" style="margin:0;">COMEX — AI Experiment Assistant</div>
+
+      <div onclick="goToCase(3)" style="cursor:pointer;display:flex;gap:28px;padding:28px 0;align-items:flex-start;transition:opacity 0.15s;" onmouseenter="this.style.opacity='.6'" onmouseleave="this.style.opacity='1'">
+        <div style="font-size:12px;font-weight:700;color:var(--t3);letter-spacing:0.08em;flex-shrink:0;padding-top:8px;width:26px;">03</div>
+        <div style="flex:1;">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;flex-wrap:wrap;">
+            <div class="h2" style="margin:0;">COMEX — AI Experiment Assistant</div>
+            <span style="font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#000;background:var(--t1);border-radius:4px;padding:3px 7px;flex-shrink:0;">AI</span>
+          </div>
+          <p class="body">An AI agent that compresses the full A/B test workflow — from friction analysis to approved campaign — into a single five-minute conversation.</p>
+        </div>
+        <div style="color:var(--t3);font-size:20px;flex-shrink:0;padding-top:4px;transition:color 0.15s;" onmouseenter="this.style.color='var(--t1)'" onmouseleave="this.style.color='var(--t3)'">↓</div>
       </div>
+
     </div>
   </div>
 </div>
@@ -921,6 +943,12 @@
   }, {passive:true});
 
   slides.forEach((s, i) => { if(i!==0){ s.style.transition='none'; s.style.transform='translateY(100%)'; }});
+
+  function goToCase(n) {
+    let idx = -1;
+    slides.forEach((s, i) => { if (s.querySelector('.label')?.innerText.trim().toUpperCase() === `CASE STUDY 0${n}`) idx = i; });
+    if (idx >= 0) goTo(idx);
+  }
 </script>
 </body>
 </html>
