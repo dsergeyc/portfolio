@@ -207,20 +207,19 @@
       .g2, .g3, .g4 { grid-template-columns: 1fr !important; }
       /* Specs 2-col: stack vertically */
       .img-grid-2 { grid-template-columns: 1fr !important; gap: 12px !important; }
-      /* Before/After 3-col: horizontal snap carousel */
+      /* Before/After 3-col: stack 2 images vertically, hide third */
       .img-grid-3 {
-        display: flex !important;
-        overflow-x: auto !important;
-        scroll-snap-type: x mandatory !important;
-        -webkit-overflow-scrolling: touch !important;
-        gap: 14px !important;
-        align-items: flex-start !important;
-        padding-bottom: 4px;
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        overflow-x: visible !important;
+        scroll-snap-type: none !important;
+        gap: 16px !important;
       }
       .img-grid-3 > * {
-        flex: 0 0 82% !important;
-        scroll-snap-align: start !important;
+        flex: none !important;
+        scroll-snap-align: none !important;
       }
+      .img-grid-3 > *:nth-child(3) { display: none !important; }
       .arrows { display: none; }
       .home-btn { display: none; }
       .brand { left: 22px; top: 18px; font-size: 12px; }
