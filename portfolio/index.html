@@ -880,7 +880,7 @@
     dotsEl.appendChild(d);
   });
 
-  const T = '300ms cubic-bezier(0.4, 0, 0.2, 1)';
+  const T = '0ms';
 
   function goTo(n) {
     if (busy || n === cur || n < 0 || n >= N) return;
@@ -931,9 +931,10 @@
     if (e.key === 'f' || e.key === 'F') document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen?.();
   });
 
-  let ty0 = 0;
-  document.addEventListener('touchstart', e => { ty0 = e.touches[0].clientY; }, {passive:true});
-  document.addEventListener('touchend',   e => { const d = e.changedTouches[0].clientY - ty0; if(Math.abs(d)>40) d<0?next():prev(); }, {passive:true});
+  document.body.addEventListener('click', e => {
+    if (e.target.closest('a, button, [onclick]')) return;
+    e.clientY < window.innerHeight / 2 ? prev() : next();
+  });
 
   let wt = 0;
   document.addEventListener('wheel', e => {
