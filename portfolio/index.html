@@ -880,14 +880,24 @@
 
 
   function goTo(n) {
-    console.log('goTo called', n, 'cur=', cur, new Error().stack.split('\n')[2]);
-    if (n === cur || n < 0 || n >= N) { console.log('goTo blocked', n, cur, n>=N); return; }
+    if (n === cur || n < 0 || n >= N) return;
 
     slides[cur].classList.remove('active');
     slides[n].classList.add('active');
     cur = n;
 
     dotsEl.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('on', i === cur));
+    history.replaceState(null, '', '#' + cur);
+  }
+
+  // Restore slide from URL hash on load
+  const initSlide = parseInt(location.hash.slice(1));
+  if (!isNaN(initSlide) && initSlide > 0 && initSlide < N) {
+    slides[0].classList.remove('active');
+    slides[initSlide].classList.add('active');
+    cur = initSlide;
+    dotsEl.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('on', i === cur));
+    history.replaceState(null, '', '#' + cur);
   }
 
   function next() { goTo(cur + 1); }
