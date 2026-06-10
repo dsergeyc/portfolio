@@ -924,24 +924,24 @@
   function next() { goTo(cur + 1); }
   function prev() { goTo(cur - 1); }
 
+  // Keynote-style: click anywhere = next, arrows for both directions
+  document.body.addEventListener('click', e => {
+    if (e.target.closest('a, button, [onclick]')) return;
+    next();
+  });
+
   document.addEventListener('keydown', e => {
-    if (['ArrowDown',' ','PageDown'].includes(e.key)) { e.preventDefault(); next(); }
-    if (['ArrowUp','PageUp'].includes(e.key))         { e.preventDefault(); prev(); }
+    if (['ArrowRight', 'ArrowDown', ' ', 'PageDown'].includes(e.key)) { e.preventDefault(); next(); }
+    if (['ArrowLeft', 'ArrowUp', 'PageUp'].includes(e.key))           { e.preventDefault(); prev(); }
     if (e.key === 'Home') goTo(0);
     if (e.key === 'End')  goTo(N - 1);
     if (e.key === 'f' || e.key === 'F') document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen?.();
   });
 
-  // Click / tap to navigate (bottom half → next, top half → prev)
-  document.body.addEventListener('click', e => {
-    if (e.target.closest('a, button, [onclick]')) return;
-    e.clientY < window.innerHeight / 2 ? prev() : next();
-  });
-
-  // Block trackpad/wheel scroll from doing anything
+  // Block wheel/trackpad scroll
   document.addEventListener('wheel', e => e.preventDefault(), {passive: false});
 
-  // Track touch so we can tell tap from swipe — ignore swipe
+  // Block touch swipe — tap fires click naturally
   let tx0 = 0, ty0 = 0;
   document.addEventListener('touchstart', e => {
     tx0 = e.touches[0].clientX;
@@ -950,7 +950,6 @@
   document.addEventListener('touchend', e => {
     const dx = Math.abs(e.changedTouches[0].clientX - tx0);
     const dy = Math.abs(e.changedTouches[0].clientY - ty0);
-    // If moved more than 10px in any direction, treat as swipe — do nothing
     if (dx > 10 || dy > 10) e.preventDefault();
   }, {passive: false});
 
