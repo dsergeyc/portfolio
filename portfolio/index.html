@@ -39,7 +39,7 @@
       cursor: pointer;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 350ms ease;
+      transition: none;
     }
     .slide.active { opacity: 1; pointer-events: auto; z-index: 2; }
 
@@ -89,7 +89,7 @@
 
     /* ── TYPE ─────────────────────────────── */
     .label {
-      font-size: 15px; font-weight: 600;
+      font-size: 17px; font-weight: 600;
       letter-spacing: 0.06em; text-transform: uppercase;
       color: var(--t3); margin-bottom: 16px;
     }
@@ -304,22 +304,22 @@
     <div class="h1" style="margin-bottom:32px;">I create clarity in ambiguous environments.</div>
     <div class="g2">
       <div class="card col" style="gap:10px;">
-        <div style="font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);">Clarity</div>
+        <div style="font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);">Clarity</div>
         <div class="h3">Define scope before solutions</div>
         <p class="body">Set boundaries on what's in and out before anyone opens a design tool. Ambiguity at the start compounds into misalignment at the end.</p>
       </div>
       <div class="card col" style="gap:10px;">
-        <div style="font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);">Ownership</div>
+        <div style="font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);">Ownership</div>
         <div class="h3">Make ownership explicit</div>
         <p class="body">Teams move fast when they know who decides what. I establish decision rights early so no one waits for permission or revisits settled calls.</p>
       </div>
       <div class="card col" style="gap:10px;">
-        <div style="font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);">Quality</div>
+        <div style="font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);">Quality</div>
         <div class="h3">Scalable over quick wins</div>
         <p class="body">Push for decisions that hold up. Shortcuts become debt; good architecture becomes velocity.</p>
       </div>
       <div class="card col" style="gap:10px;">
-        <div style="font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);">Systems</div>
+        <div style="font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);">Systems</div>
         <div class="h3">Foundation over features</div>
         <p class="body">Coach designers to think in platforms and patterns — not individual screens.</p>
       </div>
@@ -334,7 +334,7 @@
     <div class="h1" style="margin-bottom:32px;">AI is part of<br>how we work.</div>
     <div class="g2">
       <div class="card col" style="gap:12px;">
-        <div style="font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);">Team Workflow</div>
+        <div style="font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);">Team Workflow</div>
         <div class="h3">Designers shipping beyond design files</div>
         <ul class="list" style="margin-top:4px;">
           <li>Designers clone repos, write code with AI, and push to production</li>
@@ -344,7 +344,7 @@
         </ul>
       </div>
       <div class="card col" style="gap:12px;">
-        <div style="font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);">Product Direction</div>
+        <div style="font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);">Product Direction</div>
         <div class="h3">AI-native experiences at scale</div>
         <ul class="list" style="margin-top:4px;">
           <li>Designing AI-powered features within monetization surfaces</li>
@@ -365,8 +365,7 @@
       <div onclick="goToCase(1)" style="cursor:pointer;display:flex;gap:28px;padding:28px 0;border-bottom:1px solid var(--border);align-items:flex-start;transition:opacity 0.15s;" onmouseenter="this.style.opacity='.6'" onmouseleave="this.style.opacity='1'">
         <div style="font-size:12px;font-weight:700;color:var(--t3);letter-spacing:0.08em;flex-shrink:0;padding-top:8px;width:26px;">01</div>
         <div style="flex:1;">
-          <div class="h2" style="margin-bottom:10px;">Adobe.com Checkout Redesign</div>
-          <p class="body">A unified checkout platform that drove $36.6M ARR — rebuilt the foundation for Growth experimentation at scale.</p>
+          <div class="h2">Adobe.com Checkout Redesign</div>
         </div>
         <div style="color:var(--t3);font-size:20px;flex-shrink:0;padding-top:4px;transition:color 0.15s;" onmouseenter="this.style.color='var(--t1)'" onmouseleave="this.style.color='var(--t3)'">↓</div>
       </div>
@@ -378,7 +377,6 @@
             <div class="h2" style="margin:0;">COMEX — AI Experiment Assistant</div>
             <span style="font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#000;background:var(--t1);border-radius:4px;padding:3px 7px;flex-shrink:0;">AI</span>
           </div>
-          <p class="body">An AI agent that compresses the full A/B test workflow — from friction analysis to approved campaign — into a single five-minute conversation.</p>
         </div>
         <div style="color:var(--t3);font-size:20px;flex-shrink:0;padding-top:4px;transition:color 0.15s;" onmouseenter="this.style.color='var(--t1)'" onmouseleave="this.style.color='var(--t3)'">↓</div>
       </div>
@@ -390,7 +388,6 @@
             <div class="h2" style="margin:0;">Mobile Optimization for Plans Page</div>
             <span style="font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#000;background:var(--t1);border-radius:4px;padding:3px 7px;flex-shrink:0;">AI</span>
           </div>
-          <p class="body">Designer used Claude to write and ship production code directly — no handoff, no engineering queue.</p>
         </div>
         <div style="color:var(--t3);font-size:20px;flex-shrink:0;padding-top:4px;transition:color 0.15s;" onmouseenter="this.style.color='var(--t1)'" onmouseleave="this.style.color='var(--t3)'">↓</div>
       </div>
@@ -502,11 +499,11 @@
     <div class="h1" style="margin-bottom:32px;">Growing a designer<br>into a program lead.</div>
     <div class="g3">
       <div class="card col" style="gap:10px;">
-        <div style="font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);">Situation</div>
+        <div style="font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);">Situation</div>
         <p class="body">Introduced a junior designer to this work. Goal: grow them into independently leading the program.</p>
       </div>
       <div class="card col" style="gap:10px;">
-        <div style="font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);">Approach</div>
+        <div style="font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);">Approach</div>
         <ul class="list">
           <li>Clear scope and decision-making authority</li>
           <li>Coached toward systems thinking</li>
@@ -515,7 +512,7 @@
         </ul>
       </div>
       <div class="card col" style="gap:10px;">
-        <div style="font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);">Result</div>
+        <div style="font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);">Result</div>
         <p class="body" style="margin-bottom:12px;">Operates with more confidence and autonomy. Stronger Eng collaboration — no longer needs me to facilitate.</p>
         <div style="font-size:14px;font-weight:600;color:var(--t2);">Leading independently ✓</div>
       </div>
@@ -657,7 +654,7 @@
     <div class="h1" style="margin-bottom:32px;">One conversation.<br>Under five minutes.</div>
     <div class="g2">
       <div class="card col" style="gap:12px;">
-        <div style="font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);">What COMEX does</div>
+        <div style="font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);">What COMEX does</div>
         <ul class="list">
           <li>Identifies funnel friction from live analytics</li>
           <li>Generates and prioritizes hypotheses by expected impact</li>
@@ -666,7 +663,7 @@
         </ul>
       </div>
       <div class="card col" style="gap:12px;">
-        <div style="font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);">My role</div>
+        <div style="font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);">My role</div>
         <ul class="list">
           <li>Defined the product concept and end-to-end workflow</li>
           <li>Designed the AI assistant UX and approval interface</li>
@@ -787,7 +784,7 @@
         <li>Engineering backlog made small UI iterations slow and costly</li>
       </ul>
       <div class="hl col" style="gap:8px;">
-        <div style="font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);">Opportunity</div>
+        <div style="font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);">Opportunity</div>
         <p class="body" style="color:var(--t1);">Fix the mobile experience fast — without waiting in the engineering queue.</p>
       </div>
     </div>
@@ -801,17 +798,17 @@
     <div class="h1" style="margin-bottom:32px;">Designer and PM ship code. Engineer reviews. Production.</div>
     <div class="g3">
       <div class="card col" style="gap:10px;">
-        <div style="font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);">Step 1 — Setup</div>
+        <div style="font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);">Step 1 — Setup</div>
         <div class="h3">Local repo, not a design file</div>
         <p class="body">Designer and PM cloned the checkout repository. Engineer walked them through terminal setup and local environment — no design-only handoff.</p>
       </div>
       <div class="card col" style="gap:10px;">
-        <div style="font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);">Step 2 — Build</div>
+        <div style="font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);">Step 2 — Build</div>
         <div class="h3">AI-assisted code changes</div>
         <p class="body">Designer used Claude to prototype the mobile layout directly in code — iterating on real markup, not mockups. PM contributed copy and logic changes inline.</p>
       </div>
       <div class="card col" style="gap:10px;">
-        <div style="font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);">Step 3 — Ship</div>
+        <div style="font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);">Step 3 — Ship</div>
         <div class="h3">Engineer reviews, pushes to production</div>
         <p class="body">Changes submitted as a pull request. Engineer reviewed for quality and safety, then merged. Designer owned the outcome end-to-end.</p>
       </div>
@@ -841,18 +838,18 @@
     <div class="h1" style="margin-bottom:32px;">What made this different.</div>
     <div class="g2">
       <div class="card col" style="gap:10px;">
-        <div style="font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);">Before</div>
+        <div style="font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);">Before</div>
         <div class="h3">Design → Handoff → Engineering queue → Production</div>
         <p class="body">Weeks of back-and-forth. Designer loses control after handoff. Small changes take disproportionate effort.</p>
       </div>
       <div class="card col" style="gap:10px;">
-        <div style="font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);">After</div>
+        <div style="font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);">After</div>
         <div class="h3">Designer + PM → Code → Review → Production</div>
         <p class="body">Designer owns the full loop. AI handles the gap between design thinking and implementation. Engineer focuses on review, not translation.</p>
       </div>
     </div>
     <div class="hl col" style="gap:8px; margin-top:16px;">
-      <div style="font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);">Why it matters</div>
+      <div style="font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);">Why it matters</div>
       <p class="body" style="color:var(--t1);">This is the first project where our team shipped production code without a traditional design handoff. It's a model we're expanding across the team.</p>
     </div>
   </div>
