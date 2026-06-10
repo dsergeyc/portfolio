@@ -3,74 +3,94 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Denis Sergeychik — Design Manager</title>
+<title>Denis Sergeychik — Product Design Manager</title>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --bg:     #000;
+    --bg:     #0A0A0A;
     --t1:     #F5F5F7;
     --t2:     rgba(245,245,247,0.52);
     --t3:     rgba(245,245,247,0.26);
+    --t4:     rgba(245,245,247,0.10);
     --border: rgba(255,255,255,0.07);
+    --accent: #F5F5F7;
   }
 
   html, body {
-    height: 100%;
     background: var(--bg);
     color: var(--t1);
     font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
     -webkit-font-smoothing: antialiased;
   }
 
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(255,255,255,0.04) 0%, transparent 70%);
-    pointer-events: none;
-  }
+  a { color: inherit; text-decoration: none; }
 
-  .page {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    padding: 44px 56px 44px;
+  /* ── Layout ── */
+  .wrap {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 56px;
   }
 
   /* ── Nav ── */
   nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10,10,10,0.82);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-inner {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height: 56px;
   }
 
   .nav-mark {
     font-size: 13px;
     font-weight: 500;
+    color: var(--t2);
     letter-spacing: 0.01em;
-    color: var(--t3);
   }
 
-  a.nav-link {
-    display: inline-flex;
+  .nav-links {
+    display: flex;
     align-items: center;
-    gap: 7px;
+    gap: 28px;
+  }
+
+  .nav-links a {
     font-size: 13px;
     font-weight: 500;
-    color: var(--t2);
-    text-decoration: none;
+    color: var(--t3);
     transition: color 0.18s;
   }
-  a.nav-link:hover { color: var(--t1); }
+  .nav-links a:hover { color: var(--t1); }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--t1);
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 8px;
+    padding: 7px 14px;
+    transition: background 0.18s, border-color 0.18s;
+  }
+  .btn:hover { background: rgba(255,255,255,0.13); border-color: rgba(255,255,255,0.2); }
 
   /* ── Hero ── */
   .hero {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 72px 0 56px;
+    padding: 100px 0 80px;
+    border-bottom: 1px solid var(--border);
   }
 
   .eyebrow {
@@ -79,65 +99,223 @@
     letter-spacing: 0.13em;
     text-transform: uppercase;
     color: var(--t3);
-    margin-bottom: 22px;
+    margin-bottom: 24px;
   }
 
   h1 {
-    font-size: clamp(60px, 9vw, 116px);
+    font-size: clamp(56px, 8vw, 104px);
     font-weight: 700;
     letter-spacing: -0.04em;
     line-height: 0.93;
     color: var(--t1);
-    margin-bottom: 48px;
+    margin-bottom: 36px;
   }
 
-  /* ── Grid ── */
-  .grid {
+  .tagline {
+    font-size: clamp(16px, 2vw, 20px);
+    font-weight: 400;
+    color: var(--t2);
+    line-height: 1.5;
+    max-width: 520px;
+  }
+
+  /* ── Stats ── */
+  .stats {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 1px;
-    background: var(--border);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    overflow: hidden;
-    max-width: 760px;
+    border-bottom: 1px solid var(--border);
   }
 
-  .cell {
-    background: #000;
-    padding: 24px 22px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+  .stat {
+    padding: 32px 0;
+    border-right: 1px solid var(--border);
   }
+  .stat:last-child { border-right: none; }
+  .stat:not(:first-child) { padding-left: 32px; }
 
-  .cell-label {
+  .stat-label {
     font-size: 10px;
     font-weight: 600;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--t3);
+    margin-bottom: 10px;
   }
 
-  .cell-value {
+  .stat-value {
     font-size: 14px;
     font-weight: 400;
     color: var(--t2);
-    line-height: 1.55;
+    line-height: 1.6;
   }
 
-  .cell-value strong {
+  .stat-value strong {
+    display: block;
+    font-size: 15px;
     font-weight: 600;
     color: var(--t1);
+    margin-bottom: 2px;
+  }
+
+  /* ── Section header ── */
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 56px 0 36px;
+  }
+
+  .section-title {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--t3);
+  }
+
+  .section-link {
+    font-size: 13px;
+    color: var(--t3);
+    transition: color 0.18s;
+  }
+  .section-link:hover { color: var(--t1); }
+
+  /* ── Case studies ── */
+  .cases {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 80px;
+  }
+
+  .case {
+    background: var(--bg);
+    padding: 32px 28px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    transition: background 0.18s;
+    cursor: default;
+  }
+
+  .case-num {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--t3);
+    margin-bottom: 20px;
+  }
+
+  .case-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--t1);
+    line-height: 1.25;
+    margin-bottom: 10px;
+  }
+
+  .case-desc {
+    font-size: 14px;
+    color: var(--t2);
+    line-height: 1.6;
+    flex: 1;
+    margin-bottom: 28px;
+  }
+
+  .case-metric {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+  }
+
+  .metric-value {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--t1);
+    letter-spacing: -0.03em;
+  }
+
+  .metric-label {
+    font-size: 12px;
+    color: var(--t3);
+    line-height: 1.4;
+  }
+
+  .ai-badge {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #000;
+    background: var(--t1);
+    border-radius: 4px;
+    padding: 2px 6px;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+
+  /* ── About ── */
+  .about {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    padding: 56px 0 80px;
+    border-top: 1px solid var(--border);
+  }
+
+  .about-text {
+    font-size: 17px;
+    color: var(--t2);
+    line-height: 1.7;
+  }
+
+  .about-text p + p { margin-top: 20px; }
+
+  .values {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    align-self: start;
+  }
+
+  .value {
+    background: var(--bg);
+    padding: 20px 18px;
+  }
+
+  .value-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--t3);
+    margin-bottom: 6px;
+  }
+
+  .value-text {
+    font-size: 13px;
+    color: var(--t2);
+    line-height: 1.5;
   }
 
   /* ── Footer ── */
   footer {
+    border-top: 1px solid var(--border);
+    padding: 28px 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-top: 28px;
-    border-top: 1px solid var(--border);
   }
 
   .footer-copy {
@@ -145,67 +323,175 @@
     color: var(--t3);
   }
 
+  .footer-links {
+    display: flex;
+    gap: 20px;
+  }
+
+  .footer-links a {
+    font-size: 12px;
+    color: var(--t3);
+    transition: color 0.18s;
+  }
+  .footer-links a:hover { color: var(--t1); }
+
   /* ── Animations ── */
   @keyframes up {
-    from { opacity: 0; transform: translateY(14px); }
+    from { opacity: 0; transform: translateY(16px); }
     to   { opacity: 1; transform: translateY(0); }
   }
 
-  nav         { animation: up 0.5s ease both; }
-  .eyebrow    { animation: up 0.5s 0.06s ease both; }
-  h1          { animation: up 0.55s 0.1s ease both; }
-  .grid       { animation: up 0.55s 0.18s ease both; }
-  footer      { animation: up 0.5s 0.24s ease both; }
+  nav          { animation: up 0.45s ease both; }
+  .eyebrow     { animation: up 0.5s 0.05s ease both; }
+  h1           { animation: up 0.55s 0.10s ease both; }
+  .tagline     { animation: up 0.5s 0.16s ease both; }
+  .stats       { animation: up 0.5s 0.22s ease both; }
+  .cases       { animation: up 0.5s 0.28s ease both; }
+  .about       { animation: up 0.5s 0.34s ease both; }
 
   /* ── Mobile ── */
-  @media (max-width: 700px) {
-    .page { padding: 32px 24px; }
-    h1 { margin-bottom: 36px; }
-    .grid { grid-template-columns: 1fr 1fr; max-width: 100%; }
+  @media (max-width: 860px) {
+    .wrap { padding: 0 28px; }
+    .stats { grid-template-columns: 1fr 1fr; }
+    .stat { border-right: none; border-bottom: 1px solid var(--border); }
+    .stat:nth-child(odd) { border-right: 1px solid var(--border); }
+    .stat:last-child { border-bottom: none; }
+    .cases { grid-template-columns: 1fr; }
+    .about { grid-template-columns: 1fr; gap: 40px; }
   }
 
-  @media (max-width: 440px) {
-    .grid { grid-template-columns: 1fr; }
+  @media (max-width: 560px) {
+    .wrap { padding: 0 20px; }
+    h1 { margin-bottom: 28px; }
+    .hero { padding: 64px 0 56px; }
+    .stats { grid-template-columns: 1fr 1fr; }
+    .stat:not(:first-child) { padding-left: 20px; }
+    .nav-links .hide-mobile { display: none; }
   }
 </style>
 </head>
 <body>
-<div class="page">
 
-  <nav>
-    <span></span>
-    <a class="nav-link" href="https://linkedin.com/in/denis-sergeychik" target="_blank">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-      LinkedIn
-    </a>
-  </nav>
+<nav>
+  <div class="wrap">
+    <div class="nav-inner">
+      <span class="nav-mark">Denis Sergeychik</span>
+      <div class="nav-links">
+        <a class="hide-mobile" href="https://linkedin.com/in/denis-sergeychik" target="_blank">LinkedIn</a>
+        <a class="btn" href="/portfolio/">View Portfolio →</a>
+      </div>
+    </div>
+  </div>
+</nav>
 
+<div class="wrap">
+
+  <!-- Hero -->
   <div class="hero">
     <div class="eyebrow">Product Design Manager</div>
     <h1>Denis<br>Sergeychik</h1>
+    <p class="tagline">Building scalable monetization systems through design leadership and AI.</p>
+  </div>
 
-    <div class="grid">
-      <div class="cell">
-        <div class="cell-label">Currently</div>
-        <div class="cell-value"><strong>Adobe</strong><br>Acquisition &amp; Expansion</div>
+  <!-- Stats -->
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-label">Currently</div>
+      <div class="stat-value"><strong>Adobe</strong>Acquisition &amp; Expansion</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Experience</div>
+      <div class="stat-value"><strong>15+ years</strong>Adobe, AKQA, Apple</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Focus</div>
+      <div class="stat-value"><strong>Commerce</strong>Platform &amp; Growth</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Location</div>
+      <div class="stat-value"><strong>San Jose</strong>California, US</div>
+    </div>
+  </div>
+
+  <!-- Case Studies -->
+  <div class="section-header">
+    <span class="section-title">Selected Work</span>
+    <a class="section-link" href="/portfolio/">Full presentation →</a>
+  </div>
+
+  <div class="cases">
+    <div class="case">
+      <div class="case-num">Case Study 01</div>
+      <div class="case-title">Checkout Platform</div>
+      <div class="case-desc">Rebuilt Adobe's checkout foundation — a unified, one-page flow that unlocked Growth experimentation at scale.</div>
+      <div class="case-metric">
+        <div>
+          <div class="metric-value">$36.6M</div>
+          <div class="metric-label">ARR increase</div>
+        </div>
       </div>
-      <div class="cell">
-        <div class="cell-label">Experience</div>
-        <div class="cell-value"><strong>15+ years</strong><br>Adobe, AKQA, Apple</div>
+    </div>
+    <div class="case">
+      <div class="case-num">Case Study 02</div>
+      <div class="case-title">COMEX <span class="ai-badge">AI</span></div>
+      <div class="case-desc">AI-powered experiment assistant that lets Growth teams run more tests without adding headcount.</div>
+      <div class="case-metric">
+        <div>
+          <div class="metric-value">10×</div>
+          <div class="metric-label">more tests per cycle</div>
+        </div>
       </div>
-      <div class="cell">
-        <div class="cell-label">Focus</div>
-        <div class="cell-value"><strong>Commerce</strong><br>Platform &amp; Growth</div>
-      </div>
-      <div class="cell">
-        <div class="cell-label">Location</div>
-        <div class="cell-value"><strong>San Jose</strong><br>California, US</div>
+    </div>
+    <div class="case">
+      <div class="case-num">Case Study 03</div>
+      <div class="case-title">Mobile Optimization <span class="ai-badge">AI</span></div>
+      <div class="case-desc">Redesigned the mobile purchase flow using AI-assisted prototyping to reduce drop-off on small screens.</div>
+      <div class="case-metric">
+        <div>
+          <div class="metric-value">↑ CR</div>
+          <div class="metric-label">mobile conversion rate</div>
+        </div>
       </div>
     </div>
   </div>
 
-  <footer></footer>
+  <!-- About + Values -->
+  <div class="about">
+    <div class="about-text">
+      <p>I'm a product design manager with 15+ years building commerce and growth systems at Adobe, AKQA, and Apple. I lead teams that ship work with measurable business outcomes — not just beautiful pixels.</p>
+      <p>My practice sits at the intersection of systems design, interaction craft, and AI tooling. I use AI throughout the design process — from research synthesis to interactive prototyping — to move faster and think more clearly.</p>
+    </div>
+    <div class="values">
+      <div class="value">
+        <div class="value-label">Clarity</div>
+        <div class="value-text">Simple framing over complex solutions</div>
+      </div>
+      <div class="value">
+        <div class="value-label">Ownership</div>
+        <div class="value-text">End-to-end accountability for outcomes</div>
+      </div>
+      <div class="value">
+        <div class="value-label">Quality</div>
+        <div class="value-text">Craft that earns trust with engineers</div>
+      </div>
+      <div class="value">
+        <div class="value-label">Systems</div>
+        <div class="value-text">Solutions that scale beyond the feature</div>
+      </div>
+    </div>
+  </div>
 
 </div>
+
+<div class="wrap">
+  <footer>
+    <span class="footer-copy">© 2025 Denis Sergeychik</span>
+    <div class="footer-links">
+      <a href="https://linkedin.com/in/denis-sergeychik" target="_blank">LinkedIn</a>
+      <a href="/portfolio/">Portfolio →</a>
+    </div>
+  </footer>
+</div>
+
 </body>
 </html>
