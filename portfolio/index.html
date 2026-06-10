@@ -880,7 +880,8 @@
 
 
   function goTo(n) {
-    if (n === cur || n < 0 || n >= N) return;
+    console.log('goTo called', n, 'cur=', cur, new Error().stack.split('\n')[2]);
+    if (n === cur || n < 0 || n >= N) { console.log('goTo blocked', n, cur, n>=N); return; }
 
     slides[cur].classList.remove('active');
     slides[n].classList.add('active');
