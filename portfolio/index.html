@@ -38,6 +38,7 @@
       transform: translateY(100%);
       transition: none;
       overflow: hidden;
+      cursor: pointer;
     }
     .slide.active { transform: translateY(0); }
     .slide.above  { transform: translateY(-100%); }
@@ -931,16 +932,24 @@
     if (e.key === 'f' || e.key === 'F') document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen?.();
   });
 
+  // Click / tap to navigate (bottom half → next, top half → prev)
   document.body.addEventListener('click', e => {
     if (e.target.closest('a, button, [onclick]')) return;
     e.clientY < window.innerHeight / 2 ? prev() : next();
   });
 
-  let wt = 0;
-  document.addEventListener('wheel', e => {
-    const now = Date.now(); if(now-wt<700)return; wt=now;
-    e.deltaY > 0 ? next() : prev();
-  }, {passive:true});
+  // Track touch so we can tell tap from swipe — ignore swipe
+  let tx0 = 0, ty0 = 0;
+  document.addEventListener('touchstart', e => {
+    tx0 = e.touches[0].clientX;
+    ty0 = e.touches[0].clientY;
+  }, {passive: true});
+  document.addEventListener('touchend', e => {
+    const dx = Math.abs(e.changedTouches[0].clientX - tx0);
+    const dy = Math.abs(e.changedTouches[0].clientY - ty0);
+    // If moved more than 10px in any direction, treat as swipe — do nothing
+    if (dx > 10 || dy > 10) e.preventDefault();
+  }, {passive: false});
 
   slides.forEach((s, i) => { if(i!==0){ s.style.transition='none'; s.style.transform='translateY(100%)'; }});
 
