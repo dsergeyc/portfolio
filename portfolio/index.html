@@ -938,6 +938,9 @@
     e.clientY < window.innerHeight / 2 ? prev() : next();
   });
 
+  // Block trackpad/wheel scroll from doing anything
+  document.addEventListener('wheel', e => e.preventDefault(), {passive: false});
+
   // Track touch so we can tell tap from swipe — ignore swipe
   let tx0 = 0, ty0 = 0;
   document.addEventListener('touchstart', e => {
