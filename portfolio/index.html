@@ -35,13 +35,13 @@
       display: flex; flex-direction: column;
       background: var(--bg);
       padding: 72px 108px 88px;
-      transform: translateY(100%);
-      transition: none;
       overflow: hidden;
       cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 350ms ease;
     }
-    .slide.active { transform: translateY(0); }
-    .slide.above  { transform: translateY(-100%); }
+    .slide.active { opacity: 1; pointer-events: auto; }
 
     /* section dividers get a subtle tint */
     .slide.section { background: #0A0A0A; }
@@ -881,44 +881,18 @@
     dotsEl.appendChild(d);
   });
 
-  const T = '0ms';
 
   function goTo(n) {
     if (busy || n === cur || n < 0 || n >= N) return;
     busy = true;
 
-    const from = cur, dir = n > from ? 1 : -1;
-
-    // Snap all uninvolved slides into position instantly
-    slides.forEach((s, i) => {
-      if (i !== from && i !== n) {
-        s.style.transition = 'none';
-        s.style.transform  = i < n ? 'translateY(-100%)' : 'translateY(100%)';
-        s.classList.remove('active', 'above');
-      }
-    });
-
-    // Position incoming slide off-screen (no transition yet)
-    slides[n].style.transition = 'none';
-    slides[n].style.transform  = dir > 0 ? 'translateY(100%)' : 'translateY(-100%)';
-    slides[n].classList.remove('active', 'above');
-    slides[n].offsetHeight; // force reflow
-
-    // Animate both slides in
-    slides[n].style.transition = `transform ${T}`;
-    slides[n].style.transform  = 'translateY(0)';
+    slides[cur].classList.remove('active');
     slides[n].classList.add('active');
-
-    slides[from].style.transition = `transform ${T}`;
-    slides[from].style.transform  = dir > 0 ? 'translateY(-100%)' : 'translateY(100%)';
-    slides[from].classList.remove('active');
-
     cur = n;
 
-    /* update dots */
     dotsEl.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('on', i === cur));
 
-    setTimeout(() => { busy = false; }, 320);
+    setTimeout(() => { busy = false; }, 400);
   }
 
   function next() { goTo(cur + 1); }
@@ -953,7 +927,6 @@
     if (dx > 10 || dy > 10) e.preventDefault();
   }, {passive: false});
 
-  slides.forEach((s, i) => { if(i!==0){ s.style.transition='none'; s.style.transform='translateY(100%)'; }});
 
   function goToCase(n) {
     let idx = -1;
