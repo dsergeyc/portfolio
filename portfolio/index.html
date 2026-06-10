@@ -870,7 +870,7 @@
 <script>
   const slides = Array.from(document.querySelectorAll('.slide'));
   const N = slides.length;
-  let cur = 0, busyTimer = null;
+  let cur = 0;
 
   /* build dots */
   const dotsEl = document.getElementById('dots');
@@ -882,23 +882,18 @@
   });
 
 
-  function goTo(n, skipAhead = false) {
+  function goTo(n) {
     if (n === cur || n < 0 || n >= N) return;
-    // skip-ahead: cancel in-progress transition immediately
-    if (busyTimer) { clearTimeout(busyTimer); busyTimer = null; }
 
     slides[cur].classList.remove('active');
     slides[n].classList.add('active');
     cur = n;
 
     dotsEl.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('on', i === cur));
-
-    // short lock only for click (prevents accidental double-advance)
-    if (!skipAhead) busyTimer = setTimeout(() => { busyTimer = null; }, 400);
   }
 
-  function next(skipAhead = false) { goTo(cur + 1, skipAhead); }
-  function prev(skipAhead = false) { goTo(cur - 1, skipAhead); }
+  function next() { goTo(cur + 1); }
+  function prev() { goTo(cur - 1); }
 
   // Keynote-style: click anywhere = next, arrows for both directions
   document.body.addEventListener('click', e => {
@@ -907,8 +902,8 @@
   });
 
   document.addEventListener('keydown', e => {
-    if (['ArrowRight', 'ArrowDown', ' ', 'PageDown'].includes(e.key)) { e.preventDefault(); next(true); }
-    if (['ArrowLeft', 'ArrowUp', 'PageUp'].includes(e.key))           { e.preventDefault(); prev(true); }
+    if (['ArrowRight', 'ArrowDown', ' ', 'PageDown'].includes(e.key)) { e.preventDefault(); next(); }
+    if (['ArrowLeft', 'ArrowUp', 'PageUp'].includes(e.key))           { e.preventDefault(); prev(); }
     if (e.key === 'Home') goTo(0);
     if (e.key === 'End')  goTo(N - 1);
     if (e.key === 'f' || e.key === 'F') document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen?.();
