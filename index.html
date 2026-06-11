@@ -1063,6 +1063,7 @@
     slides[cur].classList.remove('active');
     slides[n].classList.add('active');
     cur = n;
+    history.replaceState(null, '', cur === 0 ? location.pathname : '#' + cur);
 
     dotsEl.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('on', i === cur));
 
@@ -1071,6 +1072,15 @@
 
   function next() { goTo(cur + 1); }
   function prev() { goTo(cur - 1); }
+
+  /* restore slide from URL hash on load (refresh lands on the same page) */
+  const startSlide = parseInt(location.hash.slice(1), 10);
+  if (startSlide > 0 && startSlide < N) {
+    slides[0].classList.remove('active');
+    slides[startSlide].classList.add('active');
+    cur = startSlide;
+    dotsEl.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('on', i === cur));
+  }
 
   // Keynote-style: click anywhere = next, arrows for both directions
   document.body.addEventListener('click', e => {
