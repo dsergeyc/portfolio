@@ -262,11 +262,6 @@
   <a onclick="goToCase(4)">04 Internal Tool</a>
 </nav>
 <div class="dots" id="dots"></div>
-<div class="arrows">
-  <button class="arr" onclick="prev()">↑</button>
-  <button class="arr" onclick="next()">↓</button>
-</div>
-
 <div class="deck">
 
 <!-- 0 · COVER ─────────────────────────────── -->
@@ -1081,7 +1076,7 @@
 <script>
   const slides = Array.from(document.querySelectorAll('.slide'));
   const N = slides.length;
-  let cur = 0, busy = false;
+  let cur = 0;
 
   /* build dots */
   const dotsEl = document.getElementById('dots');
@@ -1094,8 +1089,7 @@
 
 
   function goTo(n) {
-    if (busy || n === cur || n < 0 || n >= N) return;
-    busy = true;
+    if (n === cur || n < 0 || n >= N) return;
 
     slides[cur].classList.remove('active');
     slides[n].classList.add('active');
@@ -1104,8 +1098,6 @@
 
     dotsEl.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('on', i === cur));
     updateLegend();
-
-    setTimeout(() => { busy = false; }, 400);
   }
 
   /* legend active-section highlight */
