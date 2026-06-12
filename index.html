@@ -103,6 +103,9 @@
     .legend a:hover, .legend a.on { color: var(--t1); }
 
     /* ── TYPE ─────────────────────────────── */
+    .scrollable { scrollbar-width: none; }
+    .scrollable::-webkit-scrollbar { display: none; }
+
     .label {
       font-size: 19px; font-weight: 800;
       letter-spacing: 0.06em; text-transform: uppercase;
@@ -548,7 +551,7 @@
 <!-- 9 · CS1 DESIGN — MAIN ───────────────────── -->
 <div class="slide media-slide col" style="padding:48px 64px 56px; gap:20px;">
   <div style="flex-shrink:0;">
-    <div class="label">Designs — Checkout</div>
+    <div class="label">Designs — Sign in</div>
     <div class="h2">One page. One goal.</div>
   </div>
   <div style="flex:1; min-height:0; display:flex; align-items:center; justify-content:center;">
@@ -584,7 +587,7 @@
     <div class="label">Specs</div>
     <div class="h2">Built to scale.</div>
   </div>
-  <div class="img-grid-2" style="flex:1; min-height:0; display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+  <div class="img-grid-2 scrollable" style="flex:1; min-height:0; overflow-y:auto; display:grid; grid-template-columns:1fr 1fr; gap:16px; align-items:start;">
     <div style="border-radius:14px; overflow:hidden; background:#111;">
       <img src="/portfolio/assets/images/ng-specs1.webp" alt="Specs 1" style="width:100%;height:auto;display:block;">
     </div>
@@ -600,7 +603,7 @@
     <div class="label">Specs</div>
     <div class="h2">Built to scale.</div>
   </div>
-  <div class="img-grid-2" style="flex:1; min-height:0; display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+  <div class="img-grid-2 scrollable" style="flex:1; min-height:0; overflow-y:auto; display:grid; grid-template-columns:1fr 1fr; gap:16px; align-items:start;">
     <div style="border-radius:14px; overflow:hidden; background:#111;">
       <img src="/portfolio/assets/images/ng-specs3.webp" alt="Specs 3" style="width:100%;height:auto;display:block;">
     </div>
@@ -824,7 +827,7 @@
 
 <!-- CS2 RESULT ──────────────────────────────── -->
 <div class="slide col" style="justify-content:center; align-items:center; text-align:center;">
-  <div style="max-width:720px;">
+  <div style="max-width:1100px;">
     <div class="label" style="justify-content:center;display:flex;">Result</div>
     <div class="h1" style="margin-bottom:28px;">The new redesign delivered a more personalized and guided experience to the broader audience and helped increase purchase confidence.</div>
   </div>
@@ -1155,8 +1158,16 @@
     if (e.key === 'f' || e.key === 'F') document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen?.();
   });
 
-  // Block wheel/trackpad scroll
-  document.addEventListener('wheel', e => e.preventDefault(), {passive: false});
+  // Block wheel/trackpad scroll — except inside .scrollable content that can still scroll
+  document.addEventListener('wheel', e => {
+    const sc = e.target.closest('.scrollable');
+    if (sc) {
+      const canDown = sc.scrollTop + sc.clientHeight < sc.scrollHeight - 1;
+      const canUp = sc.scrollTop > 0;
+      if ((e.deltaY > 0 && canDown) || (e.deltaY < 0 && canUp)) return; // native scroll
+    }
+    e.preventDefault();
+  }, {passive: false});
 
   // Block touch swipe — tap fires click naturally
   let tx0 = 0, ty0 = 0;
