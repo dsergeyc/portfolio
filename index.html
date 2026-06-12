@@ -80,16 +80,9 @@
     .brand {
       position: fixed; top: 24px; left: 36px;
       font-size: 13px; color: var(--t3); font-weight: 500; z-index: 400;
+      transition: color 0.18s;
     }
-
-    .home-btn {
-      position: fixed; bottom: 28px; left: 36px;
-      font-size: 13px; font-weight: 500; color: var(--t3);
-      background: none; border: none; cursor: pointer;
-      display: flex; align-items: center; gap: 7px;
-      z-index: 400; transition: color 0.18s; padding: 0;
-    }
-    .home-btn:hover { color: var(--t1); }
+    .brand:hover { color: var(--t1); }
 
     .legend {
       position: fixed; top: 24px; right: 36px;
@@ -242,7 +235,6 @@
       }
       .img-grid-3 > *:nth-child(3) { display: none !important; }
       .arrows { display: none; }
-      .home-btn { display: none; }
       .brand { left: 22px; top: 18px; font-size: 12px; }
       .dots { bottom: 18px; }
     }
@@ -269,7 +261,6 @@
   <a onclick="goToCase(3)">03 Plans</a>
   <a onclick="goToCase(4)">04 Internal Tool</a>
 </nav>
-<button class="home-btn" onclick="goTo(0)">↑ Start</button>
 <div class="dots" id="dots"></div>
 <div class="arrows">
   <button class="arr" onclick="prev()">↑</button>
@@ -281,8 +272,7 @@
 <!-- 0 · COVER ─────────────────────────────── -->
 <div class="slide cover-slide active" style="justify-content:center; align-items:center; text-align:center;">
   <div>
-    <div class="display" style="margin-bottom:22px; white-space:nowrap;">Denis Sergeychik</div>
-    <div style="font-size:clamp(18px,2vw,26px); color:var(--accent); font-weight:600; letter-spacing:-0.01em;">Product Design Manager</div>
+    <div class="display" style="white-space:nowrap;">Denis Sergeychik</div>
   </div>
   <div style="position:absolute;right:-80px;top:50%;transform:translateY(-50%);
     width:720px;height:720px;border-radius:50%;
@@ -307,7 +297,7 @@
 <!-- 3 · NUMBERS ────────────────────────────── -->
 <div class="slide col" style="justify-content:center;">
   <div class="w mx">
-    <div class="label">Impact</div>
+    <div class="label">Impact at Adobe</div>
     <div class="g3" style="margin-bottom:16px;">
       <div class="card col" style="gap:8px;">
         <div class="big-num" style="color:var(--t1);">$50M+</div>
