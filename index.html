@@ -50,9 +50,17 @@
 
     /* ── CHROME ───────────────────────────── */
     .dots {
-      position: fixed; bottom: 26px; left: 50%; transform: translateX(-50%);
-      display: flex; align-items: center; gap: 5px; z-index: 400;
+      position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+      display: flex; align-items: flex-end; gap: 14px; z-index: 400;
     }
+    .dot-group { display: flex; flex-direction: column; align-items: center; gap: 5px; }
+    .dot-group-label {
+      font-size: 9px; font-weight: 700; letter-spacing: 0.09em;
+      text-transform: uppercase; color: rgba(255,255,255,0.18);
+      transition: color 0.3s; white-space: nowrap;
+    }
+    .dot-group.active .dot-group-label { color: rgba(255,255,255,0.55); }
+    .dot-group-dots { display: flex; gap: 4px; align-items: center; }
     .dot {
       height: 4px; border-radius: 100px;
       background: rgba(255,255,255,0.18); width: 6px;
@@ -60,6 +68,10 @@
       cursor: pointer;
     }
     .dot.on { width: 20px; background: var(--accent); }
+    .dot-sep {
+      width: 1px; height: 10px; background: rgba(255,255,255,0.1);
+      align-self: center; margin: 0 2px;
+    }
 
     .arrows {
       position: fixed; bottom: 18px; right: 32px;
@@ -1067,39 +1079,73 @@
   const N = slides.length;
   let cur = 0;
 
-  /* build dots */
-  const dotsEl = document.getElementById('dots');
-  slides.forEach((_, i) => {
-    const d = document.createElement('div');
-    d.className = 'dot' + (i === 0 ? ' on' : '');
-    d.onclick = () => goTo(i);
-    dotsEl.appendChild(d);
-  });
-
-
-  function goTo(n) {
-    if (n === cur || n < 0 || n >= N) return;
-
-    slides[cur].classList.remove('active');
-    slides[n].classList.add('active');
-    cur = n;
-    history.replaceState(null, '', cur === 0 ? location.pathname : '#' + cur);
-
-    dotsEl.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('on', i === cur));
-    updateLegend();
-  }
-
   /* legend active-section highlight */
   const caseStarts = [1, 2, 3, 4].map(n => {
     let idx = -1;
     slides.forEach((s, i) => { if (s.querySelector('.label')?.innerText.trim().toUpperCase() === `CASE STUDY 0${n}`) idx = i; });
     return idx;
   });
+
+  /* build grouped dots */
+  const dotsEl = document.getElementById('dots');
+  const allDots = new Array(N);
+  const sections = [
+    { label: '',   start: 0,             end: caseStarts[0] },
+    { label: '01', start: caseStarts[0], end: caseStarts[1] },
+    { label: '02', start: caseStarts[1], end: caseStarts[2] },
+    { label: '03', start: caseStarts[2], end: caseStarts[3] },
+    { label: '04', start: caseStarts[3], end: N },
+  ].filter(s => s.start >= 0 && s.end > s.start);
+
+  sections.forEach((sec, si) => {
+    if (si > 0) {
+      const sep = document.createElement('div');
+      sep.className = 'dot-sep';
+      dotsEl.appendChild(sep);
+    }
+    const group = document.createElement('div');
+    group.className = 'dot-group';
+    group.dataset.sec = si;
+    if (sec.label) {
+      const lbl = document.createElement('div');
+      lbl.className = 'dot-group-label';
+      lbl.textContent = sec.label;
+      group.appendChild(lbl);
+    }
+    const row = document.createElement('div');
+    row.className = 'dot-group-dots';
+    for (let i = sec.start; i < sec.end; i++) {
+      const d = document.createElement('div');
+      d.className = 'dot' + (i === 0 ? ' on' : '');
+      d.onclick = () => goTo(i);
+      row.appendChild(d);
+      allDots[i] = d;
+    }
+    group.appendChild(row);
+    dotsEl.appendChild(group);
+  });
+
+  function goTo(n) {
+    if (n === cur || n < 0 || n >= N) return;
+    slides[cur].classList.remove('active');
+    slides[n].classList.add('active');
+    cur = n;
+    history.replaceState(null, '', cur === 0 ? location.pathname : '#' + cur);
+    allDots.forEach((d, i) => d && d.classList.toggle('on', i === cur));
+    updateLegend();
+  }
+
   function updateLegend() {
+    const groups = dotsEl.querySelectorAll('.dot-group');
     document.querySelectorAll('.legend a').forEach((a, i) => {
       const start = caseStarts[i], end = i < 3 ? caseStarts[i + 1] : N;
-      a.classList.toggle('on', start >= 0 && cur >= start && cur < end);
+      const inCase = start >= 0 && cur >= start && cur < end;
+      a.classList.toggle('on', inCase);
+      // sync dot group (offset by 1 for intro group)
+      if (groups[i + 1]) groups[i + 1].classList.toggle('active', inCase);
     });
+    // intro group active when before first case
+    if (groups[0]) groups[0].classList.toggle('active', caseStarts[0] < 0 || cur < caseStarts[0]);
   }
   updateLegend();
 
@@ -1112,7 +1158,7 @@
     slides[0].classList.remove('active');
     slides[startSlide].classList.add('active');
     cur = startSlide;
-    dotsEl.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('on', i === cur));
+    allDots.forEach((d, i) => d && d.classList.toggle('on', i === cur));
   }
 
   // Keynote-style: click anywhere = next, arrows for both directions
