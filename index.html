@@ -1148,6 +1148,14 @@
     dotsEl.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('on', i === cur));
   }
 
+  // Play video on active slide after any user interaction (satisfies Safari autoplay policy)
+  function playActiveVideo() {
+    const v = slides[cur].querySelector('video');
+    if (v) v.play().catch(() => {});
+  }
+  document.body.addEventListener('click', playActiveVideo, { once: true });
+  document.addEventListener('keydown', playActiveVideo, { once: true });
+
   // Keynote-style: click anywhere = next, arrows for both directions
   document.body.addEventListener('click', e => {
     if (e.target.closest('a, button, [onclick]')) return;
