@@ -182,6 +182,54 @@
     .tl-line  { width: 1px; flex: 1; min-height: 16px; background: rgba(255,255,255,0.1); margin: 3px 0; }
     .tl-body  { padding-bottom: 22px; }
 
+    /* ── PROCESS VERTICAL TIMELINE ────────── */
+    .ptl { display: flex; flex-direction: column; width: 100%; }
+    .ptl-row { display: grid; grid-template-columns: 30px 1fr; gap: 26px; }
+    .ptl-spine { display: flex; flex-direction: column; align-items: center; }
+    .ptl-dot {
+      width: 30px; height: 30px; border-radius: 50%;
+      border: 1px solid var(--border); background: var(--bg);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.04em;
+      color: var(--t2); flex-shrink: 0;
+    }
+    .ptl-line { width: 1px; flex: 1; min-height: 18px; background: var(--border); margin: 4px 0; }
+    .ptl-body { padding-bottom: 26px; }
+    .ptl-title { font-size: 17px; font-weight: 700; color: #fff; letter-spacing: -0.01em; margin-bottom: 12px; }
+    .ptl-cols { display: grid; grid-template-columns: 230px 1fr; gap: 44px; align-items: start; }
+    .ptl-keys { display: flex; flex-direction: column; gap: 5px; }
+    .ptl-key  { font-size: 13px; color: var(--t3); }
+    .ptl-desc { display: flex; flex-direction: column; gap: 7px; }
+    .ptl-desc > div { font-size: 13px; color: var(--t2); line-height: 1.5; }
+
+    /* staggered entrance — re-triggers each time the slide becomes active */
+    .ptl-row { opacity: 0; transform: translateY(16px); }
+    .slide.active .ptl-row {
+      opacity: 1; transform: none;
+      transition: opacity 600ms cubic-bezier(0.22,1,0.36,1),
+                  transform 600ms cubic-bezier(0.22,1,0.36,1);
+    }
+    .slide.active .ptl-row:nth-child(1) { transition-delay: 140ms; }
+    .slide.active .ptl-row:nth-child(2) { transition-delay: 280ms; }
+    .slide.active .ptl-row:nth-child(3) { transition-delay: 420ms; }
+    .slide.active .ptl-row:nth-child(4) { transition-delay: 560ms; }
+    /* the connecting line draws in as the row settles */
+    .ptl-line { transform: scaleY(0); transform-origin: top; }
+    .slide.active .ptl-line {
+      transform: scaleY(1);
+      transition: transform 500ms cubic-bezier(0.22,1,0.36,1);
+    }
+    .slide.active .ptl-row:nth-child(1) .ptl-line { transition-delay: 360ms; }
+    .slide.active .ptl-row:nth-child(2) .ptl-line { transition-delay: 500ms; }
+    .slide.active .ptl-row:nth-child(3) .ptl-line { transition-delay: 640ms; }
+    @media (prefers-reduced-motion: reduce) {
+      .ptl-row, .slide.active .ptl-row,
+      .ptl-line, .slide.active .ptl-line { transition: none; transform: none; opacity: 1; }
+    }
+    @media (max-width: 960px) {
+      .ptl-cols { grid-template-columns: 1fr; gap: 10px; }
+    }
+
     /* ── HIGHLIGHT ────────────────────────── */
     .hl {
       background: linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.03) 100%);
@@ -444,7 +492,7 @@
     <div class="label">Before</div>
     <div class="h2">The old checkout experience.</div>
   </div>
-  <div class="img-grid-3" style="flex:1; min-height:0; display:grid; grid-template-columns:1fr 1fr 1fr; gap:20px; align-items:center;">
+  <div class="img-grid-3" style="flex:1; min-height:0; display:grid; grid-template-columns:1fr 1fr; gap:20px; align-items:center; justify-content:center; max-width:900px; margin:0 auto;">
     <div style="display:flex;flex-direction:column;gap:8px;">
       <div style="font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);">Step 1 — Email</div>
       <img src="/portfolio/assets/images/ng-old-1.webp" alt="Email step" style="width:100%;border-radius:8px;display:block;box-shadow:0 8px 40px rgba(0,0,0,0.6);">
@@ -452,10 +500,6 @@
     <div style="display:flex;flex-direction:column;gap:8px;">
       <div style="font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);">Step 2 — Payment</div>
       <img src="/portfolio/assets/images/ng-old-2.webp" alt="Payment step" style="width:100%;border-radius:8px;display:block;box-shadow:0 8px 40px rgba(0,0,0,0.6);">
-    </div>
-    <div style="display:flex;flex-direction:column;gap:8px;">
-      <div style="font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);">Step 3 — Confirmation</div>
-      <img src="/portfolio/assets/images/ng-old-3.webp" alt="Confirmation step" style="width:100%;border-radius:8px;display:block;box-shadow:0 8px 40px rgba(0,0,0,0.6);">
     </div>
   </div>
 </div>
@@ -480,80 +524,84 @@
     <div class="label">Process</div>
     <div class="h2">From discovery to handoff.</div>
   </div>
-  <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:16px; align-items:start;">
+  <div class="ptl">
 
     <!-- Discovery -->
-    <div style="display:flex;flex-direction:column;gap:12px;">
-      <div style="height:3px;border-radius:2px;background:var(--border);overflow:hidden;"><div style="height:100%;width:25%;background:var(--accent);border-radius:2px;"></div></div>
-      <div style="display:flex;align-items:baseline;gap:10px;">
-        <div style="font-size:12px;font-weight:700;color:var(--t3);letter-spacing:0.08em;">01</div>
-        <div style="font-size:15px;font-weight:700;color:#fff;letter-spacing:-0.01em;">Discovery</div>
-      </div>
-      <div style="display:flex;flex-direction:column;gap:6px;">
-        <div style="font-size:13px;color:var(--t3);">Partner input session</div>
-        <div style="font-size:13px;color:var(--t3);">Workshop</div>
-        <div style="font-size:13px;color:var(--t3);">Refine</div>
-      </div>
-      <div style="display:flex;flex-direction:column;gap:10px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.08);">
-        <div style="font-size:12px;color:var(--t2);line-height:1.5;">Define and align on an actionable problem statement</div>
-        <div style="font-size:12px;color:var(--t2);line-height:1.5;">Gather inputs, requirements, and hypotheses from partners</div>
-        <div style="font-size:12px;color:var(--t2);line-height:1.5;">Synthesize insights from landscape research and data</div>
+    <div class="ptl-row">
+      <div class="ptl-spine"><div class="ptl-dot">01</div><div class="ptl-line"></div></div>
+      <div class="ptl-body">
+        <div class="ptl-title">Discovery</div>
+        <div class="ptl-cols">
+          <div class="ptl-keys">
+            <div class="ptl-key">Partner input session</div>
+            <div class="ptl-key">Workshop</div>
+            <div class="ptl-key">Refine</div>
+          </div>
+          <div class="ptl-desc">
+            <div>Define and align on an actionable problem statement</div>
+            <div>Gather inputs, requirements, and hypotheses from partners</div>
+            <div>Synthesize insights from landscape research and data</div>
+          </div>
+        </div>
       </div>
     </div>
 
     <!-- Plan -->
-    <div style="display:flex;flex-direction:column;gap:12px;">
-      <div style="height:3px;border-radius:2px;background:var(--border);overflow:hidden;"><div style="height:100%;width:50%;background:var(--accent);border-radius:2px;"></div></div>
-      <div style="display:flex;align-items:baseline;gap:10px;">
-        <div style="font-size:12px;font-weight:700;color:var(--t3);letter-spacing:0.08em;">02</div>
-        <div style="font-size:15px;font-weight:700;color:#fff;letter-spacing:-0.01em;">Plan</div>
-      </div>
-      <div style="display:flex;flex-direction:column;gap:6px;">
-        <div style="font-size:13px;color:var(--t3);">Break down the work</div>
-        <div style="font-size:13px;color:var(--t3);">Break down the work / MVP</div>
-      </div>
-      <div style="display:flex;flex-direction:column;gap:10px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.08);">
-        <div style="font-size:12px;color:var(--t2);line-height:1.5;">Scope MVP vs. full vision</div>
-        <div style="font-size:12px;color:var(--t2);line-height:1.5;">Sequence work across milestones</div>
-        <div style="font-size:12px;color:var(--t2);line-height:1.5;">Align with engineering on feasibility</div>
+    <div class="ptl-row">
+      <div class="ptl-spine"><div class="ptl-dot">02</div><div class="ptl-line"></div></div>
+      <div class="ptl-body">
+        <div class="ptl-title">Plan</div>
+        <div class="ptl-cols">
+          <div class="ptl-keys">
+            <div class="ptl-key">Break down the work</div>
+            <div class="ptl-key">Scope the MVP</div>
+          </div>
+          <div class="ptl-desc">
+            <div>Scope MVP vs. full vision</div>
+            <div>Sequence work across milestones</div>
+            <div>Align with engineering on feasibility</div>
+          </div>
+        </div>
       </div>
     </div>
 
     <!-- Design -->
-    <div style="display:flex;flex-direction:column;gap:12px;">
-      <div style="height:3px;border-radius:2px;background:var(--border);overflow:hidden;"><div style="height:100%;width:75%;background:var(--accent);border-radius:2px;"></div></div>
-      <div style="display:flex;align-items:baseline;gap:10px;">
-        <div style="font-size:12px;font-weight:700;color:var(--t3);letter-spacing:0.08em;">03</div>
-        <div style="font-size:15px;font-weight:700;color:#fff;letter-spacing:-0.01em;">Design</div>
-      </div>
-      <div style="display:flex;flex-direction:column;gap:6px;">
-        <div style="font-size:13px;color:var(--t3);">MVP designs</div>
-        <div style="font-size:13px;color:var(--t3);">Iterations</div>
-        <div style="font-size:13px;color:var(--t3);">Validation</div>
-      </div>
-      <div style="display:flex;flex-direction:column;gap:10px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.08);">
-        <div style="font-size:12px;color:var(--t2);line-height:1.5;">Rapid ideation to explore the solution space</div>
-        <div style="font-size:12px;color:var(--t2);line-height:1.5;">Usability testing and iteration cycles</div>
-        <div style="font-size:12px;color:var(--t2);line-height:1.5;">Partner reviews and sign-off</div>
+    <div class="ptl-row">
+      <div class="ptl-spine"><div class="ptl-dot">03</div><div class="ptl-line"></div></div>
+      <div class="ptl-body">
+        <div class="ptl-title">Design</div>
+        <div class="ptl-cols">
+          <div class="ptl-keys">
+            <div class="ptl-key">MVP designs</div>
+            <div class="ptl-key">Iterations</div>
+            <div class="ptl-key">Validation</div>
+          </div>
+          <div class="ptl-desc">
+            <div>Rapid ideation to explore the solution space</div>
+            <div>Usability testing and iteration cycles</div>
+            <div>Partner reviews and sign-off</div>
+          </div>
+        </div>
       </div>
     </div>
 
     <!-- Handoff -->
-    <div style="display:flex;flex-direction:column;gap:12px;">
-      <div style="height:3px;border-radius:2px;background:var(--border);overflow:hidden;"><div style="height:100%;width:100%;background:var(--accent);border-radius:2px;"></div></div>
-      <div style="display:flex;align-items:baseline;gap:10px;">
-        <div style="font-size:12px;font-weight:700;color:var(--t3);letter-spacing:0.08em;">04</div>
-        <div style="font-size:15px;font-weight:700;color:#fff;letter-spacing:-0.01em;">Handoff</div>
-      </div>
-      <div style="display:flex;flex-direction:column;gap:6px;">
-        <div style="font-size:13px;color:var(--t3);">States & variants</div>
-        <div style="font-size:13px;color:var(--t3);">Specs</div>
-        <div style="font-size:13px;color:var(--t3);">Accessibility annotations</div>
-      </div>
-      <div style="display:flex;flex-direction:column;gap:10px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.08);">
-        <div style="font-size:12px;color:var(--t2);line-height:1.5;">Component library covering every state and variant</div>
-        <div style="font-size:12px;color:var(--t2);line-height:1.5;">Annotated for screen readers and focus order</div>
-        <div style="font-size:12px;color:var(--t2);line-height:1.5;">Production-ready specs in Figma</div>
+    <div class="ptl-row">
+      <div class="ptl-spine"><div class="ptl-dot">04</div></div>
+      <div class="ptl-body" style="padding-bottom:0;">
+        <div class="ptl-title">Handoff</div>
+        <div class="ptl-cols">
+          <div class="ptl-keys">
+            <div class="ptl-key">States &amp; variants</div>
+            <div class="ptl-key">Specs</div>
+            <div class="ptl-key">Accessibility annotations</div>
+          </div>
+          <div class="ptl-desc">
+            <div>Component library covering every state and variant</div>
+            <div>Annotated for screen readers and focus order</div>
+            <div>Production-ready specs in Figma</div>
+          </div>
+        </div>
       </div>
     </div>
 
