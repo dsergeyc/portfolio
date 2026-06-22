@@ -1095,6 +1095,13 @@
 
     dotsEl.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('on', i === cur));
     updateLegend();
+    // play video on active slide, pause on others
+    slides.forEach((s, i) => {
+      const v = s.querySelector('video');
+      if (!v) return;
+      if (i === cur) v.play().catch(() => {});
+      else { v.pause(); v.currentTime = 0; }
+    });
   }
 
   /* legend active-section highlight */
