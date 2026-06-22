@@ -184,23 +184,23 @@
 
     /* ── PROCESS VERTICAL TIMELINE ────────── */
     .ptl { display: flex; flex-direction: column; width: 100%; }
-    .ptl-row { display: grid; grid-template-columns: 30px 1fr; gap: 26px; }
+    .ptl-row { display: grid; grid-template-columns: 38px 1fr; gap: 32px; }
     .ptl-spine { display: flex; flex-direction: column; align-items: center; }
     .ptl-dot {
-      width: 30px; height: 30px; border-radius: 50%;
+      width: 38px; height: 38px; border-radius: 50%;
       border: 1px solid var(--border); background: var(--bg);
       display: flex; align-items: center; justify-content: center;
-      font-size: 11px; font-weight: 700; letter-spacing: 0.04em;
+      font-size: 13px; font-weight: 700; letter-spacing: 0.04em;
       color: var(--t2); flex-shrink: 0;
     }
-    .ptl-line { width: 1px; flex: 1; min-height: 18px; background: var(--border); margin: 4px 0; }
-    .ptl-body { padding-bottom: 26px; }
-    .ptl-title { font-size: 17px; font-weight: 700; color: #fff; letter-spacing: -0.01em; margin-bottom: 12px; }
-    .ptl-cols { display: grid; grid-template-columns: 230px 1fr; gap: 44px; align-items: start; }
-    .ptl-keys { display: flex; flex-direction: column; gap: 5px; }
-    .ptl-key  { font-size: 13px; color: var(--t3); }
-    .ptl-desc { display: flex; flex-direction: column; gap: 7px; }
-    .ptl-desc > div { font-size: 13px; color: var(--t2); line-height: 1.5; }
+    .ptl-line { width: 1px; flex: 1; min-height: 22px; background: var(--border); margin: 5px 0; }
+    .ptl-body { padding-bottom: 34px; }
+    .ptl-title { font-size: clamp(19px, 1.7vw, 23px); font-weight: 600; color: var(--t1); letter-spacing: -0.015em; margin-bottom: 14px; }
+    .ptl-cols { display: grid; grid-template-columns: 260px 1fr; gap: 56px; align-items: start; }
+    .ptl-keys { display: flex; flex-direction: column; gap: 7px; }
+    .ptl-key  { font-size: clamp(14px, 1.1vw, 16px); color: var(--t3); }
+    .ptl-desc { display: flex; flex-direction: column; gap: 9px; }
+    .ptl-desc > div { font-size: clamp(14px, 1.1vw, 16px); color: var(--t2); line-height: 1.55; }
 
     /* staggered entrance — re-triggers each time the slide becomes active */
     .ptl-row { opacity: 0; transform: translateY(16px); }
@@ -519,12 +519,11 @@
 
 <!-- 8 · CS1 THREE DECISIONS ─────────────────── -->
 <!-- 8b · CS1 PROCESS ────────────────────────── -->
-<div class="slide col" style="padding:48px 64px 56px; gap:32px;">
-  <div style="flex-shrink:0;">
+<div class="slide col" style="justify-content:center;">
+  <div class="w mx">
     <div class="label">Process</div>
-    <div class="h2">From discovery to handoff.</div>
-  </div>
-  <div class="ptl">
+    <div class="h2" style="margin-bottom:44px;">From discovery to handoff.</div>
+    <div class="ptl">
 
     <!-- Discovery -->
     <div class="ptl-row">
@@ -605,6 +604,7 @@
       </div>
     </div>
 
+    </div>
   </div>
 </div>
 
