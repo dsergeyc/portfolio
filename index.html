@@ -298,6 +298,15 @@
       .hl { padding: 14px 16px; }
       .tl-body { padding-bottom: 16px; }
     }
+  @keyframes resp-in {
+    from { opacity:0; transform:translateY(24px); }
+    to   { opacity:1; transform:translateY(0); }
+  }
+  .resp-device {
+    animation: resp-in 0.55s cubic-bezier(0.22,1,0.36,1) both;
+    animation-play-state: paused;
+  }
+  .slide.active .resp-device { animation-play-state: running; }
   </style>
 </head>
 <body>
@@ -853,6 +862,58 @@
   </div>
   <div style="flex:1; min-height:0; display:flex; align-items:center; justify-content:center;">
     <img src="/portfolio/assets/images/ng-new-2.webp" alt="Payment" style="max-width:100%;max-height:100%;width:auto;height:auto;display:block;border-radius:10px;box-shadow:0 8px 40px rgba(0,0,0,0.6);">
+  </div>
+</div>
+
+<!-- 9b1 · CS1 RESPONSIVE ────────────────────── -->
+<div class="slide media-slide col" style="padding:48px 64px 56px; gap:24px;">
+  <div style="flex-shrink:0;">
+    <div class="label">Responsive Design</div>
+    <div class="h2">Same checkout. Every screen.</div>
+  </div>
+  <div style="flex:1; min-height:0; display:flex; align-items:flex-end; justify-content:center; gap:20px;">
+
+    <!-- Desktop -->
+    <div class="resp-device" style="animation-delay:0.05s; flex:0 0 auto; width:52%; display:flex; flex-direction:column;">
+      <div style="background:rgba(255,255,255,0.06);border-radius:8px 8px 0 0;padding:9px 14px;display:flex;align-items:center;gap:6px;border:1px solid rgba(255,255,255,0.09);border-bottom:none;flex-shrink:0;">
+        <span style="width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,0.2);display:block;"></span>
+        <span style="width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,0.2);display:block;"></span>
+        <span style="width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,0.2);display:block;"></span>
+        <div style="flex:1;background:rgba(255,255,255,0.07);border-radius:4px;height:12px;margin:0 10px;"></div>
+      </div>
+      <div style="border:1px solid rgba(255,255,255,0.09);border-top:none;border-radius:0 0 6px 6px;overflow:hidden;">
+        <img src="/portfolio/assets/images/ng-new-2.webp" style="width:100%;display:block;">
+      </div>
+      <div style="margin-top:12px;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--t3);text-align:center;">Desktop</div>
+    </div>
+
+    <!-- Tablet -->
+    <div class="resp-device" style="animation-delay:0.2s; flex:0 0 auto; width:30%; display:flex; flex-direction:column;">
+      <div style="background:rgba(255,255,255,0.06);border-radius:8px 8px 0 0;padding:9px 14px;display:flex;align-items:center;gap:6px;border:1px solid rgba(255,255,255,0.09);border-bottom:none;flex-shrink:0;">
+        <span style="width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,0.2);display:block;"></span>
+        <span style="width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,0.2);display:block;"></span>
+        <span style="width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,0.2);display:block;"></span>
+        <div style="flex:1;background:rgba(255,255,255,0.07);border-radius:4px;height:12px;margin:0 10px;"></div>
+      </div>
+      <div style="border:1px solid rgba(255,255,255,0.09);border-top:none;border-radius:0 0 6px 6px;overflow:hidden;">
+        <img src="/portfolio/assets/images/ng-new-1.webp" style="width:100%;display:block;">
+      </div>
+      <div style="margin-top:12px;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--t3);text-align:center;">Tablet</div>
+    </div>
+
+    <!-- Mobile -->
+    <div class="resp-device" style="animation-delay:0.35s; flex:0 0 auto; width:14%; display:flex; flex-direction:column;">
+      <div style="background:rgba(255,255,255,0.06);border-radius:8px 8px 0 0;padding:9px 10px;display:flex;align-items:center;gap:5px;border:1px solid rgba(255,255,255,0.09);border-bottom:none;flex-shrink:0;">
+        <span style="width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.2);display:block;"></span>
+        <span style="width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.2);display:block;"></span>
+        <span style="width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.2);display:block;"></span>
+      </div>
+      <div style="border:1px solid rgba(255,255,255,0.09);border-top:none;border-radius:0 0 6px 6px;overflow:hidden;">
+        <img src="/portfolio/assets/images/mobile.png" style="width:100%;display:block;">
+      </div>
+      <div style="margin-top:12px;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--t3);text-align:center;">Mobile</div>
+    </div>
+
   </div>
 </div>
 
