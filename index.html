@@ -1270,10 +1270,14 @@
   document.body.addEventListener('click', playActiveVideo, { once: true });
   document.addEventListener('keydown', playActiveVideo, { once: true });
 
-  // Keynote-style: click anywhere = next, arrows for both directions
+  // Click: left half = prev, right half = next (tap zones on mobile); desktop always next
   document.body.addEventListener('click', e => {
     if (e.target.closest('a, button, [onclick]')) return;
-    next();
+    if (window.innerWidth <= 600) {
+      e.clientX < window.innerWidth / 2 ? prev() : next();
+    } else {
+      next();
+    }
   });
 
   document.addEventListener('keydown', e => {
