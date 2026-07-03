@@ -314,8 +314,8 @@
       }
       /* Checkout cover: 3D MacBook clips on portrait — hide it */
       .checkout-mac { display: none !important; }
-      /* Apple CS cover: re-center background image on portrait */
-      .apple-cs-bg { object-position: center center !important; }
+      /* Apple CS cover: show more of the phone on portrait */
+      .apple-cs-bg { object-position: 70% center !important; }
     }
     @media (max-width: 480px) {
       .slide { padding: 48px 18px 66px !important; }
@@ -502,7 +502,7 @@
 <!-- CS2 CONTEXT ─────────────────────────────── -->
 <div class="slide media-slide col" style="padding:48px 64px 56px; gap:20px;">
   <div style="flex:1; min-height:0; display:flex; align-items:center; justify-content:center;">
-    <img src="/portfolio/assets/images/apple-context.webp" alt="Apple Store app context" style="max-width:100%;max-height:100%;width:auto;height:auto;display:block;border-radius:10px;box-shadow:0 8px 40px rgba(0,0,0,0.6);">
+    <img src="/portfolio/assets/images/apple-context.webp" alt="Apple Store app context" class="contain-img" style="max-width:100%;max-height:100%;width:auto;height:auto;display:block;border-radius:10px;box-shadow:0 8px 40px rgba(0,0,0,0.6);">
   </div>
 </div>
 
@@ -1325,6 +1325,7 @@
 
   // Click: left half = prev, right half = next (tap zones on mobile); desktop always next
   document.body.addEventListener('click', e => {
+    if (scrolledInSlide) { scrolledInSlide = false; return; }
     if (e.target.closest('a, button, [onclick]')) return;
     if (window.innerWidth <= 600) {
       e.clientX < window.innerWidth / 2 ? prev() : next();
@@ -1352,16 +1353,29 @@
     e.preventDefault();
   }, {passive: false});
 
-  // Block touch swipe — tap fires click naturally
-  let tx0 = 0, ty0 = 0;
+  // Block touch swipe — tap fires click naturally; allow scroll within overflowing slides
+  let tx0 = 0, ty0 = 0, scrolledInSlide = false;
   document.addEventListener('touchstart', e => {
     tx0 = e.touches[0].clientX;
     ty0 = e.touches[0].clientY;
+    scrolledInSlide = false;
+  }, {passive: true});
+  document.addEventListener('touchmove', e => {
+    if (scrolledInSlide) return;
+    const dy = Math.abs(e.touches[0].clientY - ty0);
+    const dx = Math.abs(e.touches[0].clientX - tx0);
+    if (dy > dx && dy > 8) {
+      const slide = e.target.closest('.slide');
+      if (slide && slide.scrollHeight > slide.clientHeight + 1) scrolledInSlide = true;
+    }
   }, {passive: true});
   document.addEventListener('touchend', e => {
     const dx = Math.abs(e.changedTouches[0].clientX - tx0);
     const dy = Math.abs(e.changedTouches[0].clientY - ty0);
-    if (dx > 10 || dy > 10) e.preventDefault();
+    if (dx > 10 || dy > 10) {
+      if (scrolledInSlide) return; // let native scroll momentum through
+      e.preventDefault();
+    }
   }, {passive: false});
 
 
