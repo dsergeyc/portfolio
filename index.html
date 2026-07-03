@@ -285,15 +285,24 @@
       .arrows { display: none; }
       .brand { left: 22px; top: 18px; font-size: 12px; }
       .dots { display: none; }
-      /* Fix: justify-content:center overflow hides content above the fold */
-      .slide { justify-content: flex-start !important; }
-      /* Cover/section slides remain vertically centered */
+      /* safe center: centers content when it fits, falls back to flex-start when it overflows */
+      .slide { justify-content: safe center !important; }
+      /* Cover slides: always center (explicit fallback for older browsers) */
       .slide.cover-slide { justify-content: center !important; }
-      /* Media images fill available width; natural height, no min-width override */
-      .media-slide img, .media-slide video {
+      /* Media images: fill width and zoom into content via cover crop */
+      .media-slide img {
+        width: 100% !important;
+        height: 55vh !important;
+        object-fit: cover !important;
+        object-position: center center !important;
+        max-height: none !important;
+        min-width: 0 !important;
+      }
+      /* Videos: fill width at natural aspect ratio, cap height */
+      .media-slide video {
         width: 100% !important;
         height: auto !important;
-        max-height: none !important;
+        max-height: 55vh !important;
         min-width: 0 !important;
       }
       /* Checkout cover: 3D MacBook clips on portrait — hide it */
@@ -1257,6 +1266,7 @@
 
     slides[cur].classList.remove('active');
     slides[n].classList.add('active');
+    slides[n].scrollTop = 0;
     cur = n;
     history.replaceState(null, '', cur === 0 ? location.pathname : '#' + cur);
 
