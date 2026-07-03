@@ -261,7 +261,7 @@
       .g3 { grid-template-columns: repeat(2,1fr); }
     }
     @media (max-width: 600px) {
-      .slide { padding: 52px 22px 72px !important; overflow-y: auto; }
+      .slide { padding: 52px 22px 72px !important; overflow-y: auto; -webkit-overflow-scrolling: touch; touch-action: pan-y; }
       .cover-slide { padding-bottom: 72px !important; }
       .mx { max-width: 100%; }
       .legend { display: none; }
@@ -316,6 +316,8 @@
       .checkout-mac { display: none !important; }
       /* Apple CS cover: show more of the phone on portrait */
       .apple-cs-bg { object-position: 70% center !important; }
+      /* Result slide: hide manual <br> line-breaks so text reflows naturally */
+      .no-br br { display: none; }
     }
     @media (max-width: 480px) {
       .slide { padding: 48px 18px 66px !important; }
@@ -509,7 +511,7 @@
 <!-- CS2 COMPARISON ──────────────────────────── -->
 <div class="slide media-slide col" style="padding:48px 64px 56px; gap:20px;">
   <div style="flex:1; min-height:0; display:flex; align-items:center; justify-content:center; overflow-x:auto;">
-    <img src="/portfolio/assets/images/apple-comparison.webp" alt="apple.com vs Apple Store app" style="max-height:100%;width:auto;min-width:480px;display:block;border-radius:10px;box-shadow:0 8px 40px rgba(0,0,0,0.6);">
+    <img src="/portfolio/assets/images/apple-comparison.webp" alt="apple.com vs Apple Store app" class="contain-img" style="max-height:100%;width:auto;min-width:480px;display:block;border-radius:10px;box-shadow:0 8px 40px rgba(0,0,0,0.6);">
   </div>
 </div>
 
@@ -639,7 +641,7 @@
     <div class="h2">Accessory module explorations.</div>
   </div>
   <div style="flex:1; min-height:0; display:flex; align-items:center; justify-content:center;">
-    <img src="/portfolio/assets/images/apple-accessories.jpg" alt="Accessory module options explored" style="max-width:100%;max-height:100%;width:auto;height:auto;display:block;">
+    <img src="/portfolio/assets/images/apple-accessories.jpg" alt="Accessory module options explored" class="contain-img" style="max-width:100%;max-height:100%;width:auto;height:auto;display:block;">
   </div>
 </div>
 
@@ -680,7 +682,7 @@
 <div class="slide col" style="justify-content:center; align-items:center; text-align:center;">
   <div style="max-width:1100px;">
     <div class="label" style="justify-content:center;display:flex;">Result</div>
-    <div class="h1" style="margin-bottom:28px;font-size:clamp(32px,3.9vw,54px);">The new redesign delivered a more<br>personalized and guided experience<br>to the broader audience and helped<br>increase purchase confidence.</div>
+    <div class="h1 no-br" style="margin-bottom:28px;font-size:clamp(32px,3.9vw,54px);">The new redesign delivered a more<br>personalized and guided experience<br>to the broader audience and helped<br>increase purchase confidence.</div>
   </div>
 </div>
 
@@ -738,11 +740,11 @@
   <div class="img-grid-3" style="flex:1; min-height:0; display:grid; grid-template-columns:1fr 1fr; gap:24px; align-items:start;">
     <div style="display:flex;flex-direction:column;gap:8px;min-height:0;">
       <div style="font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);">Step 1 — Email</div>
-      <img src="/portfolio/assets/images/ng-old-1.webp" alt="Email step" style="width:100%;height:auto;border-radius:8px;display:block;box-shadow:0 8px 40px rgba(0,0,0,0.6);">
+      <img src="/portfolio/assets/images/ng-old-1.webp" alt="Email step" class="contain-img" style="width:100%;height:auto;border-radius:8px;display:block;box-shadow:0 8px 40px rgba(0,0,0,0.6);">
     </div>
     <div style="display:flex;flex-direction:column;gap:8px;min-height:0;">
       <div style="font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);">Step 2 — Payment</div>
-      <img src="/portfolio/assets/images/ng-old-2.webp" alt="Payment step" style="width:100%;height:auto;border-radius:8px;display:block;box-shadow:0 8px 40px rgba(0,0,0,0.6);">
+      <img src="/portfolio/assets/images/ng-old-2.webp" alt="Payment step" class="contain-img" style="width:100%;height:auto;border-radius:8px;display:block;box-shadow:0 8px 40px rgba(0,0,0,0.6);">
     </div>
   </div>
 </div>
@@ -880,7 +882,7 @@
     <div class="h2">One page. One goal.</div>
   </div>
   <div style="flex:1; min-height:0; display:flex; align-items:center; justify-content:center;">
-    <img src="/portfolio/assets/images/ng-new-1.webp" alt="Checkout" style="max-width:100%;max-height:100%;width:auto;height:auto;display:block;border-radius:10px;box-shadow:0 8px 40px rgba(0,0,0,0.6);">
+    <img src="/portfolio/assets/images/ng-new-1.webp" alt="Checkout" class="contain-img" style="max-width:100%;max-height:100%;width:auto;height:auto;display:block;border-radius:10px;box-shadow:0 8px 40px rgba(0,0,0,0.6);">
   </div>
 </div>
 
@@ -891,7 +893,7 @@
     <div class="h2">Payment in seconds.</div>
   </div>
   <div style="flex:1; min-height:0; display:flex; align-items:center; justify-content:center;">
-    <img src="/portfolio/assets/images/ng-new-2.webp" alt="Payment" style="max-width:100%;max-height:100%;width:auto;height:auto;display:block;border-radius:10px;box-shadow:0 8px 40px rgba(0,0,0,0.6);">
+    <img src="/portfolio/assets/images/ng-new-2.webp" alt="Payment" class="contain-img" style="max-width:100%;max-height:100%;width:auto;height:auto;display:block;border-radius:10px;box-shadow:0 8px 40px rgba(0,0,0,0.6);">
   </div>
 </div>
 
@@ -904,7 +906,7 @@
     <div class="h2">Designed for the smallest screen.</div>
   </div>
   <div style="flex:1; min-height:0; display:flex; align-items:center; justify-content:center;">
-    <img src="/portfolio/assets/images/mobile.png" alt="Mobile designs" style="max-width:100%;max-height:100%;width:auto;height:auto;display:block;border-radius:10px;box-shadow:0 8px 40px rgba(0,0,0,0.6);">
+    <img src="/portfolio/assets/images/mobile.png" alt="Mobile designs" class="contain-img" style="max-width:100%;max-height:100%;width:auto;height:auto;display:block;border-radius:10px;box-shadow:0 8px 40px rgba(0,0,0,0.6);">
   </div>
 </div>
 
@@ -1168,7 +1170,7 @@
     <div class="h2">One conversation replaces weeks of back-and-forth.</div>
   </div>
   <div style="flex:1; min-height:0; display:flex; align-items:center; justify-content:center;">
-    <img src="/portfolio/assets/images/comex-2.webp" alt="COMEX Home" style="max-width:100%;max-height:100%;width:auto;height:auto;display:block;border-radius:10px;box-shadow:0 8px 40px rgba(0,0,0,0.6);">
+    <img src="/portfolio/assets/images/comex-2.webp" alt="COMEX Home" class="contain-img" style="max-width:100%;max-height:100%;width:auto;height:auto;display:block;border-radius:10px;box-shadow:0 8px 40px rgba(0,0,0,0.6);">
   </div>
 </div>
 
@@ -1179,7 +1181,7 @@
     <div class="h2">Control vs Challenger — approve without opening Figma.</div>
   </div>
   <div style="flex:1; min-height:0; display:flex; align-items:center; justify-content:center;">
-    <img src="/portfolio/assets/images/comex-1.webp" alt="COMEX Control vs Challenger" style="max-width:100%;max-height:100%;width:auto;height:auto;display:block;border-radius:10px;box-shadow:0 8px 40px rgba(0,0,0,0.6);">
+    <img src="/portfolio/assets/images/comex-1.webp" alt="COMEX Control vs Challenger" class="contain-img" style="max-width:100%;max-height:100%;width:auto;height:auto;display:block;border-radius:10px;box-shadow:0 8px 40px rgba(0,0,0,0.6);">
   </div>
 </div>
 
@@ -1325,7 +1327,7 @@
 
   // Click: left half = prev, right half = next (tap zones on mobile); desktop always next
   document.body.addEventListener('click', e => {
-    if (scrolledInSlide) { scrolledInSlide = false; return; }
+    if (swiped) { swiped = false; return; }
     if (e.target.closest('a, button, [onclick]')) return;
     if (window.innerWidth <= 600) {
       e.clientX < window.innerWidth / 2 ? prev() : next();
@@ -1353,30 +1355,18 @@
     e.preventDefault();
   }, {passive: false});
 
-  // Block touch swipe — tap fires click naturally; allow scroll within overflowing slides
-  let tx0 = 0, ty0 = 0, scrolledInSlide = false;
+  // Touch: track swipe to suppress the synthesized click; never preventDefault so native scroll works
+  let tx0 = 0, ty0 = 0, swiped = false;
   document.addEventListener('touchstart', e => {
     tx0 = e.touches[0].clientX;
     ty0 = e.touches[0].clientY;
-    scrolledInSlide = false;
-  }, {passive: true});
-  document.addEventListener('touchmove', e => {
-    if (scrolledInSlide) return;
-    const dy = Math.abs(e.touches[0].clientY - ty0);
-    const dx = Math.abs(e.touches[0].clientX - tx0);
-    if (dy > dx && dy > 8) {
-      const slide = e.target.closest('.slide');
-      if (slide && slide.scrollHeight > slide.clientHeight + 1) scrolledInSlide = true;
-    }
+    swiped = false;
   }, {passive: true});
   document.addEventListener('touchend', e => {
     const dx = Math.abs(e.changedTouches[0].clientX - tx0);
     const dy = Math.abs(e.changedTouches[0].clientY - ty0);
-    if (dx > 10 || dy > 10) {
-      if (scrolledInSlide) return; // let native scroll momentum through
-      e.preventDefault();
-    }
-  }, {passive: false});
+    if (dx > 15 || dy > 15) swiped = true;
+  }, {passive: true});
 
 
   function goToCase(n) {
