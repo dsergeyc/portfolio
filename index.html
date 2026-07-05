@@ -252,13 +252,27 @@
     .mx { max-width: 66.67vw; margin-left: auto; margin-right: auto; }
     .col { display: flex; flex-direction: column; }
     .center { align-items: center; text-align: center; }
+    /* Contain-img: never overflow container at any size */
+    .contain-img { max-width: 100%; min-width: 0; flex-shrink: 1; }
 
     /* ── RESPONSIVE ───────────────────────── */
     @media (max-width: 960px) {
-      .slide { padding: 52px 52px 72px; }
+      .slide { padding: 52px 52px 72px; overflow-y: auto; -webkit-overflow-scrolling: touch; }
       .split, .split-l { grid-template-columns: 1fr; gap: 24px; }
       .g4 { grid-template-columns: repeat(2,1fr); }
       .g3 { grid-template-columns: repeat(2,1fr); }
+      /* Images in media slides must fit container at tablet */
+      .media-slide img { max-width: 100%; min-width: 0; height: auto; }
+      .contain-img { width: 100%; height: auto; max-height: 60vh; object-fit: contain; }
+    }
+    @media (max-width: 768px) {
+      .slide { padding: 48px 40px 68px; }
+      .media-slide { padding: 36px 28px 60px !important; }
+      .g2, .g3, .g4 { grid-template-columns: 1fr !important; }
+      .img-grid-2 { grid-template-columns: 1fr !important; gap: 14px !important; }
+      .mx { max-width: 100%; }
+      .dots { display: none; }
+      .legend { display: none; }
     }
     @media (max-width: 600px) {
       .slide { padding: 52px 22px 72px !important; overflow-y: auto; -webkit-overflow-scrolling: touch; touch-action: pan-y; }
@@ -311,6 +325,8 @@
         max-height: 70vh !important;
         object-fit: contain !important;
         width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
       }
       /* Checkout cover: 3D MacBook clips on portrait — hide it */
       .checkout-mac { display: none !important; }
