@@ -366,6 +366,11 @@
       .apple-cs-bg { object-position: 70% center !important; }
       /* Result slide: hide manual <br> line-breaks so text reflows naturally */
       .no-br br { display: none; }
+      /* Context slide: larger heading on mobile */
+      .cs-context .h2 { font-size: clamp(28px, 7.5vw, 40px) !important; line-height: 1.2 !important; }
+      /* Comparison slide: swap composite ↔ stacked */
+      .comparison-desktop { display: none !important; }
+      .comparison-mobile { display: flex !important; }
       /* Carousel: horizontal scroll for wide landscape images */
       .carousel-wrap {
         overflow-x: auto !important;
@@ -375,7 +380,7 @@
         -webkit-overflow-scrolling: touch;
       }
       .carousel-wrap img {
-        height: 52vh !important;
+        height: 65vh !important;
         width: auto !important;
         max-width: none !important;
         max-height: none !important;
@@ -383,7 +388,7 @@
         object-fit: contain !important;
       }
       .carousel-wrap > div {
-        height: 52vh !important;
+        height: 65vh !important;
         width: auto !important;
         max-width: none !important;
         max-height: none !important;
@@ -603,8 +608,14 @@
 
 <!-- CS2 COMPARISON ──────────────────────────── -->
 <div class="slide media-slide col" style="padding:48px 64px 56px; gap:20px;">
-  <div style="flex:1; min-height:0; display:flex; align-items:center; justify-content:center; overflow-x:auto;">
+  <!-- Desktop: single composite image -->
+  <div class="comparison-desktop" style="flex:1; min-height:0; display:flex; align-items:center; justify-content:center; overflow-x:auto;">
     <img src="/portfolio/assets/images/apple-comparison.webp" alt="apple.com vs Apple Store app" class="contain-img" style="max-height:100%;width:auto;min-width:480px;display:block;border-radius:10px;box-shadow:0 8px 40px rgba(0,0,0,0.6);">
+  </div>
+  <!-- Mobile: two images stacked -->
+  <div class="comparison-mobile" style="display:none; flex-direction:column; gap:16px; overflow-y:auto; flex:1; min-height:0;">
+    <img src="/portfolio/assets/images/apple-comparison-left.webp" alt="www.apple.com" style="width:100%;height:auto;display:block;border-radius:10px;box-shadow:0 8px 40px rgba(0,0,0,0.6);">
+    <img src="/portfolio/assets/images/apple-comparison-right.webp" alt="Apple Store app" style="width:100%;height:auto;display:block;border-radius:10px;box-shadow:0 8px 40px rgba(0,0,0,0.6);">
   </div>
 </div>
 
