@@ -371,13 +371,15 @@
       /* Comparison slide: swap composite ↔ stacked */
       .comparison-desktop { display: none !important; }
       .comparison-mobile { display: flex !important; }
-      /* Carousel: horizontal scroll for wide landscape images */
+      /* Carousel: horizontal scroll + swipe for wide landscape images */
       .carousel-wrap {
         overflow-x: auto !important;
         overflow-y: hidden !important;
         justify-content: flex-start !important;
         align-items: flex-start !important;
         -webkit-overflow-scrolling: touch;
+        touch-action: pan-x !important;
+        scroll-snap-type: x proximity;
       }
       .carousel-wrap img {
         height: 65vh !important;
@@ -386,6 +388,7 @@
         max-height: none !important;
         flex-shrink: 0 !important;
         object-fit: contain !important;
+        scroll-snap-align: start;
       }
       .carousel-wrap > div {
         height: 65vh !important;
@@ -393,13 +396,15 @@
         max-width: none !important;
         max-height: none !important;
         flex-shrink: 0 !important;
+        scroll-snap-align: start;
       }
-      /* Final hero: horizontal scroll for ultra-wide single image */
+      /* Final hero: horizontal scroll + swipe for ultra-wide single image */
       .final-hero-slide {
         overflow-x: auto !important;
         overflow-y: hidden !important;
         justify-content: flex-start !important;
         align-items: center !important;
+        touch-action: pan-x !important;
       }
       .final-hero-slide img {
         height: 100% !important;
@@ -413,11 +418,18 @@
         grid-template-columns: 1fr !important;
         gap: 28px !important;
       }
-      /* Data slide: stack BUYING and TRIALS vertically */
+      /* Data slide: stack BUYING and TRIALS vertically with clear gap */
       .data-cols {
         grid-template-columns: 1fr !important;
-        gap: 32px !important;
+        gap: 56px !important;
       }
+      /* Before checkout: more breathing room between step images */
+      .img-grid-3 { gap: 32px !important; }
+      /* Specs: let outer slide scroll; remove inner scroll container */
+      .img-grid-2.scrollable { overflow: visible !important; flex: none !important; }
+      /* Mobile designs: 2×2 grid */
+      .mobile-2x2 { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 10px !important; }
+      .mobile-2x2-desktop { display: none !important; }
 
     }
     @media (max-width: 480px) {
@@ -1042,8 +1054,16 @@
     <div class="label">Designs — Mobile</div>
     <div class="h2">Designed for the smallest screen.</div>
   </div>
-  <div style="flex:1; min-height:0; display:flex; align-items:center; justify-content:center;">
+  <!-- Desktop: single composite image -->
+  <div class="mobile-2x2-desktop" style="flex:1; min-height:0; display:flex; align-items:center; justify-content:center;">
     <img src="/portfolio/assets/images/mobile-original.png" alt="Mobile designs" class="contain-img" style="max-width:90%;max-height:80%;width:auto;height:auto;display:block;border-radius:10px;box-shadow:0 8px 40px rgba(0,0,0,0.6);">
+  </div>
+  <!-- Mobile: 2×2 grid -->
+  <div class="mobile-2x2" style="display:none;">
+    <img src="/portfolio/assets/images/mobile-1.png" alt="Mobile design 1" style="width:100%;height:auto;display:block;border-radius:8px;box-shadow:0 4px 20px rgba(0,0,0,0.5);">
+    <img src="/portfolio/assets/images/mobile-2.png" alt="Mobile design 2" style="width:100%;height:auto;display:block;border-radius:8px;box-shadow:0 4px 20px rgba(0,0,0,0.5);">
+    <img src="/portfolio/assets/images/mobile-3.png" alt="Mobile design 3" style="width:100%;height:auto;display:block;border-radius:8px;box-shadow:0 4px 20px rgba(0,0,0,0.5);">
+    <img src="/portfolio/assets/images/mobile-4.png" alt="Mobile design 4" style="width:100%;height:auto;display:block;border-radius:8px;box-shadow:0 4px 20px rgba(0,0,0,0.5);">
   </div>
 </div>
 
