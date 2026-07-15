@@ -366,6 +366,53 @@
       .apple-cs-bg { object-position: 70% center !important; }
       /* Result slide: hide manual <br> line-breaks so text reflows naturally */
       .no-br br { display: none; }
+      /* Carousel: horizontal scroll for wide landscape images */
+      .carousel-wrap {
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        justify-content: flex-start !important;
+        align-items: flex-start !important;
+        -webkit-overflow-scrolling: touch;
+      }
+      .carousel-wrap img {
+        height: 52vh !important;
+        width: auto !important;
+        max-width: none !important;
+        max-height: none !important;
+        flex-shrink: 0 !important;
+        object-fit: contain !important;
+      }
+      .carousel-wrap > div {
+        height: 52vh !important;
+        width: auto !important;
+        max-width: none !important;
+        max-height: none !important;
+        flex-shrink: 0 !important;
+      }
+      /* Final hero: horizontal scroll for ultra-wide single image */
+      .final-hero-slide {
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        justify-content: flex-start !important;
+        align-items: center !important;
+      }
+      .final-hero-slide img {
+        height: 100% !important;
+        width: auto !important;
+        max-width: none !important;
+        max-height: none !important;
+        object-fit: unset !important;
+      }
+      /* Key Problems: stack 3 columns vertically */
+      .kp-grid {
+        grid-template-columns: 1fr !important;
+        gap: 28px !important;
+      }
+      /* Data slide: stack BUYING and TRIALS vertically */
+      .data-cols {
+        grid-template-columns: 1fr !important;
+        gap: 32px !important;
+      }
 
     }
     @media (max-width: 480px) {
@@ -681,7 +728,7 @@
     <div class="label">Design Exploration</div>
     <div class="h2">Accessory module explorations.</div>
   </div>
-  <div style="flex:1; min-height:0; display:flex; align-items:center; justify-content:center;">
+  <div class="carousel-wrap" style="flex:1; min-height:0; display:flex; align-items:center; justify-content:center;">
     <div style="position:relative; max-height:100%; max-width:100%; aspect-ratio:2200/1237;">
       <img src="/portfolio/assets/images/apple-accessories.jpg" alt="Accessory module options explored" style="width:100%;height:auto;display:block;">
       <div style="position:absolute; top:4%; left:0; width:30%; height:13%; background:#000; z-index:1;"></div>
@@ -695,7 +742,7 @@
     <div class="label">Final UX</div>
     <div class="h2">Wireframed the experience across all seven device types.</div>
   </div>
-  <div style="flex:1; min-height:0; display:flex; align-items:flex-start; justify-content:center; padding-top:16px;">
+  <div class="carousel-wrap" style="flex:1; min-height:0; display:flex; align-items:flex-start; justify-content:center; padding-top:16px;">
     <img src="/portfolio/assets/images/apple-ux.webp?v=3" alt="Final UX wireframes" style="max-width:100%;max-height:100%;width:auto;height:auto;display:block;border-radius:10px;box-shadow:0 8px 40px rgba(0,0,0,0.6);">
   </div>
 </div>
@@ -706,7 +753,7 @@
     <div class="label">Final Design</div>
     <div class="h2">Final Mocks — iPhone</div>
   </div>
-  <div style="flex:1; min-height:0; display:flex; align-items:flex-start; justify-content:center; padding-top:16px;">
+  <div class="carousel-wrap" style="flex:1; min-height:0; display:flex; align-items:flex-start; justify-content:center; padding-top:16px;">
     <img src="/portfolio/assets/images/apple-designs-all.webp?v=2" alt="Final designs — all 7 devices" style="max-width:100%;max-height:100%;width:auto;height:auto;display:block;border-radius:10px;box-shadow:0 8px 40px rgba(0,0,0,0.6);">
   </div>
   <div style="flex-shrink:0;opacity:0.4;font-size:13px;">Visual design by Apple's visual designer. My role: UX design</div>
@@ -718,7 +765,7 @@
     <div class="label">Final Design — My Device</div>
     <div class="h2">Final Mocks — iPad</div>
   </div>
-  <div style="flex:1; min-height:0; display:flex; align-items:flex-start; justify-content:center; padding-top:16px;">
+  <div class="carousel-wrap" style="flex:1; min-height:0; display:flex; align-items:flex-start; justify-content:center; padding-top:16px;">
     <img src="/portfolio/assets/images/apple-design-closeup.jpg" alt="Final design close-up — iPhone, Apple Watch, iPad, HomePod" style="max-width:100%;max-height:100%;width:auto;height:auto;display:block;">
   </div>
   <div style="flex-shrink:0;opacity:0.4;font-size:13px;">Visual design by Apple's visual designer. My role: UX design</div>
@@ -733,7 +780,7 @@
 </div>
 
 <!-- CS2 FINAL HERO ──────────────────────────── -->
-<div class="slide media-slide col" style="justify-content:center; align-items:center; padding:0; background:#000;">
+<div class="slide media-slide col final-hero-slide" style="justify-content:center; align-items:center; padding:0; background:#000;">
   <img src="/portfolio/assets/images/apple-final-hero.jpg" alt="Final Shop tab across five iPhones" style="max-width:100%;max-height:100%;width:auto;height:auto;display:block;">
 </div>
 
@@ -761,7 +808,7 @@
 <div class="slide col" style="justify-content:center; padding:120px 64px 72px;">
   <div class="w mx">
     <div class="label" style="margin-bottom:48px;">Key problems</div>
-    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:48px; align-items:start;">
+    <div class="kp-grid" style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:48px; align-items:start;">
       <div>
         <div class="h2" style="margin-bottom:16px;">Too many steps</div>
         <p class="body">Lead to higher drop-off and make it difficult for users to complete their purchase.</p>
@@ -784,7 +831,7 @@
     <div class="label" style="margin-bottom:8px;">Data</div>
     <div class="h2" style="margin-bottom:6px;">Combining steps led to a <span style="text-decoration:underline; text-underline-offset:4px;">7% lift</span> in gross new orders.</div>
     <div style="font-size:13px; opacity:0.4; margin-bottom:44px;">Data from a previous test</div>
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:48px;">
+    <div class="data-cols" style="display:grid; grid-template-columns:1fr 1fr; gap:48px;">
 
       <!-- CCD D2P -->
       <div>
