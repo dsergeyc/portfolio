@@ -328,6 +328,38 @@
         min-width: 0 !important;
         max-width: 100% !important;
       }
+      /* Fix: .media-slide img overrides .contain-img due to higher specificity — re-override */
+      .media-slide .contain-img {
+        height: auto !important;
+        max-height: 62vh !important;
+        object-fit: contain !important;
+        min-width: 0 !important;
+      }
+      /* Context slide: collapse 2-col grid, hide background-image column */
+      .cs-context { display: flex !important; flex-direction: column !important; }
+      .cs-context-img { display: none !important; }
+      .cs-context > div:first-child { padding: 0 !important; }
+      /* Research slide: stack image above key takeaways */
+      .research-wrap {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        position: static !important;
+        padding-top: 0 !important;
+        flex: none !important;
+        gap: 16px !important;
+      }
+      .research-wrap img {
+        width: 100% !important;
+        height: auto !important;
+        max-height: 45vh !important;
+        object-fit: contain !important;
+        min-width: 0 !important;
+      }
+      .research-kt {
+        position: static !important;
+        width: auto !important;
+        padding: 0 !important;
+      }
       /* Checkout cover: 3D MacBook clips on portrait — hide it */
       .checkout-mac { display: none !important; }
       /* Apple CS cover: show more of the phone on portrait */
@@ -511,12 +543,12 @@
 
 
 <!-- CS2 CONTEXT ─────────────────────────────── -->
-<div class="slide" style="display:grid; grid-template-columns:1fr 1fr;">
+<div class="slide cs-context" style="display:grid; grid-template-columns:1fr 1fr;">
   <div style="display:flex; flex-direction:column; justify-content:center; padding:48px 40px 56px 64px;">
     <div class="label" style="margin-bottom:16px;">Context</div>
     <div class="h2">Apple Store app becomes a pre-installed first party app.</div>
   </div>
-  <div style="background:url(/portfolio/assets/images/apple-context.webp) right center / cover no-repeat;"></div>
+  <div class="cs-context-img" style="background:url(/portfolio/assets/images/apple-context.webp) right center / cover no-repeat;"></div>
 </div>
 
 <!-- CS2 COMPARISON ──────────────────────────── -->
@@ -630,9 +662,9 @@
     <div class="label">Usability Research</div>
     <div class="h2">Key Findings</div>
   </div>
-  <div style="flex:1; min-height:0; display:flex; align-items:flex-start; justify-content:center; position:relative; padding-top:28px;">
+  <div class="research-wrap" style="flex:1; min-height:0; display:flex; align-items:flex-start; justify-content:center; position:relative; padding-top:28px;">
     <img src="/portfolio/assets/images/apple-research.webp?v=3" alt="Usability research" style="max-width:100%;max-height:100%;width:auto;height:auto;display:block;border-radius:10px;box-shadow:0 8px 40px rgba(0,0,0,0.6);">
-    <div style="position:absolute;right:0;top:0;bottom:0;width:44%;background:#000;display:flex;flex-direction:column;justify-content:flex-start;padding:40px 0 0 40px;">
+    <div class="research-kt" style="position:absolute;right:0;top:0;bottom:0;width:44%;background:#000;display:flex;flex-direction:column;justify-content:flex-start;padding:40px 0 0 40px;">
       <div class="label" style="margin-bottom:20px;">Key Takeaways</div>
       <div style="display:flex;flex-direction:column;gap:16px;">
         <p class="body">Understood the intent and benefit of the page</p>
@@ -663,7 +695,7 @@
     <div class="label">Final UX</div>
     <div class="h2">Wireframed the experience across all seven device types.</div>
   </div>
-  <div style="flex:1; min-height:0; display:flex; align-items:center; justify-content:center;">
+  <div style="flex:1; min-height:0; display:flex; align-items:flex-start; justify-content:center; padding-top:16px;">
     <img src="/portfolio/assets/images/apple-ux.webp?v=3" alt="Final UX wireframes" style="max-width:100%;max-height:100%;width:auto;height:auto;display:block;border-radius:10px;box-shadow:0 8px 40px rgba(0,0,0,0.6);">
   </div>
 </div>
@@ -674,7 +706,7 @@
     <div class="label">Final Design</div>
     <div class="h2">Final Mocks — iPhone</div>
   </div>
-  <div style="flex:1; min-height:0; display:flex; align-items:center; justify-content:center;">
+  <div style="flex:1; min-height:0; display:flex; align-items:flex-start; justify-content:center; padding-top:16px;">
     <img src="/portfolio/assets/images/apple-designs-all.webp?v=2" alt="Final designs — all 7 devices" style="max-width:100%;max-height:100%;width:auto;height:auto;display:block;border-radius:10px;box-shadow:0 8px 40px rgba(0,0,0,0.6);">
   </div>
   <div style="flex-shrink:0;opacity:0.4;font-size:13px;">Visual design by Apple's visual designer. My role: UX design</div>
@@ -686,7 +718,7 @@
     <div class="label">Final Design — My Device</div>
     <div class="h2">Final Mocks — iPad</div>
   </div>
-  <div style="flex:1; min-height:0; display:flex; align-items:center; justify-content:center;">
+  <div style="flex:1; min-height:0; display:flex; align-items:flex-start; justify-content:center; padding-top:16px;">
     <img src="/portfolio/assets/images/apple-design-closeup.jpg" alt="Final design close-up — iPhone, Apple Watch, iPad, HomePod" style="max-width:100%;max-height:100%;width:auto;height:auto;display:block;">
   </div>
   <div style="flex-shrink:0;opacity:0.4;font-size:13px;">Visual design by Apple's visual designer. My role: UX design</div>
@@ -747,21 +779,21 @@
 </div>
 
 <!-- 8b1 · CS2 DATA ─────────────────────────────── -->
-<div class="slide col" style="justify-content:center; padding:56px 64px;">
+<div class="slide col" style="justify-content:center; padding:72px 64px 40px;">
   <div style="max-width:1060px; width:100%; margin-left:auto; margin-right:auto;">
     <div class="label" style="margin-bottom:8px;">Data</div>
-    <div class="h2" style="margin-bottom:6px;">Combining steps led to a <span style="color:#4ade80;">7% lift</span> in gross new orders.</div>
-    <div style="font-size:13px; opacity:0.3; margin-bottom:44px;">Data from a previous test</div>
+    <div class="h2" style="margin-bottom:6px;">Combining steps led to a <span style="text-decoration:underline; text-underline-offset:4px;">7% lift</span> in gross new orders.</div>
+    <div style="font-size:13px; opacity:0.4; margin-bottom:44px;">Data from a previous test</div>
     <div style="display:grid; grid-template-columns:1fr 1fr; gap:48px;">
 
       <!-- CCD D2P -->
       <div>
-        <div style="font-size:12px; opacity:0.3; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:20px;">Buying</div>
+        <div style="font-size:13px; opacity:0.65; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:20px;">Buying</div>
         <div style="display:grid; grid-template-columns:72px 20px 1fr 20px 1fr 20px 1fr; margin-bottom:8px;">
           <div></div><div></div>
-          <div style="text-align:center; font-size:11px; opacity:0.28; letter-spacing:0.03em;">Commitment</div><div></div>
-          <div style="text-align:center; font-size:11px; opacity:0.28; letter-spacing:0.03em;">Payment</div><div></div>
-          <div style="text-align:center; font-size:11px; opacity:0.28; letter-spacing:0.03em;">Confirmation</div>
+          <div style="text-align:center; font-size:13px; opacity:0.55; letter-spacing:0.03em;">Commitment</div><div></div>
+          <div style="text-align:center; font-size:13px; opacity:0.55; letter-spacing:0.03em;">Payment</div><div></div>
+          <div style="text-align:center; font-size:13px; opacity:0.55; letter-spacing:0.03em;">Confirmation</div>
         </div>
         <div style="display:grid; grid-template-columns:72px 20px 1fr 20px 1fr 20px 1fr; align-items:center; margin-bottom:10px;">
           <div style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.18); border-radius:8px; padding:14px 4px; text-align:center;">
@@ -789,12 +821,12 @@
 
       <!-- CCD TwP -->
       <div>
-        <div style="font-size:12px; opacity:0.3; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:20px;">Trials</div>
+        <div style="font-size:13px; opacity:0.65; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:20px;">Trials</div>
         <div style="display:grid; grid-template-columns:72px 20px 1fr 20px 1fr 20px 1fr; margin-bottom:8px;">
           <div></div><div></div>
-          <div style="text-align:center; font-size:11px; opacity:0.28; letter-spacing:0.03em;">Commitment</div><div></div>
-          <div style="text-align:center; font-size:11px; opacity:0.28; letter-spacing:0.03em;">Payment</div><div></div>
-          <div style="text-align:center; font-size:11px; opacity:0.28; letter-spacing:0.03em;">Confirmation</div>
+          <div style="text-align:center; font-size:13px; opacity:0.55; letter-spacing:0.03em;">Commitment</div><div></div>
+          <div style="text-align:center; font-size:13px; opacity:0.55; letter-spacing:0.03em;">Payment</div><div></div>
+          <div style="text-align:center; font-size:13px; opacity:0.55; letter-spacing:0.03em;">Confirmation</div>
         </div>
         <div style="display:grid; grid-template-columns:72px 20px 1fr 20px 1fr 20px 1fr; align-items:center; margin-bottom:10px;">
           <div style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.18); border-radius:8px; padding:14px 4px; text-align:center;">
