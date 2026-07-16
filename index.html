@@ -255,6 +255,15 @@
     /* Contain-img: never overflow container at any size */
     .contain-img { max-width: 100%; min-width: 0; flex-shrink: 1; }
 
+    /* Brand logos: mobile 3×4 CSS grid from original image — each cell is 1/4 col × 1/3 row */
+    .brands-mobile { display: none; }
+    .bl {
+      background-image: url('/portfolio/assets/images/brand-logos.png');
+      background-repeat: no-repeat;
+      background-size: 400% 300%;
+      aspect-ratio: 4/3;
+    }
+
     /* ── RESPONSIVE ───────────────────────── */
     @media (max-width: 960px) {
       .slide { padding: 52px 52px 72px; overflow-y: auto; -webkit-overflow-scrolling: touch; }
@@ -430,6 +439,15 @@
       /* Mobile designs: 2×2 grid */
       .mobile-2x2 { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 10px !important; }
       .mobile-2x2-desktop { display: none !important; }
+      /* Fix: .media-slide img sets height:55vh+cover, which crops 2×2 grid images — override */
+      .mobile-2x2 img { height: auto !important; object-fit: contain !important; max-height: none !important; }
+      /* Brand logos: swap single image → CSS grid (2 cols so each row has logos from same original row = aligned heights) */
+      .brands-desktop { display: none !important; }
+      .brands-mobile { display: grid !important; grid-template-columns: repeat(2, 1fr) !important; width: 100% !important; gap: 0 !important; }
+      /* Comparison carousel: vertical centering, horizontal swipe, correct image sizing */
+      .comparison-mobile { touch-action: pan-x !important; flex: none !important; height: auto !important; margin-top: auto !important; margin-bottom: auto !important; align-items: flex-start !important; }
+      .comparison-mobile > div { max-width: 100% !important; }
+      .media-slide .comparison-mobile .contain-img { max-height: none !important; }
 
     }
     @media (max-width: 480px) {
@@ -486,13 +504,26 @@
 
 <!-- 2 · BRANDS ─────────────────────────────── -->
 <div class="slide media-slide col" style="justify-content:center; align-items:center; padding:48px 64px;">
-  <picture>
-    <source media="(max-width:600px)" srcset="/portfolio/assets/images/brand-logos-3x4.png">
-    <img src="/portfolio/assets/images/brand-logos.png"
-      alt="Brands worked with: Apple, Adobe, AT&amp;T, Audi, Bob Evans, Chick-fil-A, Cricket, Nike, Rachael Ray Nutrish, UPS, Verizon, Visa"
-      class="contain-img"
-      style="max-width:100%;max-height:100%;width:auto;height:auto;display:block;">
-  </picture>
+  <!-- Desktop/tablet: original 4×3 composite -->
+  <img src="/portfolio/assets/images/brand-logos.png"
+    alt="Brands worked with: Apple, Adobe, AT&amp;T, Audi, Bob Evans, Chick-fil-A, Cricket, Nike, Rachael Ray Nutrish, UPS, Verizon, Visa"
+    class="brands-desktop contain-img"
+    style="max-width:100%;max-height:100%;width:auto;height:auto;display:block;">
+  <!-- Mobile: CSS background-position 3×4 grid (row-major from original 4×3) -->
+  <div class="brands-mobile">
+    <div class="bl" style="background-position:0% 0%"></div>
+    <div class="bl" style="background-position:33.33% 0%"></div>
+    <div class="bl" style="background-position:66.67% 0%"></div>
+    <div class="bl" style="background-position:100% 0%"></div>
+    <div class="bl" style="background-position:0% 50%"></div>
+    <div class="bl" style="background-position:33.33% 50%"></div>
+    <div class="bl" style="background-position:66.67% 50%"></div>
+    <div class="bl" style="background-position:100% 50%"></div>
+    <div class="bl" style="background-position:0% 100%"></div>
+    <div class="bl" style="background-position:33.33% 100%"></div>
+    <div class="bl" style="background-position:66.67% 100%"></div>
+    <div class="bl" style="background-position:100% 100%"></div>
+  </div>
 </div>
 
 <!-- 3 · NUMBERS ────────────────────────────── -->
@@ -624,10 +655,14 @@
   <div class="comparison-desktop" style="flex:1; min-height:0; display:flex; align-items:center; justify-content:center; overflow-x:auto;">
     <img src="/portfolio/assets/images/apple-comparison.webp" alt="apple.com vs Apple Store app" class="contain-img" style="max-height:100%;width:auto;min-width:480px;display:block;border-radius:10px;box-shadow:0 8px 40px rgba(0,0,0,0.6);">
   </div>
-  <!-- Mobile: two images stacked -->
-  <div class="comparison-mobile" style="display:none; flex-direction:column; gap:16px; overflow-y:auto; flex:1; min-height:0;">
-    <img src="/portfolio/assets/images/apple-comparison-left.webp" alt="www.apple.com" style="width:100%;height:auto;display:block;border-radius:10px;box-shadow:0 8px 40px rgba(0,0,0,0.6);">
-    <img src="/portfolio/assets/images/apple-comparison-right.webp" alt="Apple Store app" style="width:100%;height:auto;display:block;border-radius:10px;box-shadow:0 8px 40px rgba(0,0,0,0.6);">
+  <!-- Mobile: swipeable carousel — one side at a time -->
+  <div class="comparison-mobile" style="display:none; flex-direction:row; overflow-x:auto; overflow-y:hidden; -webkit-overflow-scrolling:touch; scroll-snap-type:x mandatory; flex:1; min-height:0; align-items:flex-start;">
+    <div style="min-width:100%; flex-shrink:0; scroll-snap-align:start;">
+      <img src="/portfolio/assets/images/apple-comparison-left.webp" alt="www.apple.com" class="contain-img" style="width:100%;height:auto;display:block;border-radius:10px;box-shadow:0 8px 40px rgba(0,0,0,0.6);">
+    </div>
+    <div style="min-width:100%; flex-shrink:0; scroll-snap-align:start;">
+      <img src="/portfolio/assets/images/apple-comparison-right.webp" alt="Apple Store app" class="contain-img" style="width:100%;height:auto;display:block;border-radius:10px;box-shadow:0 8px 40px rgba(0,0,0,0.6);">
+    </div>
   </div>
 </div>
 
