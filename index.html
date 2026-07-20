@@ -257,13 +257,10 @@
 
     /* Brand logos: mobile 3×4 CSS grid from original image — each cell is 1/4 col × 1/3 row */
     .brands-mobile { display: none; }
-    .bl {
-      background-image: url('/portfolio/assets/images/brand-logos.png');
-      background-repeat: no-repeat;
-      background-size: 400% 300%;
-      aspect-ratio: 4/3;
-      padding: 4% 5%;
-      background-clip: content-box;
+    .bl-img {
+      width: 100%;
+      height: auto;
+      display: block;
     }
 
     /* ── RESPONSIVE ───────────────────────── */
@@ -446,6 +443,7 @@
       /* Brand logos: swap single image → CSS grid (2 cols so each row has logos from same original row = aligned heights) */
       .brands-desktop { display: none !important; }
       .brands-mobile { display: grid !important; grid-template-columns: repeat(2, 1fr) !important; width: 100% !important; gap: 0 !important; }
+      .brands-mobile img { width: 100% !important; height: auto !important; object-fit: contain !important; max-height: none !important; clip-path: inset(6% 0%) !important; }
       /* Comparison carousel: vertical centering, horizontal swipe, correct image sizing */
       .comparison-mobile { touch-action: pan-x !important; flex: none !important; height: auto !important; margin-top: auto !important; margin-bottom: auto !important; align-items: flex-start !important; }
       .comparison-mobile > div { max-width: 100% !important; }
@@ -511,20 +509,20 @@
     alt="Brands worked with: Apple, Adobe, AT&amp;T, Audi, Bob Evans, Chick-fil-A, Cricket, Nike, Rachael Ray Nutrish, UPS, Verizon, Visa"
     class="brands-desktop contain-img"
     style="max-width:100%;max-height:100%;width:auto;height:auto;display:block;">
-  <!-- Mobile: CSS background-position 3×4 grid (row-major from original 4×3) -->
+  <!-- Mobile: individual logo images in 2×6 grid -->
   <div class="brands-mobile">
-    <div class="bl" style="background-position:0% 0%"></div>
-    <div class="bl" style="background-position:33.33% 0%"></div>
-    <div class="bl" style="background-position:66.67% 0%"></div>
-    <div class="bl" style="background-position:100% 0%"></div>
-    <div class="bl" style="background-position:0% 50%"></div>
-    <div class="bl" style="background-position:33.33% 50%"></div>
-    <div class="bl" style="background-position:66.67% 50%"></div>
-    <div class="bl" style="background-position:100% 50%"></div>
-    <div class="bl" style="background-position:0% 100%"></div>
-    <div class="bl" style="background-position:33.33% 100%"></div>
-    <div class="bl" style="background-position:66.67% 100%"></div>
-    <div class="bl" style="background-position:100% 100%"></div>
+    <img src="/portfolio/assets/images/bl-apple.png" alt="Apple" class="bl-img">
+    <img src="/portfolio/assets/images/bl-adobe.png" alt="Adobe" class="bl-img">
+    <img src="/portfolio/assets/images/bl-att.png" alt="AT&T" class="bl-img">
+    <img src="/portfolio/assets/images/bl-audi.png" alt="Audi" class="bl-img">
+    <img src="/portfolio/assets/images/bl-bob-evans.png" alt="Bob Evans" class="bl-img">
+    <img src="/portfolio/assets/images/bl-chick-fil-a.png" alt="Chick-fil-A" class="bl-img">
+    <img src="/portfolio/assets/images/bl-cricket.png" alt="Cricket" class="bl-img">
+    <img src="/portfolio/assets/images/bl-nike.png" alt="Nike" class="bl-img">
+    <img src="/portfolio/assets/images/bl-nutrish.png" alt="Rachael Ray Nutrish" class="bl-img">
+    <img src="/portfolio/assets/images/bl-ups.png" alt="UPS" class="bl-img">
+    <img src="/portfolio/assets/images/bl-verizon.png" alt="Verizon" class="bl-img">
+    <img src="/portfolio/assets/images/bl-visa.png" alt="Visa" class="bl-img">
   </div>
 </div>
 
