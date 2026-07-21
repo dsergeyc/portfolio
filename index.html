@@ -450,6 +450,7 @@
       .media-slide .comparison-mobile .contain-img { max-height: none !important; }
 
     }
+    @media (min-width: 601px) { .mobile-only-slide { display: none !important; } }
     @media (max-width: 480px) {
       .slide { padding: 48px 18px 66px !important; }
       .display { font-size: clamp(36px, 10vw, 60px) !important; }
@@ -1101,7 +1102,7 @@
 </div>
 
 <!-- 9b2b · CS1 DESIGN — MOBILE (cont.) ──────── -->
-<div class="slide media-slide col" style="padding:48px 64px 56px; gap:20px;">
+<div class="slide mobile-only-slide media-slide col" style="padding:48px 64px 56px; gap:20px;">
   <div style="flex-shrink:0;">
     <div class="label">Designs — Mobile</div>
     <div class="h2">Designed for the smallest screen.</div>
@@ -1385,7 +1386,10 @@
 </div><!-- /deck -->
 
 <script>
-  const slides = Array.from(document.querySelectorAll('.slide'));
+  const isMobile = window.innerWidth <= 600;
+  const slides = Array.from(document.querySelectorAll('.slide')).filter(s =>
+    !s.classList.contains('mobile-only-slide') || isMobile
+  );
   const N = slides.length;
   let cur = 0;
 
