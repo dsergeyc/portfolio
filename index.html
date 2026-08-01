@@ -367,7 +367,7 @@
       .research-kt {
         position: static !important;
         width: auto !important;
-        padding: 0 !important;
+        padding: 16px 0 0 !important;
       }
       /* Checkout cover: 3D MacBook clips on portrait — hide it */
       .checkout-mac { display: none !important; }
@@ -434,8 +434,8 @@
       }
       /* Before checkout: more breathing room between step images */
       .img-grid-3 { gap: 32px !important; }
-      /* Specs: let outer slide scroll; remove inner scroll container */
-      .img-grid-2.scrollable { overflow: visible !important; flex: none !important; }
+      /* Specs: scrollable inner grid handles overflow */
+      .img-grid-2.scrollable { overflow-y: auto !important; flex: 1 !important; min-height: 0 !important; }
       /* Mobile designs: 2×2 grid */
       .mobile-2x2 { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 10px !important; }
       .mobile-2x2-desktop { display: none !important; }
@@ -445,10 +445,17 @@
       .brands-desktop { display: none !important; }
       .brands-mobile { display: grid !important; grid-template-columns: repeat(2, 1fr) !important; width: 100% !important; gap: 0 !important; }
       .brands-mobile img { width: 100% !important; height: auto !important; object-fit: contain !important; max-height: none !important; }
-      /* Comparison carousel: vertical centering, horizontal swipe, correct image sizing */
-      .comparison-mobile { touch-action: pan-x !important; flex: none !important; height: auto !important; margin-top: auto !important; margin-bottom: auto !important; align-items: flex-start !important; }
-      .comparison-mobile > div { max-width: 100% !important; }
+      /* Comparison: vertically stacked images */
+      .comparison-mobile { touch-action: pan-y !important; }
       .media-slide .comparison-mobile .contain-img { max-height: none !important; }
+      /* Remove rounded corners on mobile */
+      .slide img { border-radius: 0 !important; }
+      .img-grid-2 > div { border-radius: 0 !important; }
+      /* Bleed image for Before slide */
+      .before-img-container { margin: 0 -18px !important; }
+      /* Hide scrollbars on mobile slides (no layout shift) */
+      .slide::-webkit-scrollbar { display: none; }
+      .slide { scrollbar-width: none; }
 
     }
     @media (min-width: 601px) { .mobile-only-slide { display: none !important; } }
@@ -623,7 +630,6 @@
 
       <div style="padding:28px 0;border-bottom:1px solid var(--border);"><div class="h2">Apple — Apple Store App</div></div>
       <div style="padding:28px 0;border-bottom:1px solid var(--border);"><div class="h2">Adobe — Checkout Redesign</div></div>
-      <div style="padding:28px 0;border-bottom:1px solid var(--border);"><div class="h2">Adobe — Mobile Optimizations</div></div>
       <div style="padding:28px 0;"><div class="h2">Adobe — Internal Tool</div></div>
     </div>
   </div>
@@ -657,14 +663,10 @@
   <div class="comparison-desktop" style="flex:1; min-height:0; display:flex; align-items:center; justify-content:center; overflow-x:auto;">
     <img src="/portfolio/assets/images/apple-comparison.webp" alt="apple.com vs Apple Store app" class="contain-img" style="max-height:100%;width:auto;min-width:480px;display:block;border-radius:10px;box-shadow:0 8px 40px rgba(0,0,0,0.6);">
   </div>
-  <!-- Mobile: swipeable carousel — one side at a time -->
-  <div class="comparison-mobile" style="display:none; flex-direction:row; overflow-x:auto; overflow-y:hidden; -webkit-overflow-scrolling:touch; scroll-snap-type:x mandatory; flex:1; min-height:0; align-items:flex-start;">
-    <div style="min-width:100%; flex-shrink:0; scroll-snap-align:start;">
-      <img src="/portfolio/assets/images/apple-comparison-left.webp" alt="www.apple.com" class="contain-img" style="width:100%;height:auto;display:block;border-radius:10px;box-shadow:0 8px 40px rgba(0,0,0,0.6);">
-    </div>
-    <div style="min-width:100%; flex-shrink:0; scroll-snap-align:start;">
-      <img src="/portfolio/assets/images/apple-comparison-right.webp" alt="Apple Store app" class="contain-img" style="width:100%;height:auto;display:block;border-radius:10px;box-shadow:0 8px 40px rgba(0,0,0,0.6);">
-    </div>
+  <!-- Mobile: vertically stacked images -->
+  <div class="comparison-mobile" style="display:none; flex-direction:column; overflow-y:auto; overflow-x:hidden; flex:1; min-height:0; gap:16px;">
+    <img src="/portfolio/assets/images/apple-comparison-left.webp" alt="www.apple.com" class="contain-img" style="width:100%;height:auto;display:block;">
+    <img src="/portfolio/assets/images/apple-comparison-right.webp" alt="Apple Store app" class="contain-img" style="width:100%;height:auto;display:block;">
   </div>
 </div>
 
@@ -753,8 +755,8 @@
     <div class="label">Before</div>
     <div class="h2">The existing Shop tab — designed for fans, not first-time users.</div>
   </div>
-  <div style="flex:1; min-height:0; display:flex; align-items:center; justify-content:center;">
-    <img src="/portfolio/assets/images/apple-before.webp" alt="Before redesign" style="max-width:100%;max-height:100%;width:auto;height:auto;display:block;border-radius:10px;box-shadow:0 8px 40px rgba(0,0,0,0.6);">
+  <div class="before-img-container" style="flex:1; min-height:0; margin:0 -64px; overflow:hidden; display:flex; align-items:center;">
+    <img src="/portfolio/assets/images/apple-before.webp" alt="Before redesign" class="contain-img" style="width:100%;height:auto;display:block;box-shadow:0 8px 40px rgba(0,0,0,0.6);">
   </div>
 </div>
 
@@ -786,7 +788,7 @@
 </div>
 
 <!-- CS2 ACCESSORY MODULES ───────────────────── -->
-<div class="slide media-slide col" style="padding:48px 64px 56px; gap:20px;">
+<div class="slide media-slide col" style="padding:48px 64px 56px; gap:8px;">
   <div style="flex-shrink:0;">
     <div class="label">Design Exploration</div>
     <div class="h2">Accessory module explorations.</div>
@@ -800,35 +802,35 @@
 </div>
 
 <!-- CS2 UX ──────────────────────────────────── -->
-<div class="slide media-slide col" style="padding:48px 64px 56px; gap:20px;">
+<div class="slide media-slide col" style="padding:48px 64px 56px; gap:8px;">
   <div style="flex-shrink:0;">
     <div class="label">Final UX</div>
     <div class="h2">Wireframed the experience across all seven device types.</div>
   </div>
-  <div class="carousel-wrap" style="flex:1; min-height:0; display:flex; align-items:flex-start; justify-content:center; padding-top:16px;">
+  <div class="carousel-wrap" style="flex:1; min-height:0; display:flex; align-items:center; justify-content:center;">
     <img src="/portfolio/assets/images/apple-ux.webp?v=3" alt="Final UX wireframes" style="max-width:100%;max-height:100%;width:auto;height:auto;display:block;border-radius:10px;box-shadow:0 8px 40px rgba(0,0,0,0.6);">
   </div>
 </div>
 
 <!-- CS2 DESIGNS ─────────────────────────────── -->
-<div class="slide media-slide col" style="padding:48px 64px 56px; gap:20px;">
+<div class="slide media-slide col" style="padding:48px 64px 56px; gap:8px;">
   <div style="flex-shrink:0;">
     <div class="label">Final Design</div>
     <div class="h2">Final Mocks — iPhone</div>
   </div>
-  <div class="carousel-wrap" style="flex:1; min-height:0; display:flex; align-items:flex-start; justify-content:center; padding-top:16px;">
+  <div class="carousel-wrap" style="flex:1; min-height:0; display:flex; align-items:center; justify-content:center;">
     <img src="/portfolio/assets/images/apple-designs-all.webp?v=2" alt="Final designs — all 7 devices" style="max-width:100%;max-height:100%;width:auto;height:auto;display:block;border-radius:10px;box-shadow:0 8px 40px rgba(0,0,0,0.6);">
   </div>
   <div style="flex-shrink:0;opacity:0.4;font-size:13px;">Visual design by Apple's visual designer. My role: UX design</div>
 </div>
 
 <!-- CS2 DESIGN CLOSEUP ──────────────────────── -->
-<div class="slide media-slide col" style="padding:48px 64px 56px; gap:20px;">
+<div class="slide media-slide col" style="padding:48px 64px 56px; gap:8px;">
   <div style="flex-shrink:0;">
     <div class="label">Final Design — My Device</div>
     <div class="h2">Final Mocks — iPad</div>
   </div>
-  <div class="carousel-wrap" style="flex:1; min-height:0; display:flex; align-items:flex-start; justify-content:center; padding-top:16px;">
+  <div class="carousel-wrap" style="flex:1; min-height:0; display:flex; align-items:center; justify-content:center;">
     <img src="/portfolio/assets/images/apple-design-closeup.jpg" alt="Final design close-up — iPhone, Apple Watch, iPad, HomePod" style="max-width:100%;max-height:100%;width:auto;height:auto;display:block;">
   </div>
   <div style="flex-shrink:0;opacity:0.4;font-size:13px;">Visual design by Apple's visual designer. My role: UX design</div>
