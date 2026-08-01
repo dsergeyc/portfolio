@@ -392,7 +392,7 @@
       }
       .carousel-wrap img {
         height: 65vh !important;
-        width: auto !important;
+        width: 115.7vh !important;
         max-width: none !important;
         max-height: none !important;
         flex-shrink: 0 !important;
@@ -401,7 +401,7 @@
       }
       .carousel-wrap > div {
         height: 65vh !important;
-        width: auto !important;
+        width: 115.7vh !important;
         max-width: none !important;
         max-height: none !important;
         flex-shrink: 0 !important;
@@ -446,13 +446,13 @@
       .brands-mobile { display: grid !important; grid-template-columns: repeat(2, 1fr) !important; width: 100% !important; gap: 0 !important; }
       .brands-mobile img { width: 100% !important; height: auto !important; object-fit: contain !important; max-height: none !important; }
       /* Comparison: vertically stacked images */
-      .comparison-mobile { touch-action: pan-y !important; }
+      .comparison-mobile { touch-action: pan-y !important; flex-direction: column !important; width: 100% !important; align-items: stretch !important; }
       .media-slide .comparison-mobile .contain-img { max-height: none !important; }
       /* Remove rounded corners on mobile */
       .slide img { border-radius: 0 !important; }
       .img-grid-2 > div { border-radius: 0 !important; }
-      /* Bleed image for Before slide */
-      .before-img-container { margin: 0 -18px !important; }
+      /* Before slide: 4px from screen edges */
+      .before-img-container { margin: 0 -14px !important; }
       /* Hide scrollbars on mobile slides (no layout shift) */
       .slide::-webkit-scrollbar { display: none; }
       .slide { scrollbar-width: none; }
@@ -755,7 +755,7 @@
     <div class="label">Before</div>
     <div class="h2">The existing Shop tab — designed for fans, not first-time users.</div>
   </div>
-  <div class="before-img-container" style="flex:1; min-height:0; margin:0 -64px; overflow:hidden; display:flex; align-items:center;">
+  <div class="before-img-container" style="flex:1; min-height:0; margin:0 -60px; overflow:hidden; display:flex; align-items:center;">
     <img src="/portfolio/assets/images/apple-before.webp" alt="Before redesign" class="contain-img" style="width:100%;height:auto;display:block;box-shadow:0 8px 40px rgba(0,0,0,0.6);">
   </div>
 </div>
@@ -788,7 +788,7 @@
 </div>
 
 <!-- CS2 ACCESSORY MODULES ───────────────────── -->
-<div class="slide media-slide col" style="padding:48px 64px 56px; gap:8px;">
+<div class="slide media-slide col" style="padding:48px 64px 56px; gap:0;">
   <div style="flex-shrink:0;">
     <div class="label">Design Exploration</div>
     <div class="h2">Accessory module explorations.</div>
@@ -802,7 +802,7 @@
 </div>
 
 <!-- CS2 UX ──────────────────────────────────── -->
-<div class="slide media-slide col" style="padding:48px 64px 56px; gap:8px;">
+<div class="slide media-slide col" style="padding:48px 64px 56px; gap:0;">
   <div style="flex-shrink:0;">
     <div class="label">Final UX</div>
     <div class="h2">Wireframed the experience across all seven device types.</div>
@@ -813,7 +813,7 @@
 </div>
 
 <!-- CS2 DESIGNS ─────────────────────────────── -->
-<div class="slide media-slide col" style="padding:48px 64px 56px; gap:8px;">
+<div class="slide media-slide col" style="padding:48px 64px 56px; gap:0;">
   <div style="flex-shrink:0;">
     <div class="label">Final Design</div>
     <div class="h2">Final Mocks — iPhone</div>
@@ -825,7 +825,7 @@
 </div>
 
 <!-- CS2 DESIGN CLOSEUP ──────────────────────── -->
-<div class="slide media-slide col" style="padding:48px 64px 56px; gap:8px;">
+<div class="slide media-slide col" style="padding:48px 64px 56px; gap:0;">
   <div style="flex-shrink:0;">
     <div class="label">Final Design — My Device</div>
     <div class="h2">Final Mocks — iPad</div>
