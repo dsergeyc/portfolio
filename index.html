@@ -88,7 +88,9 @@
     .legend {
       position: fixed; top: 24px; right: 36px;
       display: flex; gap: 22px; z-index: 400;
+      opacity: 1; transition: opacity 0.25s;
     }
+    body.on-cover .legend { opacity: 0; pointer-events: none; }
     .legend a {
       font-size: 13px; font-weight: 600; letter-spacing: 0.01em;
       text-decoration: none;
@@ -1414,6 +1416,7 @@
     slides[n].scrollTop = 0;
     cur = n;
     history.replaceState(null, '', cur === 0 ? location.pathname : '#' + cur);
+    document.body.classList.toggle('on-cover', cur === 0);
 
     dotsEl.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('on', i === cur));
     updateLegend();
@@ -1451,6 +1454,7 @@
     cur = startSlide;
     dotsEl.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('on', i === cur));
   }
+  document.body.classList.toggle('on-cover', cur === 0);
 
   // Play video on active slide after any user interaction (satisfies Safari autoplay policy)
   function playActiveVideo() {
