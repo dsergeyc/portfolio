@@ -71,12 +71,14 @@
       border: 1px solid rgba(255,255,255,0.08);
       background: rgba(255,255,255,0.05);
       backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-      color: var(--t2); cursor: pointer; font-size: 13px;
+      color: var(--t2); cursor: pointer; font-size: 15px;
       display: flex; align-items: center; justify-content: center;
-      transition: background 0.15s;
+      transition: background 0.15s, opacity 0.15s;
+      padding: 0; margin: 0; font-family: inherit; outline: none;
     }
     .arr:hover { background: rgba(255,255,255,0.15); color: var(--t1); }
     .arr:active { transform: scale(0.9); }
+    .arr:disabled { opacity: 0.25; cursor: default; pointer-events: none; }
 
     .brand {
       position: fixed; top: 24px; left: 36px;
@@ -493,6 +495,10 @@
   <a onclick="goToCase(3)">03 Internal Tool</a>
 </nav>
 <div class="dots" id="dots"></div>
+<div class="arrows">
+  <button class="arr" id="prevArr" onclick="prev()" aria-label="Previous slide">&#8249;</button>
+  <button class="arr" id="nextArr" onclick="next()" aria-label="Next slide">&#8250;</button>
+</div>
 <div class="deck">
 
 <!-- 0 · COVER ─────────────────────────────── -->
@@ -1420,6 +1426,7 @@
 
     dotsEl.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('on', i === cur));
     updateLegend();
+    updateArrows();
     // play video on active slide, pause on others
     slides.forEach((s, i) => {
       const v = s.querySelector('video');
@@ -1443,6 +1450,14 @@
   }
   updateLegend();
 
+  /* prev/next arrow disabled state at the ends of the deck */
+  const prevArr = document.getElementById('prevArr');
+  const nextArr = document.getElementById('nextArr');
+  function updateArrows() {
+    prevArr.disabled = cur === 0;
+    nextArr.disabled = cur === N - 1;
+  }
+
   function next() { goTo(cur + 1); }
   function prev() { goTo(cur - 1); }
 
@@ -1455,6 +1470,7 @@
     dotsEl.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('on', i === cur));
   }
   document.body.classList.toggle('on-cover', cur === 0);
+  updateArrows();
 
   // Play video on active slide after any user interaction (satisfies Safari autoplay policy)
   function playActiveVideo() {
