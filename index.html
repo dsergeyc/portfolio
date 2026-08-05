@@ -80,6 +80,9 @@
     .arr:active { transform: scale(0.9); }
     .arr:disabled { opacity: 0.25; cursor: default; pointer-events: none; }
 
+    /* Mobile-only slide progress: replaces the dots (too many at 47 slides to fit) */
+    .progress-mobile, .slide-counter { display: none; }
+
     .brand {
       position: fixed; top: 24px; left: 36px;
       font-size: 13px; color: var(--t3); font-weight: 500; z-index: 400;
@@ -312,6 +315,15 @@
       .arrows { display: none; }
       .brand { left: 22px; top: 18px; font-size: 12px; }
       .dots { display: none; }
+      .progress-mobile {
+        display: block; position: fixed; top: 0; left: 0; right: 0; height: 2px;
+        background: rgba(255,255,255,0.1); z-index: 400;
+      }
+      .progress-fill { height: 100%; width: 0%; background: var(--accent); transition: width 0.25s ease; }
+      .slide-counter {
+        display: block; position: fixed; bottom: 14px; right: 18px; z-index: 400;
+        font-size: 11px; font-weight: 600; letter-spacing: 0.02em; color: var(--t3);
+      }
       /* safe center: centers content when it fits, falls back to flex-start when it overflows */
       .slide { justify-content: safe center !important; }
       /* Cover slides: always center (explicit fallback for older browsers) */
@@ -499,6 +511,8 @@
   <button class="arr" id="prevArr" onclick="prev()" aria-label="Previous slide">&#8249;</button>
   <button class="arr" id="nextArr" onclick="next()" aria-label="Next slide">&#8250;</button>
 </div>
+<div class="progress-mobile"><div class="progress-fill" id="progressFill"></div></div>
+<div class="slide-counter" id="slideCounter"></div>
 <div class="deck">
 
 <!-- 0 · COVER ─────────────────────────────── -->
@@ -1427,6 +1441,7 @@
     dotsEl.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('on', i === cur));
     updateLegend();
     updateArrows();
+    updateProgress();
     // play video on active slide, pause on others
     slides.forEach((s, i) => {
       const v = s.querySelector('video');
@@ -1458,6 +1473,14 @@
     nextArr.disabled = cur === N - 1;
   }
 
+  /* mobile-only progress bar + "n / N" counter, replaces the dots (too many at 47 slides) */
+  const progressFill = document.getElementById('progressFill');
+  const slideCounter = document.getElementById('slideCounter');
+  function updateProgress() {
+    progressFill.style.width = (cur / (N - 1) * 100) + '%';
+    slideCounter.textContent = (cur + 1) + ' / ' + N;
+  }
+
   function next() { goTo(cur + 1); }
   function prev() { goTo(cur - 1); }
 
@@ -1471,6 +1494,7 @@
   }
   document.body.classList.toggle('on-cover', cur === 0);
   updateArrows();
+  updateProgress();
 
   // Play video on active slide after any user interaction (satisfies Safari autoplay policy)
   function playActiveVideo() {
