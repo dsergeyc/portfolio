@@ -292,6 +292,9 @@
     }
     @media (max-width: 600px) {
       .slide { padding: 52px 22px 72px !important; overflow-y: auto; -webkit-overflow-scrolling: touch; touch-action: pan-y; }
+      /* Slides with their own inner .scrollable region must not also scroll at the outer level —
+         nested scroll containers fight each other on iOS and trap you before the true top/bottom. */
+      .slide:has(.scrollable) { overflow-y: hidden !important; }
       .cover-slide { padding-bottom: 72px !important; }
       .mx { max-width: 100%; }
       .legend { display: none; }
@@ -686,7 +689,7 @@
     <img src="/portfolio/assets/images/apple-comparison.webp" alt="apple.com vs Apple Store app" class="contain-img" style="max-height:100%;width:auto;min-width:480px;display:block;border-radius:10px;box-shadow:0 8px 40px rgba(0,0,0,0.6);">
   </div>
   <!-- Mobile: vertically stacked images -->
-  <div class="comparison-mobile" style="display:none; flex-direction:column; overflow-y:auto; overflow-x:hidden; flex:1; min-height:0; gap:16px;">
+  <div class="comparison-mobile" style="display:none; flex-direction:column; overflow-y:auto; overflow-x:hidden; flex:1; min-height:0; gap:8px;">
     <img src="/portfolio/assets/images/apple-comparison-left.webp" alt="www.apple.com" class="contain-img" style="width:100%;height:auto;display:block;">
     <img src="/portfolio/assets/images/apple-comparison-right.webp" alt="Apple Store app" class="contain-img" style="width:100%;height:auto;display:block;">
   </div>
