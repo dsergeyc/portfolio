@@ -364,9 +364,9 @@
         min-width: 0 !important;
       }
       /* Context slide: collapse 2-col grid, hide background-image column */
-      .cs-context { display: flex !important; flex-direction: column !important; }
+      .cs-context-grid { display: flex !important; flex-direction: column !important; max-width: none !important; height: auto !important; }
       .cs-context-img { display: none !important; }
-      .cs-context > div:first-child { padding: 0 !important; }
+      .cs-context-grid > div:first-child { padding: 0 !important; }
       /* Research slide: stack image above key takeaways */
       .research-wrap {
         flex-direction: column !important;
@@ -674,12 +674,14 @@
 
 
 <!-- CS2 CONTEXT ─────────────────────────────── -->
-<div class="slide cs-context" style="display:grid; grid-template-columns:1fr 1fr; gap:40px; padding:48px 64px 56px;">
-  <div style="display:flex; flex-direction:column; justify-content:center;">
-    <div class="label" style="margin-bottom:16px;">Context</div>
-    <div class="h2">Apple Store app becomes a pre-installed first party app.</div>
+<div class="slide cs-context" style="padding:48px 64px 56px;">
+  <div class="cs-context-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:40px; max-width:1400px; width:100%; height:100%; margin:0 auto;">
+    <div style="display:flex; flex-direction:column; justify-content:center;">
+      <div class="label" style="margin-bottom:16px;">Context</div>
+      <div class="h2">Apple Store app becomes a pre-installed first party app.</div>
+    </div>
+    <div class="cs-context-img" style="background:url(/portfolio/assets/images/apple-context.webp) right center / cover no-repeat; border-radius:10px;"></div>
   </div>
-  <div class="cs-context-img" style="background:url(/portfolio/assets/images/apple-context.webp) right center / cover no-repeat; border-radius:10px;"></div>
 </div>
 
 <!-- CS2 COMPARISON ──────────────────────────── -->
