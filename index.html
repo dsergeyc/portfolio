@@ -271,18 +271,6 @@
       display: block;
     }
 
-    .pw-shots { gap: 16px; }
-    .pw-shots figure { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
-    .pw-shots img {
-      width: 100%; aspect-ratio: 5 / 4; object-fit: cover; object-position: top;
-      display: block; border-radius: 10px;
-      box-shadow: 0 8px 40px rgba(0,0,0,0.6);
-    }
-    .pw-shots figcaption {
-      font-size: 13px; font-weight: 600; letter-spacing: 0.08em;
-      text-transform: uppercase; color: var(--t3); text-align: center;
-    }
-
     .app-row {
       display: flex; align-items: center; justify-content: center;
       gap: 10px; flex-wrap: wrap;
@@ -293,7 +281,8 @@
       font-size: 14px; color: var(--t2); white-space: nowrap;
     }
 
-    /* ── PROCESS FLOW (contribution model) ── */
+    /* ── PROCESS FLOW ─────────────────────── */
+    /* Steps are plain .card / .h3 / .body — only the rail and connectors live here. */
     .flow {
       display: grid;
       grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
@@ -301,24 +290,9 @@
       row-gap: 12px;
       width: 100%;
     }
-    .flow-step {
-      display: flex; flex-direction: column; gap: 8px;
-      padding: 22px 20px;
-      background: var(--s1);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-    }
     .flow-num {
-      font-size: 12px; font-weight: 600; letter-spacing: 0.12em;
-      color: var(--t3);
-    }
-    .flow-title {
-      font-size: clamp(17px, 1.5vw, 21px); font-weight: 600;
-      letter-spacing: -0.01em; line-height: 1.25;
-    }
-    .flow-desc {
-      font-size: clamp(13px, 1.05vw, 15px); line-height: 1.5;
-      color: var(--t2);
+      font-size: 13px; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--t3);
     }
     .flow-arrow {
       display: flex; align-items: center; justify-content: center;
@@ -327,25 +301,26 @@
       user-select: none;
     }
     .flow-sub {
-      margin-top: auto; padding-top: 12px;
-      border-top: 1px solid var(--border);
+      margin-top: auto; padding-top: 14px;
+      border-top: 1px solid rgba(255,255,255,0.07);
     }
     .flow-sub-label {
-      font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
-      text-transform: uppercase; color: var(--t3); margin-bottom: 8px;
+      font-size: 13px; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--t3); margin-bottom: 10px;
     }
-    .flow-pills { display: flex; flex-wrap: wrap; gap: 6px; }
+    .flow-pills { display: flex; flex-wrap: wrap; gap: 8px; }
     .flow-pill {
-      padding: 5px 10px; border-radius: 100px;
-      border: 1px solid var(--border); background: var(--s2);
-      font-size: 12px; line-height: 1.3; color: var(--t2);
+      padding: 6px 12px; border-radius: 100px;
+      border: 1px solid rgba(255,255,255,0.07);
+      background: rgba(255,255,255,0.05);
+      font-size: clamp(12px, 1.05vw, 14px); line-height: 1.35; color: var(--t2);
     }
     @media (max-width: 960px) {
       .flow { grid-template-columns: 1fr auto 1fr; }
       .flow-arrow.flow-arrow-wrap { display: none; }
     }
     @media (max-width: 768px) {
-      .flow { grid-template-columns: 1fr; gap: 0; }
+      .flow { grid-template-columns: 1fr; }
       .flow-arrow { transform: rotate(90deg); padding: 10px 0; }
       .flow-arrow.flow-arrow-wrap { display: flex; }
     }
@@ -1518,24 +1493,13 @@
 </div>
 
 <!-- CS3 IN PRODUCTION ──────────────────────── -->
-<div class="slide media-slide col" style="padding:48px 40px 56px; gap:20px;">
+<div class="slide media-slide col" style="padding:48px 64px 56px; gap:20px;">
   <div style="flex-shrink:0;">
     <div class="label">In Production</div>
-    <div class="h2">One platform — every product's own paywall.</div>
+    <div class="h2">Firefly's paywall — configured, not custom-built.</div>
   </div>
-  <div class="g3 pw-shots" style="flex:1; min-height:0; align-content:center;">
-    <figure>
-      <img src="/portfolio/assets/images/pw-photoshop.webp" alt="Photoshop paywall">
-      <figcaption>Photoshop</figcaption>
-    </figure>
-    <figure>
-      <img src="/portfolio/assets/images/pw-acrobat.webp" alt="Acrobat paywall">
-      <figcaption>Acrobat</figcaption>
-    </figure>
-    <figure>
-      <img src="/portfolio/assets/images/pw-firefly.webp" alt="Firefly paywall">
-      <figcaption>Firefly</figcaption>
-    </figure>
+  <div style="flex:1; min-height:0; display:flex; align-items:center; justify-content:center;">
+    <img src="/portfolio/assets/images/pw-firefly-hero.webp" alt="Firefly paywall built on the shared platform" class="contain-img" style="max-width:100%;max-height:100%;width:auto;height:auto;display:block;border-radius:10px;box-shadow:0 8px 40px rgba(0,0,0,0.6);">
   </div>
 </div>
 
@@ -1589,28 +1553,28 @@
     <div class="label">How It Works</div>
     <div class="h1" style="margin-bottom:36px;">Adopt, configure, experiment, contribute.</div>
     <div class="flow">
-      <div class="flow-step">
+      <div class="card col" style="gap:8px;">
         <div class="flow-num">01</div>
-        <div class="flow-title">Adopt</div>
-        <p class="flow-desc">Teams already shipping through the shared checkout pick up the paywall as the step before it — an integration path they'd taken once already.</p>
+        <div class="h3">Adopt</div>
+        <p class="body">Teams already shipping through the shared checkout pick up the paywall as the step before it — an integration path they'd taken once already.</p>
       </div>
       <div class="flow-arrow">&rarr;</div>
-      <div class="flow-step">
+      <div class="card col" style="gap:8px;">
         <div class="flow-num">02</div>
-        <div class="flow-title">Configure</div>
-        <p class="flow-desc">Copy, offers, and imagery live in each team's own CMS. Design standards, legal requirements, and the checkout handoff stay with the platform.</p>
+        <div class="h3">Configure</div>
+        <p class="body">Copy, offers, and imagery live in each team's own CMS. Design standards, legal requirements, and the checkout handoff stay with the platform.</p>
       </div>
       <div class="flow-arrow flow-arrow-wrap">&rarr;</div>
-      <div class="flow-step">
+      <div class="card col" style="gap:8px;">
         <div class="flow-num">03</div>
-        <div class="flow-title">Experiment</div>
-        <p class="flow-desc">Every growth team runs its own tests inside the guardrails — so a win lands in a shared system instead of staying a one-off.</p>
+        <div class="h3">Experiment</div>
+        <p class="body">Every growth team runs its own tests inside the guardrails — so a win lands in a shared system instead of staying a one-off.</p>
       </div>
       <div class="flow-arrow">&rarr;</div>
-      <div class="flow-step">
+      <div class="card col" style="gap:8px;">
         <div class="flow-num">04</div>
-        <div class="flow-title">Contribute</div>
-        <p class="flow-desc">Teams push reusable components back into the library, turning a single-team platform into a shared cross-product design system.</p>
+        <div class="h3">Contribute</div>
+        <p class="body">Teams push reusable components back into the library, turning a single-team platform into a shared cross-product design system.</p>
       </div>
     </div>
   </div>
@@ -1622,16 +1586,16 @@
     <div class="label">Contribution Model</div>
     <div class="h1" style="margin-bottom:36px;">How a new component gets into the system.</div>
     <div class="flow">
-      <div class="flow-step">
+      <div class="card col" style="gap:8px;">
         <div class="flow-num">01</div>
-        <div class="flow-title">Request</div>
-        <p class="flow-desc">A client team hits a gap — they need a component the shared library doesn't cover yet.</p>
+        <div class="h3">Request</div>
+        <p class="body">A client team hits a gap — they need a component the shared library doesn't cover yet.</p>
       </div>
       <div class="flow-arrow">&rarr;</div>
-      <div class="flow-step">
+      <div class="card col" style="gap:8px;">
         <div class="flow-num">02</div>
-        <div class="flow-title">Design</div>
-        <p class="flow-desc">The client team designs the component against platform standards.</p>
+        <div class="h3">Design</div>
+        <p class="body">The client team designs the component against platform standards.</p>
         <div class="flow-sub">
           <div class="flow-sub-label">Checks</div>
           <div class="flow-pills">
@@ -1641,10 +1605,10 @@
         </div>
       </div>
       <div class="flow-arrow flow-arrow-wrap">&rarr;</div>
-      <div class="flow-step">
+      <div class="card col" style="gap:8px;">
         <div class="flow-num">03</div>
-        <div class="flow-title">Build</div>
-        <p class="flow-desc">Two paths in, depending on where the capacity is.</p>
+        <div class="h3">Build</div>
+        <p class="body">Two paths in, depending on where the capacity is.</p>
         <div class="flow-sub">
           <div class="flow-sub-label">Either</div>
           <div class="flow-pills">
@@ -1654,10 +1618,10 @@
         </div>
       </div>
       <div class="flow-arrow">&rarr;</div>
-      <div class="flow-step">
+      <div class="card col" style="gap:8px;">
         <div class="flow-num">04</div>
-        <div class="flow-title">Available to all</div>
-        <p class="flow-desc">The component lands in the shared library — every team on the platform gets it, without asking for it.</p>
+        <div class="h3">Available to all</div>
+        <p class="body">The component lands in the shared library — every team on the platform gets it, without asking for it.</p>
       </div>
     </div>
   </div>
