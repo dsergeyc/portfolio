@@ -281,6 +281,23 @@
       font-size: 14px; color: var(--t2); white-space: nowrap;
     }
 
+    /* Unified Paywall cover: contained panel, kept small enough to stay sharp */
+    .pw-cover-text { max-width: 1100px; }
+    /* Clear the panel only where the panel exists — it is hidden under 601px. */
+    @media (min-width: 601px) {
+      .pw-cover-text { max-width: min(1100px, 50vw); }
+    }
+    .pw-cover-panel {
+      position: absolute;
+      right: calc(6% + 0.3 * max(0px, 100vw - 1440px));
+      top: 50%; transform: translateY(-50%);
+      width: clamp(280px, 31vw, 620px);
+      height: auto;
+      border-radius: 16px;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.7);
+      pointer-events: none;
+    }
+
     /* ── PROCESS FLOW ─────────────────────── */
     /* Steps are plain .card / .h3 / .body — only the rail and connectors live here. */
     .flow {
@@ -444,6 +461,8 @@
       }
       /* Checkout cover: 3D MacBook clips on portrait — hide it */
       .checkout-mac { display: none !important; }
+      /* Unified Paywall cover: panel crowds the title on portrait — hide it */
+      .pw-cover-panel { display: none !important; }
       /* Apple CS cover: show more of the phone on portrait */
       .apple-cs-bg { object-position: 70% center !important; }
       /* Result slide: hide manual <br> line-breaks so text reflows naturally */
@@ -1422,9 +1441,9 @@
 
 <!-- CS3 COVER ───────────────────────────────── -->
 <div class="slide cover-slide col" style="justify-content:center; background:#000; overflow:hidden;">
-  <img src="/portfolio/assets/images/pw-cover-2.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;opacity:0.65;pointer-events:none;object-fit:cover;object-position:center;">
-  <div style="position:absolute;inset:0;background:linear-gradient(to right, rgba(0,0,0,0.92) 28%, rgba(0,0,0,0.55) 58%, rgba(0,0,0,0.15) 100%);"></div>
-  <div style="position:relative;z-index:1;max-width:1100px;">
+  <img src="/portfolio/assets/images/pw-cover-2.webp" alt="" class="pw-cover-panel">
+  <div style="position:absolute;inset:0;background:linear-gradient(to right, #000 0%, #000 30%, rgba(0,0,0,0) 48%);pointer-events:none;"></div>
+  <div class="pw-cover-text" style="position:relative;z-index:1;">
     <div class="label" style="margin-bottom:18px;">Case Study 03</div>
     <div class="display" style="margin-bottom:12px;">Unified Paywall</div>
   </div>
