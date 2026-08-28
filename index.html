@@ -559,9 +559,9 @@
 
 <span class="brand" onclick="goTo(0)" style="cursor:pointer;">Denis Sergeychik</span>
 <nav class="legend">
-  <a onclick="goToCase(1)">01 Apple</a>
-  <a onclick="goToCase(2)">02 Adobe</a>
-  <a onclick="goToCase(3)">03 Unified Paywall</a>
+  <a onclick="goToCase(1)">01 Mobile App</a>
+  <a onclick="goToCase(2)">02 Checkout</a>
+  <a onclick="goToCase(3)">03 Paywalls</a>
   <a onclick="goToCase(4)">04 Internal Tool</a>
 </nav>
 <div class="dots" id="dots"></div>
@@ -1865,6 +1865,7 @@
     dotsEl.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('on', i === cur));
   }
   document.body.classList.toggle('on-cover', cur === 0);
+  updateLegend();
   updateArrows();
   updateProgress();
 
