@@ -46,6 +46,9 @@
     }
     .slide.active { opacity: 1; transform: none; pointer-events: auto; z-index: 2; }
 
+    /* parked slides: kept in the markup, out of the deck */
+    .hidden-slide { display: none !important; }
+
     /* section dividers get a subtle tint */
     .slide.section { background: #0A0A0A; }
 
@@ -1454,8 +1457,8 @@
   </div>
 </div>
 
-<!-- CS3 INSIGHT ─────────────────────────────── -->
-<div class="slide col" style="justify-content:center;">
+<!-- CS3 INSIGHT — parked, remove hidden-slide to restore ─── -->
+<div class="slide hidden-slide col" style="justify-content:center;">
   <div class="w mx">
     <div class="label">Insight</div>
     <div class="h1" style="margin-bottom:24px;">The paywall is the step before checkout — and every team already used our checkout.</div>
@@ -1467,7 +1470,7 @@
 <div class="slide col" style="justify-content:center;">
   <div class="w mx">
     <div class="label">Solution</div>
-    <div class="h1" style="margin-bottom:32px;">One paywall platform, adopted by twelve products.</div>
+    <div class="h1" style="margin-bottom:32px;">One paywall platform, adopted across Adobe.</div>
     <div class="g2">
       <div class="card col" style="gap:12px;">
         <div style="font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);">What the platform provides</div>
@@ -1516,7 +1519,7 @@
 <!-- CS3 GUARDRAILS ──────────────────────────── -->
 <div class="slide col" style="justify-content:center; padding:120px 64px 72px;">
   <div class="w mx">
-    <div class="label" style="margin-bottom:48px;">Flexible enough — and no more</div>
+    <div class="label" style="margin-bottom:48px;">Guardrails</div>
     <div class="kp-grid" style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:48px; align-items:start;">
       <div>
         <div class="h2" style="margin-bottom:16px;">What teams control</div>
@@ -1528,7 +1531,7 @@
       </div>
       <div>
         <div class="h2" style="margin-bottom:16px;">Why the line matters</div>
-        <p class="body">Too rigid and no one adopts it. Too loose and it stops being a platform. The guardrails are what let twelve teams move independently without drifting apart.</p>
+        <p class="body">Too rigid and no one adopts it. Too loose and it stops being a platform. The guardrails are what let every team move independently without drifting apart.</p>
       </div>
     </div>
   </div>
@@ -1609,7 +1612,7 @@
   <div class="w mx">
     <div class="label" style="justify-content:center; display:flex;">Outcome</div>
     <div class="card col" style="gap:8px;align-items:center;padding:36px 16px;margin-bottom:20px;">
-      <div class="big-num" style="font-size:clamp(52px,7vw,88px);">0 &rarr; 12</div>
+      <div class="big-num" style="font-size:clamp(52px,7vw,88px);">0 &rarr; 12+</div>
       <div class="big-lbl">Adobe products on the shared paywall platform</div>
       <div class="app-row" style="margin-top:20px;">
         <svg width="40" height="40" viewBox="36 0 29.0436 28.2586" style="flex-shrink:0; border-radius:9px; box-shadow:0 2px 6px rgba(0,0,0,0.35);" xmlns="http://www.w3.org/2000/svg">
@@ -1637,13 +1640,13 @@
               <path d="M92.874 8.82328L94.1163 9.0954C94.6059 9.20007 94.9446 8.6349 94.6001 8.27904L93.7393 7.37372C93.6268 7.25336 93.5781 7.09113 93.6164 6.92891L93.8959 5.7253C94.0027 5.25432 93.4227 4.92464 93.0515 5.25432L92.1153 6.09162C91.9912 6.20151 91.8195 6.24337 91.6583 6.21198L90.4159 5.93986C89.9264 5.83519 89.5877 6.40036 89.9322 6.75622L90.7918 7.66154C90.9055 7.7819 90.9542 7.94413 90.9159 8.10635L90.6363 9.30996C90.5285 9.78094 91.1096 10.1106 91.4808 9.78094L92.4169 8.94364C92.5399 8.83375 92.7127 8.79189 92.874 8.82328Z" fill="white"/>
             </g>
           </svg>
-        <span class="app-more">+9 more</span>
+        <span class="app-more">+ more</span>
       </div>
     </div>
     <div class="g2">
       <div class="card col" style="gap:8px;text-align:left;">
         <div class="h3">Teams ship without waiting</div>
-        <p class="body">Self-service configuration took the platform team out of the critical path. What was a queue against one team became twelve teams shipping in parallel.</p>
+        <p class="body">Self-service configuration took the platform team out of the critical path. What was a queue against one team became every product team shipping in parallel.</p>
       </div>
       <div class="card col" style="gap:8px;text-align:left;">
         <div class="h3">A platform that grows itself</div>
@@ -1795,7 +1798,8 @@
 <script>
   const isMobile = window.innerWidth <= 600;
   const slides = Array.from(document.querySelectorAll('.slide')).filter(s =>
-    !s.classList.contains('mobile-only-slide') || isMobile
+    !s.classList.contains('hidden-slide') &&
+    (!s.classList.contains('mobile-only-slide') || isMobile)
   );
   const N = slides.length;
   let cur = 0;
