@@ -276,8 +276,10 @@
 
     .app-row {
       display: flex; align-items: center; justify-content: center;
-      gap: 10px; flex-wrap: wrap;
+      gap: 14px; flex-wrap: wrap;
     }
+    /* Adobe app strip — vector, so it stays crisp at any size */
+    .app-strip { height: clamp(30px, 2.6vw, 42px); width: auto; display: block; }
     .app-more {
       padding: 8px 14px; border-radius: 100px;
       border: 1px solid var(--border); background: var(--s2);
@@ -1498,7 +1500,7 @@
 <div class="slide media-slide col" style="padding:48px 64px 56px; gap:20px;">
   <div style="flex-shrink:0;">
     <div class="label">In Production</div>
-    <div class="h2">The same paywall on mobile web.</div>
+    <div class="h2">Firefly's paywall — configured, not custom-built.</div>
   </div>
   <div style="flex:1; min-height:0; display:flex; align-items:center; justify-content:center;">
     <img src="/portfolio/assets/images/pw-firefly-mobile.webp" alt="Firefly paywall on mobile web" class="contain-img" style="max-width:100%;max-height:100%;width:auto;height:auto;display:block;border-radius:10px;box-shadow:0 8px 40px rgba(0,0,0,0.6);">
@@ -1509,7 +1511,7 @@
 <div class="slide media-slide col" style="padding:48px 64px 56px; gap:20px;">
   <div style="flex-shrink:0;">
     <div class="label">In Production</div>
-    <div class="h2">Firefly's paywall — configured, not custom-built.</div>
+    <div class="h2">The same paywall on desktop.</div>
   </div>
   <div style="flex:1; min-height:0; display:flex; align-items:center; justify-content:center;">
     <img src="/portfolio/assets/images/pw-firefly-hero-2x.webp" alt="Firefly paywall built on the shared platform" class="contain-img" style="max-width:100%;max-height:100%;width:auto;height:auto;display:block;border-radius:10px;box-shadow:0 8px 40px rgba(0,0,0,0.6);">
@@ -1615,31 +1617,7 @@
       <div class="big-num" style="font-size:clamp(52px,7vw,88px);">0 &rarr; 12+</div>
       <div class="big-lbl">Adobe products on the shared paywall platform</div>
       <div class="app-row" style="margin-top:20px;">
-        <svg width="40" height="40" viewBox="36 0 29.0436 28.2586" style="flex-shrink:0; border-radius:9px; box-shadow:0 2px 6px rgba(0,0,0,0.35);" xmlns="http://www.w3.org/2000/svg">
-            <mask id="ps-mask0-pw" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="36" y="0" width="30" height="29">
-              <path d="M65.0436 0H36V28.2586H65.0436V0Z" fill="white"/>
-            </mask>
-            <g mask="url(#ps-mask0-pw)">
-              <path d="M59.8051 0H41.2386C38.3454 0 36 2.28201 36 5.09702V23.1616C36 25.9766 38.3454 28.2586 41.2386 28.2586H59.8051C62.6982 28.2586 65.0436 25.9766 65.0436 23.1616V5.09702C65.0436 2.28201 62.6982 0 59.8051 0Z" fill="#001E36"/>
-              <path d="M46.079 7.82812C49.86 7.82812 51.9899 9.54981 51.9899 12.4384C51.9899 15.8086 49.1017 17.1639 46.3964 17.1639H44.5677V20.8062H40.8673V7.82812H46.0844H46.079ZM44.5677 10.9052V14.0817H46.1974C47.3322 14.0817 48.1283 13.6368 48.1283 12.5117C48.1283 11.486 47.4505 10.9052 46.278 10.9052H44.5677Z" fill="#31A8FF"/>
-              <path d="M52.9043 20.1654L52.9258 17.1616C53.98 17.8419 55.4537 18.2658 56.4702 18.2658C57.1641 18.2658 57.4867 18.0722 57.4867 17.7215C57.4867 17.3343 57.0511 17.1774 56.2121 16.9261C54.5985 16.4604 52.829 15.822 52.829 13.7706C52.829 11.7192 54.5985 10.5156 57.1694 10.5156C58.385 10.5156 59.3799 10.6883 60.2566 11.0599L60.2351 13.9276C59.5413 13.5194 58.1645 13.1531 57.2716 13.1531C56.6154 13.1531 56.3573 13.3467 56.3573 13.6397C56.3573 13.9904 56.6746 14.0846 57.6319 14.3776C59.4821 14.9219 61.0365 15.5028 61.0365 17.6117C61.0365 19.7207 59.3423 20.9818 56.6961 20.9818C55.3031 20.9818 53.9908 20.7516 52.915 20.1706L52.9043 20.1654Z" fill="#31A8FF"/>
-            </g>
-          </svg>
-        <svg width="40" height="40" viewBox="0 0 29.0464 28.5085" style="flex-shrink:0; border-radius:9px; box-shadow:0 2px 6px rgba(0,0,0,0.35);" xmlns="http://www.w3.org/2000/svg">
-            <path d="M5.13497 0H23.9114C26.7642 0 29.0464 2.32291 29.0464 5.22655V23.2819C29.0464 26.1856 26.7642 28.5085 23.9114 28.5085H5.13497C2.28218 28.5085 0 26.1856 0 23.2819V5.22655C0 2.32291 2.28218 0 5.13497 0Z" fill="#B30B00"/>
-            <path d="M23.3408 16.4696C21.9922 15.0441 18.3096 15.6249 17.4279 15.7305C16.1311 14.4634 15.2494 12.9324 14.9381 12.4045C15.4049 10.979 15.7162 9.55363 15.768 8.02261C15.768 6.70278 15.2494 5.27734 13.7971 5.27734C13.2783 5.27734 12.8115 5.59411 12.5521 6.01645C11.9298 7.12512 12.1891 9.34245 13.1746 11.6126C12.6041 13.2491 12.0854 14.833 10.633 17.631C9.12887 18.2646 5.96485 19.7428 5.70559 21.3265C5.60177 21.8017 5.75745 22.2768 6.12053 22.6464C6.48361 22.9632 6.95039 23.1215 7.41718 23.1215C9.3364 23.1215 11.2036 20.4291 12.5003 18.1589C13.5895 17.7894 15.3012 17.2614 17.0129 16.9448C19.0357 18.7397 20.7993 19.0036 21.733 19.0036C22.9778 19.0036 23.4445 18.4757 23.6002 18.0006C23.8596 17.4727 23.7039 16.8919 23.3408 16.4696ZM22.0442 17.3671C21.9922 17.7366 21.5254 18.1062 20.6956 17.895C19.71 17.631 18.8283 17.1559 18.0503 16.5224C18.7245 16.4167 20.2288 16.2584 21.318 16.4696C21.733 16.5752 22.1479 16.8391 22.0442 17.3671ZM13.3821 6.4916C13.4858 6.33321 13.6414 6.22763 13.7971 6.22763C14.2638 6.22763 14.3675 6.80836 14.3675 7.28349C14.3157 8.39216 14.1083 9.50082 13.7452 10.5567C12.9672 8.44496 13.1227 6.96673 13.3821 6.4916ZM13.2783 16.7335C13.6934 15.8888 14.2638 14.4106 14.4714 13.7772C14.9382 14.569 15.7162 15.5192 16.1311 15.9416C16.1311 15.9944 14.5232 16.3112 13.2783 16.7335ZM10.2181 18.8453C9.02516 20.8514 7.78025 22.1185 7.10595 22.1185C7.00224 22.1185 6.89854 22.0657 6.79483 22.0129C6.63916 21.9074 6.58731 21.7489 6.63916 21.5378C6.79484 20.7986 8.14333 19.7956 10.2181 18.8453Z" fill="white"/>
-          </svg>
-        <svg width="40" height="40" viewBox="72 0 29.044 28.2586" style="flex-shrink:0; border-radius:9px; box-shadow:0 2px 6px rgba(0,0,0,0.35);" xmlns="http://www.w3.org/2000/svg">
-            <mask id="fy-mask1-pw" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="72" y="0" width="30" height="29">
-              <path d="M101.044 0H72V28.2586H101.044V0Z" fill="white"/>
-            </mask>
-            <g mask="url(#fy-mask1-pw)">
-              <path d="M95.8053 0H77.2383C74.3453 0 72 2.28201 72 5.09702V23.1616C72 25.9766 74.3453 28.2586 77.2383 28.2586H95.8053C98.6983 28.2586 101.044 25.9766 101.044 23.1616V5.09702C101.044 2.28201 98.6983 0 95.8053 0Z" fill="#EB1000"/>
-              <path d="M79.2498 7.82812H88.9798V10.9052H82.9502V13.1292H88.2862V16.2063H82.9502V20.7956H79.2498V7.82812Z" fill="white"/>
-              <path d="M90.5342 10.6953H94.0189V20.8056H90.5342V10.6953Z" fill="white"/>
-              <path d="M92.874 8.82328L94.1163 9.0954C94.6059 9.20007 94.9446 8.6349 94.6001 8.27904L93.7393 7.37372C93.6268 7.25336 93.5781 7.09113 93.6164 6.92891L93.8959 5.7253C94.0027 5.25432 93.4227 4.92464 93.0515 5.25432L92.1153 6.09162C91.9912 6.20151 91.8195 6.24337 91.6583 6.21198L90.4159 5.93986C89.9264 5.83519 89.5877 6.40036 89.9322 6.75622L90.7918 7.66154C90.9055 7.7819 90.9542 7.94413 90.9159 8.10635L90.6363 9.30996C90.5285 9.78094 91.1096 10.1106 91.4808 9.78094L92.4169 8.94364C92.5399 8.83375 92.7127 8.79189 92.874 8.82328Z" fill="white"/>
-            </g>
-          </svg>
+        <img src="/portfolio/assets/images/pw-apps.svg" alt="Photoshop, Creative Cloud, Acrobat, Express, and Firefly" class="app-strip">
         <span class="app-more">+ more</span>
       </div>
     </div>
