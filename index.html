@@ -286,6 +286,12 @@
       font-size: 14px; color: var(--t2); white-space: nowrap;
     }
 
+    /* End-to-end flow strip: very wide, so let it scroll rather than shrink to a sliver */
+    .flow-strip img {
+      width: 100%; min-width: 900px; height: auto; display: block;
+      border-radius: 10px; box-shadow: 0 8px 40px rgba(0,0,0,0.6);
+    }
+
     /* CS02 exploration: three approaches side by side */
     .approach-grid { gap: 18px; }
     .approach-grid figure { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
@@ -1245,6 +1251,17 @@
   </div>
 </div>
 
+<!-- 9a2 · CS1 END-TO-END FLOW ───────────────── -->
+<div class="slide media-slide col" style="padding:48px 64px 56px; gap:20px;">
+  <div style="flex-shrink:0;">
+    <div class="label">End-to-End Flow</div>
+    <div class="h2">From product page to confirmation.</div>
+  </div>
+  <div class="flow-strip" style="flex:1; min-height:0; display:flex; align-items:center; overflow-x:auto;">
+    <img src="/portfolio/assets/images/cs2-flow.webp" alt="The full purchase path: product page, plan selection, add-ons, sign-in, payment, and confirmation">
+  </div>
+</div>
+
 <!-- 9b2 · CS1 DESIGN — MOBILE ───────────────── -->
 <div class="slide media-slide col" style="padding:48px 64px 56px; gap:20px;">
   <div style="flex-shrink:0;">
@@ -1344,6 +1361,17 @@
     <div style="border-radius:14px; overflow:hidden; background:#111;">
       <img src="/portfolio/assets/images/ng-specs4.webp" alt="Specs 4" style="width:100%;height:auto;display:block;">
     </div>
+  </div>
+</div>
+
+<!-- 9f · CS1 TOKENIZED COMPONENTS ───────────── -->
+<div class="slide media-slide col" style="padding:48px 64px 56px; gap:20px;">
+  <div style="flex-shrink:0;">
+    <div class="label">Tokenized Components</div>
+    <div class="h2">Every value traced back to a Spectrum token.</div>
+  </div>
+  <div style="flex:1; min-height:0; display:flex; align-items:center; justify-content:center;">
+    <img src="/portfolio/assets/images/cs2-tokens.webp" alt="Order summary component anatomy, annotated with Spectrum spacing, colour, and type tokens" class="contain-img" style="max-width:100%;max-height:100%;width:auto;height:auto;display:block;border-radius:10px;box-shadow:0 8px 40px rgba(0,0,0,0.6);">
   </div>
 </div>
 
