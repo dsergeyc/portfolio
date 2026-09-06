@@ -286,6 +286,24 @@
       font-size: 14px; color: var(--t2); white-space: nowrap;
     }
 
+    /* CS02 exploration: three approaches side by side */
+    .approach-grid { gap: 18px; }
+    .approach-grid figure { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+    .approach-grid img {
+      width: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: top;
+      display: block; border-radius: 10px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.6);
+    }
+    .approach-grid figcaption {
+      font-size: 13px; font-weight: 600; letter-spacing: 0.06em;
+      text-transform: uppercase; color: var(--t3); text-align: center;
+    }
+    /* Stacked: full width at natural aspect, no crop (the 4:3 cover only
+       earns its keep when the three sit side by side). */
+    @media (max-width: 960px) {
+      .approach-grid img { aspect-ratio: auto; height: auto; }
+    }
+
     /* ── PROCESS FLOW ─────────────────────── */
     /* Steps are plain .card / .h3 / .body — only the rail and connectors live here. */
     .flow {
@@ -1205,6 +1223,28 @@
   </div>
 </div>
 
+<!-- 9a · CS1 EXPLORATION ───────────────────── -->
+<div class="slide media-slide col" style="padding:48px 40px 56px; gap:20px;">
+  <div style="flex-shrink:0; padding-left:24px;">
+    <div class="label">Exploration</div>
+    <div class="h2">Three approaches, one bet.</div>
+  </div>
+  <div class="g3 approach-grid" style="flex:1; min-height:0; align-content:center;">
+    <figure>
+      <img src="/portfolio/assets/images/cs2-approach1.webp" alt="Approach 1 — plan picker in a modal">
+      <figcaption>Approach 1 &middot; Modal plan picker</figcaption>
+    </figure>
+    <figure>
+      <img src="/portfolio/assets/images/cs2-approach2.webp" alt="Approach 2 — guided one-page flow">
+      <figcaption>Approach 2 &middot; Guided one-page flow</figcaption>
+    </figure>
+    <figure>
+      <img src="/portfolio/assets/images/cs2-approach3.webp" alt="Approach 3 — full plans and pricing catalogue">
+      <figcaption>Approach 3 &middot; Full pricing catalogue</figcaption>
+    </figure>
+  </div>
+</div>
+
 <!-- 9b2 · CS1 DESIGN — MOBILE ───────────────── -->
 <div class="slide media-slide col" style="padding:48px 64px 56px; gap:20px;">
   <div style="flex-shrink:0;">
@@ -1386,6 +1426,31 @@
         <div style="font-size:13px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--t3);">Result</div>
         <p class="body" style="margin-bottom:12px;">Operates with more confidence and autonomy. Stronger Eng collaboration — no longer needs me to facilitate.</p>
         <div style="font-size:14px;font-weight:600;color:var(--t2);">Leading independently ✓</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 9i · CS1 MEASURING SUCCESS ──────────────── -->
+<div class="slide col" style="justify-content:center;">
+  <div class="w mx">
+    <div class="label">Measuring Success</div>
+    <div class="h1" style="margin-bottom:32px;">What we agreed to measure, before we shipped.</div>
+    <div class="g2">
+      <div class="card col" style="gap:12px;">
+        <div style="font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);">Primary</div>
+        <ul class="list">
+          <li>Overall conversion rate</li>
+          <li>Incremental ARR</li>
+          <li>Click-through rate</li>
+        </ul>
+      </div>
+      <div class="card col" style="gap:12px;">
+        <div style="font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);">Secondary</div>
+        <ul class="list">
+          <li>Adoption of shared components across teams</li>
+          <li>Faster time-to-market for monetization experiments</li>
+        </ul>
       </div>
     </div>
   </div>
