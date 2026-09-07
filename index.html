@@ -297,10 +297,17 @@
       flex: 1; min-height: 0; display: flex; gap: 30px; align-items: stretch;
     }
     .approach-group { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
-    .approach-group .shots { flex: 1; min-height: 0; display: flex; gap: 10px; align-items: center; }
+    .approach-group .shots { flex: 1; min-height: 0; display: flex; align-items: center; }
     .approach-group img {
       min-width: 0; flex: 1; max-height: 100%; object-fit: contain;
       display: block; border-radius: 8px; box-shadow: 0 8px 32px rgba(0,0,0,0.55);
+      position: relative;
+    }
+    /* Grouped shots fan out like a stack, Keynote-style, instead of sitting side by side */
+    .approach-group .shots img:not(:first-child) {
+      margin-left: -20%;
+      border-left: 3px solid var(--bg);
+      z-index: 1;
     }
     .approach-group figcaption {
       font-size: 13px; font-weight: 600; letter-spacing: 0.06em;
@@ -310,6 +317,7 @@
       .approach-groups { flex-direction: column; gap: 22px; }
       .approach-group { flex: none !important; }
       .approach-group .shots { flex-direction: column; gap: 10px; }
+      .approach-group .shots img:not(:first-child) { margin-left: 0; border-left: none; }
       .approach-group img { flex: none; width: 100%; max-height: none; }
     }
 
@@ -1226,6 +1234,31 @@
   </div>
 </div>
 
+<!-- 9i · CS1 MEASURING SUCCESS ──────────────── -->
+<div class="slide col" style="justify-content:center;">
+  <div class="w mx">
+    <div class="label">Measuring Success</div>
+    <div class="h1" style="margin-bottom:32px;">What we agreed to measure, before we shipped.</div>
+    <div class="g2">
+      <div class="card col" style="gap:12px;">
+        <div style="font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);">Primary</div>
+        <ul class="list">
+          <li>Overall conversion rate</li>
+          <li>Incremental ARR</li>
+          <li>Click-through rate</li>
+        </ul>
+      </div>
+      <div class="card col" style="gap:12px;">
+        <div style="font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);">Secondary</div>
+        <ul class="list">
+          <li>Adoption of shared components across teams</li>
+          <li>Faster time-to-market for monetization experiments</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- 8c · CS1 DESIGN PRINCIPLES ───────────────── -->
 <div class="slide col" style="justify-content:center;">
   <div class="w mx">
@@ -1262,8 +1295,8 @@
   </div>
 </div>
 
-<!-- 9a3 · CS1 MVP SCOPE ────────────────────── -->
-<div class="slide media-slide col" style="padding:48px 64px 56px; gap:20px;">
+<!-- 9a3 · CS1 MVP SCOPE — parked, remove hidden-slide to restore ─── -->
+<div class="slide hidden-slide media-slide col" style="padding:48px 64px 56px; gap:20px;">
   <div style="flex-shrink:0;">
     <div class="label">MVP Scope</div>
     <div class="h2">Two pages carried the bet.</div>
@@ -1408,8 +1441,8 @@
   </div>
 </div>
 
-<!-- 9f · CS1 TOKENIZED COMPONENTS ───────────── -->
-<div class="slide media-slide col" style="padding:48px 64px 56px; gap:20px;">
+<!-- 9f · CS1 TOKENIZED COMPONENTS — parked, remove hidden-slide to restore ─── -->
+<div class="slide hidden-slide media-slide col" style="padding:48px 64px 56px; gap:20px;">
   <div style="flex-shrink:0;">
     <div class="label">Tokenized Components</div>
     <div class="h2">Every value traced back to a Spectrum token.</div>
@@ -1503,30 +1536,6 @@
   </div>
 </div>
 
-<!-- 9i · CS1 MEASURING SUCCESS ──────────────── -->
-<div class="slide col" style="justify-content:center;">
-  <div class="w mx">
-    <div class="label">Measuring Success</div>
-    <div class="h1" style="margin-bottom:32px;">What we agreed to measure, before we shipped.</div>
-    <div class="g2">
-      <div class="card col" style="gap:12px;">
-        <div style="font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);">Primary</div>
-        <ul class="list">
-          <li>Overall conversion rate</li>
-          <li>Incremental ARR</li>
-          <li>Click-through rate</li>
-        </ul>
-      </div>
-      <div class="card col" style="gap:12px;">
-        <div style="font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);">Secondary</div>
-        <ul class="list">
-          <li>Adoption of shared components across teams</li>
-          <li>Faster time-to-market for monetization experiments</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
 
 <!-- 10 · CS1 OUTCOMES ───────────────────────── -->
 <div class="slide col" style="justify-content:center; align-items:center; text-align:center;">
