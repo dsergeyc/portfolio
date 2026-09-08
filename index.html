@@ -297,7 +297,7 @@
       flex: 1; min-height: 0; display: flex; gap: 30px; align-items: stretch;
     }
     .approach-group { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
-    .approach-group .shots { flex: 1; min-height: 0; display: flex; align-items: center; }
+    .approach-group .shots { flex: 1; min-height: 0; display: flex; align-items: flex-start; }
     .approach-group img {
       min-width: 0; flex: 1; max-height: 100%; object-fit: contain;
       display: block; border-radius: 8px; box-shadow: 0 8px 32px rgba(0,0,0,0.55);
@@ -1238,7 +1238,7 @@
 <div class="slide col" style="justify-content:center;">
   <div class="w mx">
     <div class="label">Measuring Success</div>
-    <div class="h1" style="margin-bottom:32px;">What we agreed to measure, before we shipped.</div>
+    <div class="h1" style="margin-bottom:32px;">Success, defined before we built.</div>
     <div class="g2">
       <div class="card col" style="gap:12px;">
         <div style="font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--t3);">Primary</div>
@@ -1284,8 +1284,8 @@
   </div>
 </div>
 
-<!-- 9a2 · CS1 END-TO-END FLOW ───────────────── -->
-<div class="slide media-slide col" style="padding:48px 64px 56px; gap:20px;">
+<!-- 9a2 · CS1 END-TO-END FLOW — parked, remove hidden-slide to restore ─── -->
+<div class="slide hidden-slide media-slide col" style="padding:48px 64px 56px; gap:20px;">
   <div style="flex-shrink:0;">
     <div class="label">End-to-End Flow</div>
     <div class="h2">From product page to confirmation.</div>
@@ -1323,7 +1323,7 @@
       </div>
       <figcaption>Approach 1 &middot; Modal plan picker</figcaption>
     </div>
-    <div class="approach-group" style="flex:1;">
+    <div class="approach-group" style="flex:2;">
       <div class="shots">
         <img data-src="/portfolio/assets/images/cs2-approach2.webp" alt="Approach 2 — guided one-page flow">
       </div>
