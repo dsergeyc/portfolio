@@ -83,6 +83,29 @@
     .arr:active { transform: scale(0.9); }
     .arr:disabled { opacity: 0.25; cursor: default; pointer-events: none; }
 
+    /* First-visit nudge on the cover: tells people the deck is click/tap-driven. Dismissed on first interaction. */
+    .nav-hint {
+      position: fixed; left: 50%; bottom: 64px; transform: translate(-50%, 8px);
+      display: flex; align-items: center; gap: 10px; z-index: 400;
+      padding: 9px 18px; border-radius: 100px;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      font-size: 13px; font-weight: 500; letter-spacing: 0.01em; color: var(--t1);
+      white-space: nowrap; pointer-events: none;
+      opacity: 0; transition: opacity 500ms ease, transform 500ms ease;
+    }
+    .nav-hint.show { opacity: 1; transform: translate(-50%, 0); }
+    .nav-hint.gone { opacity: 0; transform: translate(-50%, 8px); transition-duration: 250ms; }
+    .nav-hint .hint-touch { display: none; }
+    .nav-hint-arrow { display: inline-block; animation: hint-nudge 1.6s ease-in-out infinite; }
+    @keyframes hint-nudge { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(4px); } }
+    @media (hover: none) and (pointer: coarse) {
+      .nav-hint .hint-pointer { display: none; }
+      .nav-hint .hint-touch { display: inline; }
+    }
+    @media (prefers-reduced-motion: reduce) { .nav-hint-arrow { animation: none; } }
+
     /* Mobile-only slide progress: replaces the dots (too many at 47 slides to fit) */
     .progress-mobile, .slide-counter { display: none; }
 
@@ -630,6 +653,11 @@
 </div>
 <div class="progress-mobile"><div class="progress-fill" id="progressFill"></div></div>
 <div class="slide-counter" id="slideCounter"></div>
+<div class="nav-hint" id="navHint" aria-hidden="true">
+  <span class="hint-pointer">Click to continue</span>
+  <span class="hint-touch">Tap to continue</span>
+  <span class="nav-hint-arrow">&rarr;</span>
+</div>
 <div class="deck">
 
 <!-- 0 · COVER ─────────────────────────────── -->
@@ -1959,6 +1987,7 @@
     slides[n].classList.add('active');
     slides[n].scrollTop = 0;
     cur = n;
+    dismissHint();
     history.replaceState(null, '', cur === 0 ? location.pathname : '#' + cur);
     document.body.classList.toggle('on-cover', cur === 0);
 
@@ -2009,6 +2038,17 @@
   function next() { goTo(cur + 1); }
   function prev() { goTo(cur - 1); }
 
+  /* cover-slide nudge: shown once after a short delay, gone for good on the first interaction */
+  const navHint = document.getElementById('navHint');
+  let hintDone = false;
+  function dismissHint() {
+    if (hintDone) return;
+    hintDone = true;
+    navHint.classList.remove('show');
+    navHint.classList.add('gone');
+  }
+  ['click', 'touchstart', 'keydown'].forEach(t => document.addEventListener(t, dismissHint, { once: true, passive: true }));
+
   /* restore slide from URL hash on load (refresh lands on the same page) */
   const startSlide = parseInt(location.hash.slice(1), 10);
   if (startSlide > 0 && startSlide < N) {
@@ -2022,6 +2062,8 @@
   updateLegend();
   updateArrows();
   updateProgress();
+  if (cur === 0) setTimeout(() => { if (!hintDone) navHint.classList.add('show'); }, 900);
+  else hintDone = true;
 
   // Play video on active slide after any user interaction (satisfies Safari autoplay policy)
   function playActiveVideo() {
