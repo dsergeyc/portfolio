@@ -627,6 +627,9 @@
       /* Comparison: vertically stacked images */
       .comparison-mobile { touch-action: pan-y !important; flex-direction: column !important; width: 100% !important; align-items: stretch !important; }
       .media-slide .comparison-mobile .contain-img { max-height: none !important; }
+      /* auto margins centre the stack when it fits and fall back to top-aligned scroll when it overflows */
+      .comparison-mobile > :first-child { margin-top: auto; }
+      .comparison-mobile > :last-child { margin-bottom: auto; }
       /* Remove rounded corners on mobile */
       .slide img { border-radius: 0 !important; }
       .img-grid-2 > div { border-radius: 0 !important; }
