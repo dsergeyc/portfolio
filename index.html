@@ -106,6 +106,30 @@
     }
     @media (prefers-reduced-motion: reduce) { .nav-hint-arrow { animation: none; } }
 
+    /* Phone-width layouts split the screen into tap zones (left = back, right = next), so say so */
+    .tap-zones { display: none; }
+    @media (max-width: 600px) {
+      .nav-hint { display: none; }
+      .tap-zones {
+        display: flex; position: fixed; left: 0; right: 0; bottom: 64px; z-index: 400;
+        pointer-events: none; opacity: 0; transition: opacity 500ms ease;
+      }
+      .tap-zones::before {
+        content: ''; position: absolute; left: 50%; top: -38vh; bottom: -22px; width: 1px;
+        background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.22) 30%, rgba(255,255,255,0.22) 70%, transparent);
+      }
+      .tap-zones.show { opacity: 1; }
+      .tap-zones.gone { opacity: 0; transition-duration: 250ms; }
+      .tap-zones > span {
+        flex: 1; text-align: center; padding: 0 12px;
+        font-size: 13px; font-weight: 500; letter-spacing: 0.01em; color: var(--t1);
+      }
+      .tap-zones > span:first-child { color: var(--t3); }
+      .tap-zones b { font-weight: 500; display: inline-block; }
+      .tap-zones > span:last-child b { animation: hint-nudge 1.6s ease-in-out infinite; }
+    }
+    @media (max-width: 600px) and (prefers-reduced-motion: reduce) { .tap-zones > span:last-child b { animation: none; } }
+
     /* Mobile-only slide progress: replaces the dots (too many at 47 slides to fit) */
     .progress-mobile, .slide-counter { display: none; }
 
@@ -657,6 +681,10 @@
   <span class="hint-pointer">Click to continue</span>
   <span class="hint-touch">Tap to continue</span>
   <span class="nav-hint-arrow">&rarr;</span>
+</div>
+<div class="tap-zones" id="tapZones" aria-hidden="true">
+  <span><b>&larr;</b> Tap left to go back</span>
+  <span>Tap right to continue <b>&rarr;</b></span>
 </div>
 <div class="deck">
 
@@ -2039,13 +2067,12 @@
   function prev() { goTo(cur - 1); }
 
   /* cover-slide nudge: shown once after a short delay, gone for good on the first interaction */
-  const navHint = document.getElementById('navHint');
+  const hintEls = [document.getElementById('navHint'), document.getElementById('tapZones')];
   let hintDone = false;
   function dismissHint() {
     if (hintDone) return;
     hintDone = true;
-    navHint.classList.remove('show');
-    navHint.classList.add('gone');
+    hintEls.forEach(el => { el.classList.remove('show'); el.classList.add('gone'); });
   }
   ['click', 'touchstart', 'keydown'].forEach(t => document.addEventListener(t, dismissHint, { once: true, passive: true }));
 
@@ -2062,7 +2089,7 @@
   updateLegend();
   updateArrows();
   updateProgress();
-  if (cur === 0) setTimeout(() => { if (!hintDone) navHint.classList.add('show'); }, 900);
+  if (cur === 0) setTimeout(() => { if (!hintDone) hintEls.forEach(el => el.classList.add('show')); }, 900);
   else hintDone = true;
 
   // Play video on active slide after any user interaction (satisfies Safari autoplay policy)
